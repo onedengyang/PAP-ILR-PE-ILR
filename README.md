@@ -34,6 +34,10 @@ Here is an example of how your input data files might look:
 **Demo**
 For a detailed walkthrough on how to use GPTLink, watch our video tutorial:
 
+![GPTLINK](/GPTLINK.gif)
+
+
+
 
 
 
