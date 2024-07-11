@@ -1,0 +1,51 @@
+,gpt_says,label,pro
+0,Yes,1,1
+1,"No, Issue_Text and Commit_Text do not seem to be related based on the information provided.",0,0
+2,No,0,0
+3,No,0,0
+4,Yes,1,1
+5,No,1,0
+6,No,0,0
+7,No,0,0
+8,Yes,0,1
+9,"Yes, Issue_Text is related to Commit_Text.",1,1
+10,No,0,0
+11,No,0,0
+12,No,1,0
+13,No,0,0
+14,No,0,0
+15,"No, Issue_Text and Commit_Text do not appear to be related.",1,0
+16,Yes,1,1
+17,No,0,0
+18,Yes,1,1
+19,"No, Issue_Text is not related to Commit_Text.",0,0
+20,No,0,0
+21,No,1,0
+22,No,0,0
+23,No,0,0
+24,No,0,0
+25,No,0,0
+26,No,0,0
+27,No,0,0
+28,No,0,0
+29,No,0,0
+30,"Yes, Issue_Text is related to Commit_Text as they both mention the DynamicPatternLayout, which is a subclass of PaternLayout.",1,1
+31,No,0,0
+32,No,0,0
+33,No,0,0
+34,No,0,0
+35,No,0,0
+36,No,0,0
+37,"No, Issue_Text and Commit_Text are unrelated.",0,0
+38,"No, Issue_Text is not related to Commit_Text based on the provided information.",0,0
+39,No,0,0
+40,No,0,0
+41,Yes,1,1
+42,No,0,0
+43,Yes,1,1
+44,No,0,0
+45,No,1,0
+46,Yes.,0,1
+47,No,0,0
+48,No.,1,0
+49,No,0,0

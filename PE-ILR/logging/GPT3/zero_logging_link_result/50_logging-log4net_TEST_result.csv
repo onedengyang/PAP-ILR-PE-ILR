@@ -1,0 +1,51 @@
+,gpt_says,label,pro
+0,"No, the Issue_Text does not contain a link to a specific commit.",0,0
+1,No,0,0
+2,"No, the Issue_Text does not contain any links.",0,0
+3,"No, Issue_Text does not contain any links, only Commit_Text does.",1,0
+4,No,0,0
+5,"No, the Commit_Text does not contain any links.",0,0
+6,Yes.,1,1
+7,"No, the Issue_Text does not contain any specific links to Commit_Text. The Issue_Text describes a feature request related to ASP.Net PatternConverters, while the Commit_Text describes changes made to converters in the code.",1,0
+8,No,0,0
+9,No,0,0
+10,No,0,0
+11,No,0,0
+12,No,0,0
+13,"No, the Issue_Text does not contain any links to a Commit_Text.",0,0
+14,"Yes, the Issue_Text contains a link to the Commit_Text.",1,1
+15,No,1,0
+16,"No, the Commit_Text does not contain any links.",0,0
+17,No,0,0
+18,"No, the Issue_Text does not contain a link to the Commit_Text.",0,0
+19,"No, the Issue_Text and Commit_Text do not seem to be related or linked.",0,0
+20,No,0,0
+21,"Yes, the Issue_Text links to the Commit_Text.",1,1
+22,No.,1,0
+23,"No, Issue_Text does not contain a link to Commit_Text.",0,0
+24,No.,0,0
+25,"No, Issue_Text does not contain any links to Commit_Text.",1,0
+26,Yes,1,1
+27,"No, the Commit_Text provided does not contain any link to an issue.",0,0
+28,"No, Issue_Text does not contain any links to Commit_Text.",0,0
+29,No,0,0
+30,No.,0,0
+31,No,0,0
+32,No,0,0
+33,"No, Issue_Text does not contain any links to Commit_Text.",0,0
+34,No,0,0
+35,"No, the Issue_Text does not contain any links to a specific commit. The provided text only includes a detailed description of an issue related to the AdoNetAppender and its error message, along with the appender's settings. If you would like to ascertain any connections to a specific commit, you should search through the project's version control history or commit logs.",0,0
+36,"No, Issue_Text does not contain any links to Commit_Text.",0,0
+37,"No, Issue_Text does not contain any links to Commit_Text.",0,0
+38,"No, the Issue_Text does not contain any links to commits.",1,0
+39,"No, Issue_Text does not contain a link to Commit_Text.",0,0
+40,No,0,0
+41,No,1,0
+42,No,1,0
+43,No,0,0
+44,No,0,0
+45,"No, Issue_Text does not contain a specific link to a Commit_Text.",1,0
+46,No,1,0
+47,No,0,0
+48,"No, Issue_Text does not contain a link to Commit_Text.",0,0
+49,"No, the Commit_Text and the Issue_Text are not linked.",0,0

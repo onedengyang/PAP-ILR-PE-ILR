@@ -1,0 +1,51 @@
+,gpt_says,label,pro
+0,"No, the Commit_Text does not directly address the Issue_Text.",1,0
+1,No,0,0
+2,No,0,0
+3,No,0,0
+4,Yes,1,1
+5,No,1,0
+6,"No, the Commit_Text does not appear to directly address the Issue_Text.",0,0
+7,No,0,0
+8,Yes,0,1
+9,Yes,1,1
+10,No,0,0
+11,No,0,0
+12,"Yes, the Commit_Text addresses the Issue_Text by stating that the ReadOnlyPropertiesDictionary does not iterate over a mutable collection and describing the potential issue with log4net causing AppDomains to malfunction due to the mutable collection being modified outside of the loop.",1,1
+13,"No, the Commit_Text does not directly address the issue described in the Issue_Text.",0,0
+14,No,0,0
+15,"Yes, the Commit_Text appears to address the Issue_Text by providing a patch for the identified issue.",1,1
+16,Yes!,1,1
+17,No,0,0
+18,Yes,1,1
+19,No.,0,0
+20,No,0,0
+21,Yes,1,1
+22,No,0,0
+23,"No, the Commit_Text does not directly answer the Issue_Text.",0,0
+24,No,0,0
+25,No,0,0
+26,"No, the Commit_Text does not directly answer the Issue_Text.",0,0
+27,No,0,0
+28,No,0,0
+29,No,0,0
+30,No,1,0
+31,No,0,0
+32,Yes,0,1
+33,No,0,0
+34,No,0,0
+35,No,0,0
+36,No,0,0
+37,"No, the Commit_Text does not directly address the Issue_Text.",0,0
+38,"No, the Commit_Text does not directly address the Issue_Text.",0,0
+39,No,0,0
+40,No,0,0
+41,Yes,1,1
+42,"No, the Commit_Text does not directly address the Issue_Text.",0,0
+43,Yes,1,1
+44,No,0,0
+45,Yes,1,1
+46,No,0,0
+47,No,0,0
+48,No,1,0
+49,"No, the Commit_Text does not answer the Issue_Text.",0,0

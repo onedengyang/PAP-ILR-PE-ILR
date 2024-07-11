@@ -1,0 +1,39 @@
+,gpt_says,label,pro
+0,No. Commit_Text does not contain any links.,0,0
+1,No. Issue_Text does not mention Commit_Text.,0,0
+2,"No, the Issue_Text does not contain any links.",0,0
+3,No. Issue_Text and Commit_Text do not have any direct link or connection.,0,0
+4,"No, the Issue_Text does not contain any links.",1,0
+5,No,0,0
+6,No,0,0
+7,No,1,0
+8,"No, the Issue_Text does not contain any links.",1,0
+9,No,0,0
+10,"Yes, Issue_Text is linked to the Commit_Text.",1,1
+11,"Yes, the Issue_Text contains links to the commit in the Commit_Text.",1,1
+12,"No, Issue_Text does not contain any link to Commit_Text.",0,0
+13,No,0,0
+14,No,0,0
+15,"No, the Issue_Text does not contain any link to the Commit_Text.",0,0
+16,No,1,0
+17,No,1,0
+18,No,0,0
+19,"No, the commit text does not contain any links.",1,0
+20,"No, Issue_Text does not include any links to other commits or issues.",0,0
+21,No,0,0
+22,"No, the Issue_Text does not contain any links.",1,0
+23,No,0,0
+24,"No, the Commit_Text does not mention any links.",0,0
+25,No. Commit_Text does not contain a link to the Issue_Text.,0,0
+26,Yes,1,1
+27,"No, the Issue_Text does not link to the Commit_Text.",0,0
+28,Yes.,1,1
+29,"No, the Issue_Text does not contain any links.",0,0
+30,"No, the Issue_Text does not contain any links.",0,0
+31,No. Issue_Text does not mention any link.,0,0
+32,"No, there is no link between the issue mentioned in the Issue_Text and the commit mentioned in the Commit_Text.",0,0
+33,"No, the Issue_Text and Commit_Text are not linked.",0,0
+34,No.,0,0
+35,"No, the Issue_Text does not mention any link to a commit.",0,0
+36,No. The Issue_Text does not contain any links.,0,0
+37,"No, the Issue_Text does not contain any links.",1,0

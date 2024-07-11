@@ -1,0 +1,39 @@
+,gpt_says,label,pro
+0,No,0,0
+1,No,0,0
+2,No,0,0
+3,No,0,0
+4,Yes,1,1
+5,No,0,0
+6,No,0,0
+7,Yes,1,1
+8,Yes.,1,1
+9,no,0,0
+10,No,1,0
+11,"Yes, the Commit_Text answers the Issue_Text by fixing the deprecated warnings in sql-cloudant.",1,1
+12,No,0,0
+13,No.,0,0
+14,no,0,0
+15,No.,0,0
+16,No.,1,0
+17,No,1,0
+18,No,0,0
+19,"Yes, the Commit_Text provides information related to fixing the MQTT Python code and adding tests, which directly addresses the Issue_Text.",1,1
+20,No.,0,0
+21,Yes,0,1
+22,"Yes, the Commit_Text does answer the Issue_Text.",1,1
+23,no,0,0
+24,No.,0,0
+25,no,0,0
+26,No,1,1
+27,No,0,0
+28,No,1,0
+29,"No, the Commit_Text does not directly answer the Issue_Text.",0,0
+30,No,0,0
+31,No.,0,0
+32,No,0,0
+33,No.,0,0
+34,No.,0,0
+35,No,0,0
+36,No.,0,0
+37,Yes,1,1

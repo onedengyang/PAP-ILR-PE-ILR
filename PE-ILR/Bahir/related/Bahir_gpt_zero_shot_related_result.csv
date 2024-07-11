@@ -1,0 +1,39 @@
+,gpt_says,label,pro
+0,no,0,0
+1,No,0,0
+2,No,0,0
+3,no,0,0
+4,"No, Issue_Text is not related to Commit_Text.",1,0
+5,No.,0,0
+6,No.,0,0
+7,No.,1,0
+8,No.,1,0
+9,No.,0,0
+10,"Yes, Issue_Text is related to Commit_Text.",1,1
+11,"No. Issue_Text is related to the deprecation warnings in the sql-cloudant module, while Commit_Text is related to the fix for those warnings.",1,0
+12,No. Issue_Text and Commit_Text are not related.,0,0
+13,No.,0,0
+14,No,0,0
+15,"No, Issue_Text is not related to Commit_Text.",0,0
+16,No,1,0
+17,No,1,0
+18,No,0,0
+19,yes,1,1
+20,"No, the Issue_Text is not related to the Commit_Text.",0,0
+21,Yes,0,1
+22,"No, Issue_Text is not directly related to Commit_Text.",1,0
+23,No,0,0
+24,No,0,0
+25,No. Issue_Text is not related to Commit_Text.,0,0
+26,Yes,1,1
+27,No.,0,0
+28,Yes.,1,1
+29,"No, the Issue_Text is not directly related to the Commit_Text mentioned. Issue_Text is about refactoring sql-cloudant to use Cloudant's java-cloudant features, while Commit_Text is about the addition of a multi-topic MQTT DStream in Python.",0,0
+30,No. Issue_Text and Commit_Text are not related.,0,0
+31,No,0,0
+32,No.,0,0
+33,No.,0,0
+34,No.,0,0
+35,"No, Issue_Text is not related to Commit_Text.",0,0
+36,No,0,0
+37,No,1,0

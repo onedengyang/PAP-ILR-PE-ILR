@@ -1,0 +1,51 @@
+,gpt_says,label,pro
+0,"No, Issue_Text is not related to Commit_Text.",0,0
+1,No,0,0
+2,No,0,0
+3,Yes,1,1
+4,No,0,0
+5,No,0,0
+6,"Yes, Issue_Text is related to Commit_Text.",1,1
+7,Yes,1,1
+8,No,0,0
+9,No,0,0
+10,No,0,0
+11,No,0,0
+12,No,0,0
+13,No,0,0
+14,Yes,1,1
+15,Yes,1,1
+16,"No, Issue_Text is not related to Commit_Text.",0,0
+17,No,0,0
+18,No,0,0
+19,"No, Issue_Text does not seem to be related to Commit_Text.",0,0
+20,No,0,0
+21,"Yes, Issue_Text is related to Commit_Text.",1,1
+22,No,1,0
+23,No,0,0
+24,No,0,0
+25,Yes,1,1
+26,Yes,1,1
+27,"No, Issue_Text and Commit_Text do not seem to be related based on the provided texts.",0,0
+28,No,0,0
+29,No,0,0
+30,No,0,0
+31,No,0,0
+32,No,0,0
+33,No,0,0
+34,No,0,0
+35,"No, Issue_Text does not seem to be related to Commit_Text based on the information provided.",0,0
+36,"No, there is no direct relation between the Commit_Text and the Issue_Text mentioned.",0,0
+37,Yes,0,1
+38,"No, Issue_Text is not related to Commit_Text.",1,0
+39,No. Issue_Text and Commit_Text do not appear to be related based on the provided information.,0,0
+40,No,0,0
+41,Yes,1,1
+42,No,1,0
+43,No,0,0
+44,No.,0,0
+45,"Yes, Issue_Text and Commit_Text are related.",1,1
+46,No,1,0
+47,No,0,0
+48,No,0,0
+49,No,0,0

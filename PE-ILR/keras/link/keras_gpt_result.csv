@@ -1,0 +1,145 @@
+,gpt_says,label,pro
+0,No,0,0
+1,No.,0,0
+2,"No, the Issue_Text does not contain any links.",1,0
+3,No,0,0
+4,"No, the Issue_Text does not link to any commit.",0,0
+5,"No, the Issue_Text does not reference any links.",0,0
+6,No,1,0
+7,"No, the Issue_Text does not contain any link to the Commit_Text.",0,0
+8,No. The Commit_Text does not contain any links to issues.,0,0
+9,No,1,0
+10,No. Issue_Text and Commit_Text are two different pieces of text and do not have any direct relationship or link between them.,0,0
+11,"No, the issue text does not contain any links.",0,0
+12,No.,1,0
+13,"Yes, the Issue_Text links to Commit_Text through the reference (#10960).",0,1
+14,"No, the Issue_Text does not mention any links.",0,0
+15,"No, the Issue_Text does not contain any links.",0,0
+16,No,0,0
+17,Yes.,1,1
+18,No,1,0
+19,"No, there is no mention of a link in the provided Commit_Text or Issue_Text.",0,0
+20,"No, the Issue_Text does not contain the link to the Commit_Text.",1,0
+21,No,1,0
+22,No. The Issue_Text does not contain any links.,0,0
+23,No. Issue_Text does not contain any links.,0,0
+24,"No, the Issue_Text does not mention any links.",0,0
+25,"No, Issue_Text does not contain any links.",0,0
+26,"No, the issue text does not contain any links.",0,0
+27,"No, the Issue_Text does not mention any commits or commit links.",1,0
+28,No. The commit text does not mention any links.,0,0
+29,"No, the Issue_Text does not contain any links.",1,0
+30,No,0,0
+31,No,1,0
+32,No. The commit text does not include any links.,1,0
+33,No,1,0
+34,No,1,0
+35,"No, Issue_Text does not mention Commit_Text.",0,0
+36,"No, Issue_Text does not contain any links to Commit_Text.",0,0
+37,No.,1,0
+38,"No, there is no link between the Commit_Text and Issue_Text provided.",1,0
+39,No,1,0
+40,"No, Issue_Text does not contain any links to Commit_Text.",0,0
+41,"No, the Issue_Text does not have any mention or reference to Commit_Text links.",0,0
+42,No. The Commit_Text does not mention or relate to the Issue_Text.,0,0
+43,No.,0,0
+44,"No, Issue_Text does not appear to contain any links.",1,0
+45,No,1,0
+46,"No, there is no link between the Issue_Text and the Commit_Text.",0,0
+47,"No, Issue_Text does not link Commit_Text.",0,0
+48,No,1,0
+49,No. The commit message does not directly reference the issue number mentioned in the issue text.,1,0
+50,"No, the Issue_Text does not contain any links.",0,0
+51,"No, the Issue_Text does not contain any links.",1,0
+52,"No, the Issue_Text does not contain any links.",1,0
+53,"No, Issue_Text does not contain any links.",0,0
+54,No. Issue_Text and Commit_Text do not have any link between them.,0,0
+55,"No, the Issue_Text does not contain a link to the Commit_Text.",1,0
+56,No,0,0
+57,No.,0,0
+58,"No, the Issue_Text does not contain any links to commits.",0,0
+59,No. The Issue_Text does not contain any links.,0,0
+60,"No, the issue text does not contain any links.",0,0
+61,"No, Issue_Text does not contain any links.",0,0
+62,"No, the Issue_Text does not contain any links to Commit_Text.",0,0
+63,Yes,1,1
+64,"No, the Issue Text does not contain any links.",1,0
+65,No,1,0
+66,No,1,0
+67,No.,1,0
+68,No.,1,0
+69,"No, the Issue_Text does not contain any links. It is a description of the issue and its resolution.",1,0
+70,"No, the Issue_Text does not contain any clickable links.",0,0
+71,No,1,0
+72,"No, the Issue_Text does not contain any links.",1,0
+73,"No, the Issue_Text does not link to the Commit_Text.",1,0
+74,"No, the Issue_Text does not contain any links.",1,0
+75,"No, Issue_Text does not contain any links.",0,0
+76,No,1,0
+77,"No, the Issue_Text does not link to the Commit_Text.",1,0
+78,No,1,0
+79,No,1,0
+80,"No, the commit text and issue text are not linked.",0,0
+81,"No, the Issue_Text does not contain any links.",1,0
+82,"No, the Issue_Text does not include any links.",0,0
+83,"No, the Issue_Text does not contain any links.",0,0
+84,"No, the issue text does not contain any links.",0,0
+85,"No, the Issue_Text does not contain any links.",0,0
+86,"No, the Issue_Text does not contain any links.",0,0
+87,"No, the Issue_Text does not mention any links.",1,0
+88,"No, the Issue_Text does not contain any links.",1,0
+89,"No, the Issue_Text does not contain any links.",1,0
+90,No,1,0
+91,No,0,0
+92,No,0,0
+93,"No, Issue_Text does not contain any links.",0,0
+94,No,0,0
+95,"No, the Issue_Text does not contain any links.",1,0
+96,No,0,0
+97,"No, the issue text does not contain any links.",0,0
+98,No,0,0
+99,"No, the Issue_Text does not contain any links.",0,0
+100,No,1,0
+101,"No, the issue text does not contain any links.",0,0
+102,No,0,0
+103,"No, the Issue_Text does not contain any links.",1,0
+104,"No, Issue_Text does not contain any links to Commit_Text.",1,0
+105,"No, the Issue_Text does not contain any links.",1,0
+106,No,1,0
+107,"No, the Issue_Text does not contain any links.",0,0
+108,No. The Issue_Text does not contain any link.,0,0
+109,"No, Issue_Text does not include any links.",1,0
+110,No,1,0
+111,"No, the Issue_Text does not contain any links.",0,0
+112,No. The Commit_Text does not contain any links.,1,0
+113,"No, the Issue_Text does not contain any links.",0,0
+114,No,0,0
+115,"No, the Issue_Text does not mention any links.",1,0
+116,Yes,0,1
+117,No,0,0
+118,"No, the Issue_Text does not contain a link.",0,0
+119,"No, Issue_Text does not contain any links.",1,0
+120,"No, the Issue_Text mentioned does not appear to contain any link.",1,0
+121,No,1,0
+122,No,1,0
+123,"No, Issue_Text does not contain any links.",1,0
+124,No,1,0
+125,"No, the Issue_Text does not contain any links to commits.",1,0
+126,"No, Issue_Text does not contain any links.",0,0
+127,No,1,0
+128,No,1,0
+129,"No, the Issue_Text does not link to the Commit_Text.",0,0
+130,no,1,0
+131,"Yes, the Issue_Text links to the Commit_Text.",0,1
+132,No. Issue_Text and Commit_Text are not linked.,0,0
+133,"Sorry, there is not enough information to determine if the Issue_Text links to the Commit_Text.",1,0
+134,"Yes, the Issue_Text contains a link to the commit in the form of ""Please refer to the cores (Keras-Team/Keras-Applications#26)"".",1,1
+135,No,0,0
+136,"No, the Issue_Text does not mention any links.",0,0
+137,"Yes, the Issue_Text contains the information about the commit (#10801) which excludes Theano legacy functions when reporting coverages, so it is linked to the Commit_Text.",1,1
+138,No,1,0
+139,Yes.,1,1
+140,"Yes, the Issue_Text mentions the Commit_Text by stating that the documentation is missing for the 'subset' and 'interpolation' arguments in the methods 'flow' and 'flow_from_directory' of the ImageDataGenerator.",1,1
+141,"No, the issue text does not contain any links.",1,0
+142,No,0,0
+143,No. Issue_Text does not include any links.,1,0
