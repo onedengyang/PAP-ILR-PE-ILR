@@ -1,0 +1,2006 @@
+label,Issue_KEY,Commit_SHA,Issue_Text,Commit_Text,Commit_Code
+0,LOG4NET-404,f10aa67ab947fe7299f4d7e90982c7a83b0d4373,assemblies for .NET 3.5 are missing ILogExtensions  ,"LOG4NET-405 fixed default encoding to be UTF8
+
+According to http://msdn.microsoft.com/en-us/library/system.text.encoding.default UTF8 is a better choice than Default.", MODIFY SmtpAppender.cs
+0,LOG4NET-441,0d28efa8d9873efd2e6b7eb41a69a40b956e9a8e,"FAQ should have Q&A about initialization I set up a sample application to try out log4net but nothing happened. I had linked the assembly, called the methods and set up the config, but I neither called one of the configurators nor included one of the configurator attributes. While in retrospect it's stupid on my part, it also seems to be a common cry for help (search ""log4net not working""). The FAQ Q&A (under troubleshooting) could be something like:
+
+Q: Why isn't log4net working at all?
+A: You may have overlooked initialization code for log4net in your application. log4net can be initialized explicitly by calling one of the configurators (e.g. BasicConfigurator, DOMConfigurator or XmlConfigurator in the log4net.Config namespace, or implicitly by including one of the configurator attributes (e.g. [XmlConfiguratorAttribute], [DOMConfiguratorAttribute]) in the assembly where log4net is first used. See xxxx and yyyy for more information.","LOG4NET-455 LogicalThreadContext does not flow correctly through async/await 
+Patch by Alexander Houben
+
+closes #12 by @ahouben", ADD LogicalThreadContextTest.csLogicalThreadContextTest TestLogicalThreadStackPattern LogicalThreadContextTest SomeWorkProperties LogicalThreadContextTest TestLogicalThreadStackPattern2 LogicalThreadContextTest TestLogicalThreadStackPatternNullVal LogicalThreadContextTest TestLogicalThreadPropertiesPatternBasicGetSet LogicalThreadContextTest MoreWorkStack LogicalThreadContextTest TearDown LogicalThreadContextTest TestLogicalThreadStackPatternAsyncAwait LogicalThreadContextTest TestLogicalThreadPropertiesPatternAsyncAwait LogicalThreadContextTest TestLogicalThreadStackPatternNullVal2 LogicalThreadContextTest SomeWorkStack LogicalThreadContextTest MoreWorkProperties MODIFY Utils.csUtils RemovePropertyFromAllContexts MODIFY log4net.Tests.vs2010.csproj ADD log4net.Tests.vs2012.csproj MODIFY AssemblyInfo.cs MODIFY LogicalThreadContext.cs MODIFY LogicalThreadContextProperties.csLogicalThreadContextProperties Clear LogicalThreadContextProperties Remove ADD LogicalThreadContextStack.csLogicalThreadContextStack AutoPopStackFrame AutoPopStackFrame LogicalThreadContextStack Push LogicalThreadContextStack StackFrame if LogicalThreadContextStack AutoPopStackFrame Dispose LogicalThreadContextStack ToString LogicalThreadContextStack Pop LogicalThreadContextStack GetFixedObject LogicalThreadContextStack Clear LogicalThreadContextStack LogicalThreadContextStack LogicalThreadContextStack StackFrame StackFrame LogicalThreadContextStack GetFullMessage ADD LogicalThreadContextStacks.csLogicalThreadContextStacks LogicalThreadContextStacks LogicalThreadContextStacks if LogicalThreadContextStacks if LogicalThreadContextStacks registerNew MODIFY log4net.vs2010.csproj ADD log4net.vs2012.csproj ADD log4net.vs2012.sln
+1,LOG4NET-72,75f0d6ef0bb353f893d1065d16e8f1bd873af8d2,"Performance of ILog.xxxFormat methods The performance of the ILog.xxxFormat methods can be improved.
+
+1) Add method overloads for common numbers of arguments:
+
+void DebugFormat(string format, object arg0); 
+void DebugFormat(string format, object arg0, object arg1); 
+void DebugFormat(string format, object arg0, object arg1, object arg2); 
+
+2) Delay formatting of the message until after the appenders filters have run.",Fix for LOG4NET-72. CultureInfo.GetCultureInfo is not supported on .net 1.0 and 1.1, MODIFY StringFormatTest.csStringFormatTest TestLogFormatApi_NoFatal StringFormatTest TestLogFormatApi_NoDebug StringFormatTest TestLogFormatApi_NoError StringFormatTest TestLogFormatApi_Error StringFormatTest TestLogFormatApi_NoWarn StringFormatTest TestLogFormatApi_NoInfo StringFormatTest TestLogFormatApi_Debug StringFormatTest TestLogFormatApi_Warn StringFormatTest TestLogFormatApi_Fatal StringFormatTest TestLogFormatApi_Info
+0,LOG4NET-42,a853cf53b35ee269226994a1254c0088f13f6d29,"Serialised LoggingEvent does not preserve the Fix flags When a LoggingEvent is desterilised the data is restored but the FixFlags are not set. By default this is set to None. If the LoggingEvent object if then fixed (e.g. by a BufferingAppender) then the data in the event may be overwritten from the current environment.
+
+When the LoggingEvent is desterilised the Fix property should be set to FixFlags.All.",Fix for LOG4NET-40 RollingFileAppender does not limit files to MaxSizeRollBackups when CountDirection is 1, MODIFY RollingFileAppender.csRollingFileAppender GetNextOutputFileName RollingFileAppender OpenFile RollingFileAppender RollOverSize RollingFileAppender InitializeFromOneFile RollingFileAppender RollOverRenameFiles
+1,LOG4NET-53,37368e55cfba01e14eba6bf61ea1a6e5de512591,"Allow repository properties to be set in the config file The LoggerRepository supports Properties. These are avaliable to the extensions, appenders, and plugins attached to the repository. While these properties can be set programatically it is not possible to set them through the config file.
+
+We should allow properties to be set in the config file using the following schema:
+
+<property>
+  <key value=""PropertyName"" />
+  <value value=""PropertyValue"" />
+</property>",Added test for LOG4NET-53 (allow repository properties to be set in xml config file). Added test case for LOG4NET-31 (allow additional properties to be set on converters)., ADD Hierarchy.csHierarchy SetRepositoryPropertiesInConfigFile ADD PatternConverterTest.csPatternStringAppender PatternStringAppender PropertyKeyCountPatternConverter PropertyKeyCountPatternConverter PropertyKeyCountPatternConverter Convert PatternConverterTest PatternConverterProperties PropertyKeyCountPatternLayoutConverter Convert PropertyKeyCountPatternLayoutConverter PropertyKeyCountPatternLayoutConverter PatternConverterTest PatternLayoutConverterProperties MODIFY log4net.Tests.vs2005.csproj
+1,LOG4NET-128,cf6e898f05a0d770abb50e493fecdb1fa2f3735f,"Either documentation is incorrect or a bug in SmtpAppender Sending the mails via SmtpAppender to more than one receipient fails as described in the documentation. The documentation says that all receipients should be added semicolon-separated. This fails, but adding the receipients comma-separated works. So, either the documentaion is incorrect or this is a bug.",explain when to use comma and when to use semicolon in documentation summary as well.  LOG4NET-128, MODIFY SmtpAppender.cs
+0,LOG4NET-437,dbe0f89a38f6fca026d8d78ab59f23009cde8443,"LogicalThreadContext data does not flow properly using Async and Await LogicalThreadContext doesn't work properly when using Async and Await. The current NDC call stack gets corrupted because the logical data context is not immutable. (See: http://blog.stephencleary.com/2013/04/implicit-async-context-asynclocal.html for the gory details). I've attached a Program.cs that demonstrates the issue. You will see with an unpatched log4net the thread context is corrupted compared to the proper implementation in MyStack and the console logger. An entry like:
+
+LOG4NET Main 1 A 2 A: </MoreWork>
+LOG4NET Main 1 A 2 A: </MoreWork>
+
+is invalid and should not be possible in a properly working thread context.
+
+I've attached a VERY naive patch that corrects the issue.",LOG4NET-443 prevent orphaned locks with ReaderWriterLockSlim in the face of aborted threads, MODIFY ReaderWriterLock.csReaderWriterLock AcquireReaderLock ReaderWriterLock AcquireWriterLock
+1,LOG4NET-150,dd7123772f738672cad9b8fc9032f1e3ca69d5ee,"Cannot download log4net 1.2.10 from the site Cannot download any of the files listed on the site http://logging.apache.org/log4net/. I have tried with various browsers and I have asked others also to try, but all of the attempts were unsuccessful.",LOG4NET-150: Cannot download log4net 1.2.10 from site, MODIFY download.apt
+0,LOG4NET-473,2ce45ddd39877f2955ce645ba01b9e9389b03fd6,"Option for file extension in SmtpPickupDirAppender Especially on Windows file extensions are very handy, if you give the output files the `eml` extension you can just double click the file to open the mail in outlook.
+
+I have added a `FileExtension` option to the `SmtpPickupDirAppender` that can be used to specify a file extension for the generated files.
+
+Although a default value of `eml` would be nice I have preserved backwards compatibility of no file extension by default.","LOG4NET-484: fix object disposed exception
+
+This is a modified version of the patch supplied by nn1436401 at gmail dot com.", MODIFY FileAppender.csFileAppender LockingStream Seek FileAppender LockingStream LockingStream FileAppender MinimalLock OpenFile FileAppender LockingStream AssertLocked FileAppender ExclusiveLock AcquireLock FileAppender FileAppender FileAppender InterProcessLock ReleaseLock FileAppender ActivateOptions FileAppender InterProcessLock OpenFile FileAppender ConvertToFullPath FileAppender InterProcessLock AcquireLock FileAppender Reset FileAppender LockingStream BeginWrite FileAppender LockingModelBase CreateStream FileAppender LockingStream ReadByte FileAppender ExclusiveLock ReleaseLock FileAppender LockingModelBase CloseStream FileAppender Append FileAppender LockingStream Close FileAppender SafeOpenFile FileAppender LockingStream AcquireLock FileAppender WriteHeader FileAppender LockingStream Write FileAppender MinimalLock ReleaseLock FileAppender CloseWriter FileAppender LockingStream SetLength FileAppender PrepareWriter FileAppender LockingStream Flush FileAppender WriteFooter FileAppender LockingStream Dispose FileAppender SetQWForFiles FileAppender FileAppender FileAppender LockingStream ReleaseLock FileAppender InterProcessLock CloseFile FileAppender LockingStream LockStateException LockStateException FileAppender OpenFile FileAppender Append FileAppender LockingStream Read FileAppender ExclusiveLock CloseFile FileAppender MinimalLock AcquireLock FileAppender SetQWForFiles FileAppender FileAppender FileAppender MinimalLock CloseFile FileAppender LockingStream BeginRead FileAppender CloseFile FileAppender LockingStream EndWrite FileAppender ExclusiveLock OpenFile FileAppender LockingStream EndRead FileAppender LockingStream WriteByte MODIFY RollingFileAppenderTest.csRollingFileAppenderTest TestInterProcessLockRoll RollingFileAppenderTest CreateLogger RollingFileAppenderTest CreateLogger
+1,LOG4NET-360,543b8543f20b1ba56d072ed6bf90340e642e5e21,"EventLogAppender can corrupt the event log on Windows Vista and higher if the string is longer than 31839 bytes Issue: EventLogAppender can corrupt the event log on Windows Vista and higher if the string is longer than 31839 bytes.
+
+The log4net EventLogAppender allows you to write up to 32000 bytes and there is a defect in the .NET Framework that will let you write that much data in Windows Vista and higher (which has a limit of 31839).
+
+See the attachment that shows ""$exception	{""The event log file is corrupted""}	System.Exception {System.ComponentModel.Win32Exception}"" along with the stack after a call to EventLog.WriteEntry() under Windows 7 that used a message string that was 31,876 bytes long.
+
+The issue has been reported to Microsoft as well: https://connect.microsoft.com/VisualStudio/feedback/details/770126/eventlog-writeentry-can-corrupt-the-event-log-because-of-invalid-argument-check-in-net-framework#tabs
+
+The code below is my workaround for determining a max message length that will not corrupt the event log. I've also written our own custom EventLogAppender that is able to work around this issue.
+
+private const int MaxEventLogMsgLength_PreVista = 32766;
+private const int MaxEventLogMsgLength_VistaOrHigher = 31839;
+
+/// <summary>
+/// Gets the maximum allowable size of event log message for the current operating system.
+/// </summary>
+/// <returns></returns>
+public static int GetMaxEventLogMessageSize()
+{
+	// http://msdn.microsoft.com/en-us/library/xzwc042w(v=vs.100).aspx            
+	// The 32766 documented max size is two bytes shy of 32K (I'm assuming 32766 may leave space for a two byte null
+	// terminator of #0#0). The 32766 max length is what the .NET 4.0 source code checks for, but this is WRONG!...
+	// strings with a length > 31839 on Windows Vista or higher can CORRUPT the event log! See:
+	// System.Diagnostics.EventLogInternal.InternalWriteEvent() for the use of the 32766 max size.
+	var maxEventMsgSize = MaxEventLogMsgLength_PreVista;
+
+	// Windows Vista and higher
+	if (Environment.OSVersion.Platform == PlatformID.Win32NT && Environment.OSVersion.Version.Major >= 6)
+	{
+		// See ReportEvent API: http://msdn.microsoft.com/en-us/library/aa363679(VS.85).aspx
+		// ReportEvent's lpStrings parameter: ""A pointer to a buffer containing an array of null-terminated strings that are
+		// merged into the message before Event Viewer displays the string to the user. This parameter must be a valid pointer
+		// (or NULL), even if wNumStrings is zero. Each string is limited to 31,839 characters.""
+
+		// Going beyond the size of 31839 will (at some point) corrupt the event log on Windows Vista or higher! It may succeed
+		// for a while...but you will eventually run into the error: ""System.ComponentModel.Win32Exception : A device attached to
+		// the system is not functioning"", and the event log will then be corrupt (I was able to corrupt an event log using a 
+		// length of 31877 on Windows 7).
+
+		// The max size for Windows Vista or higher is documented here: http://msdn.microsoft.com/en-us/library/xzwc042w(v=vs.100).aspx.
+		// Going over this size may succeed a few times but the buffer will overrun and eventually corrupt the log (based on testing).
+		// Log4net's own EventLogAppender will write up to 32000 bytes (0x7D00), which can corrupt the event log.
+
+		// The maxEventMsgSize size is based on the max buffer size of the lpStrings parameter of the ReportEvent API.
+		// The documented max size for EventLog.WriteEntry for Windows Vista and higher is 31839, but I'm leaving room for a
+		// terminator of #0#0, as we cannot see the source of ReportEvent (though we could use an API monitor to examine the
+		// buffer, given enough time).
+		// TODO: Use an API monitor to examine how the ReportEvent API allocates a buffer for the event log message strings.
+		const int terminatorLength = 2; // Safety for now.
+		maxEventMsgSize = MaxEventLogMsgLength_VistaOrHigher - terminatorLength;
+	}
+	return maxEventMsgSize;
+}		",LOG4NET-360 work around the event log restrictions for windows vista and newer to prevent event log corruption, MODIFY EventLogAppender.csEventLogAppender Append EventLogAppender GetMaxEventLogMessageSize
+0,LOG4NET-229,cf6e898f05a0d770abb50e493fecdb1fa2f3735f,"Japanese characters get garbled with log4net.Layout.XmlLayoutSchemaLog4j  with XmlLayoutSchemaLog4j ,all (as far as I see) of Japanese characters are replaced with '?'
+because log4net.Util.Transform.INVALIDCHARS regular expression is not correct.
+this issue may be affect in other languages, as Chinese, Korean or like that.
+
+
+
+http://issues.apache.org/jira/browse/LOG4NET-22 says that permitted chars are
+
+#x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
+
+, but regex for invalid characters are
+
+private static Regex INVALIDCHARS=new Regex(@""[^\x09\x0A\x0D\x20-\xFF\u00FF-\u07FF\uE000-\uFFFD]"",RegexOptions.Compiled);
+
+so 0x0800 ~ 0xD7FF are mistreated as invalid character.
+
+and 0xD800 ~ 0xDFFF sould also be permitted because these characters are used to express 0x10000 ~ 0x10FFFF in UTF-16
+(0xD800 ~ 0xDFFF in unicode are invalid, but in UTF-16 they are ok)
+
+so regex INVALIDCHARS shold be ""[^\x09\x0A\x0D\x20-\u00FF\uFFFD]""
+(above code is NOT TESTED)",explain when to use comma and when to use semicolon in documentation summary as well.  LOG4NET-128, MODIFY SmtpAppender.cs
+0,LOG4NET-3,18d006ea8f6d2b65bdf257b0abeb2491d2c789a8,"Support per event patterns in FileAppender File name If I could specify file name patter for
+(Rolling)FileAppender that would be filled by the
+appender prior to openning the file, I could let many
+individuals run the same applikation (on terminal
+server) and still log to file (not RemotingAppender or
+ADONetAppernder)
+
+I guess, pattern like &quot;rootLog%U.log&quot; would do, if
+appender replaced %U with
+Thread.CurrentThread.CurrentPrincipal.Identity.Name ...
+Or %T with thread id and so on...
+
+Anonymous","Fixes for LOG4NET-22 and LOG4NET-44 with associated tests.
+
+Characters that cannot be expressed in XML are now masked with a user specifiable charater.
+The message and property values may be base64 encoded if this is undesirable.
+
+The name of the properties node has been fixed to properties rather than global-properties.
+
+PR:
+Obtained from:
+Submitted by:
+Reviewed by:", MODIFY XMLLayout.csXmlLayout FormatXml XmlLayout ActivateOptions MODIFY XMLLayoutBase.cs MODIFY XmlLayoutSchemaLog4j.csXmlLayoutSchemaLog4j FormatXml MODIFY Transform.csTransform WriteEscapedXmlString Transform WriteEscapedXmlString Transform MaskXMLInvalidCharacters ADD XmlLayoutTest.csXmlLayoutTest TestPropertyCharacterEscaping XmlLayoutTest TestPropertyEventLogging XmlLayoutTest TestPropertyIllegalCharacterMaskingInName XmlLayoutTest TestCDATAEscaping2 XmlLayoutTest TestIllegalCharacterMasking XmlLayoutTest TestCDATAEscaping1 XmlLayoutTest createBaseEvent XmlLayoutTest TestCDATAEscaping3 XmlLayoutTest TestPropertyIllegalCharacterMasking XmlLayoutTest TestBase64PropertyEventLogging XmlLayoutTest TestBase64EventLogging XmlLayoutTest TestBasicEventLogging MODIFY log4net.Tests.csproj
+0,LOG4NET-460,bf3bad7e90ebeb153560ef7c858e7924fca74b9a,"log4net.Repository.Hierarchy.Logger ignores overridden virtual properties log4net.Repository.Hierarchy.Logger declares Hierarchy property as virtual, however, when reading the value it uses the private field m_hierarchy, which is not the correct value (and probably null) if a derived class has overridden the Hierarchy property.
+This leads to a NullReferenceException when invoking the IsEnabledFor method, which is used in the Log method.
+
+Expected: overriding the Hierarchy property works
+Actual: overriding the Hierarchy property leaves the private field m_hierarchy unset, which causes NullReferenceExceptions to be thrown
+
+This issue also appears to apply for Level and m_level.  The EffectiveLevel property accesses the private m_level field instead of the virtual Level property, which may also lead to NullReferenceException.",LOG4NET-407 use a queue of events to ensure order is maintained, MODIFY AsyncAppender.csAsyncAppender AsyncAppend AsyncAppender Append AsyncAppender Append
+0,LOG4NET-232,0a2053a54b7da9ece0faee7f24dd666687c7d8de,"Use ReaderWriterLockSlim instead of ReaderWriterLock. ReaderWriterLock should be replaced with ReaderWriterLockSlim according to Microsoft for performance and simplification reasons.
+
+MSDN: http://msdn.microsoft.com/en-us/library/system.threading.readerwriterlock.aspx
+
+The .NET Framework has two reader-writer locks, ReaderWriterLockSlim and ReaderWriterLock. ReaderWriterLockSlim is recommended for all new development. ReaderWriterLockSlim is similar to ReaderWriterLock, but it has simplified rules for recursion and for upgrading and downgrading lock state. ReaderWriterLockSlim avoids many cases of potential deadlock. In addition, the performance of ReaderWriterLockSlim is significantly better than ReaderWriterLock. ",LOG4NET-259 added documentation that mentions the need of configuring chainsaw tabs, MODIFY chainsaw.xml
+0,LOG4NET-143,7eabd638ae213d2a94b68f03e5b0f3b6a479565d,"Invalid Repository Config Uri composition from ""log4net.Config"" application setting In DefaultRepositorySelector class in method ConfigureRepository(Assembly assembly, ILoggerRepository repository) (DefaultRepositorySelector.cs, line 706) code perform config uri composition from applicationBaseDirectory path and specified in ""log4net.Config"" settings file name. Because SystemInfo.ApplicationBaseDirectory property return path not ended with slash '\' at line 706 during ""new Uri(applicationBaseDirectory)"" operation executed trimmed last folder, so config uri made invalid.",link to KEYS file on download page.  LOG4NET-242, MODIFY download.apt
+1,LOG4NET-123,5a830af68026de6d5c82b7f76901bfe8d97750d8,"[PATCH] EnvironmentPatternConverter does not expand User or System level environment variables under Windows Under .NET 2.0, there is an additional option on the System.Environment.GetEnvironment method allowing specification of a process level, user level, or machine level environment variable. If not specified, only process level environment variables will be examined.
+
+The attached patch enhances the EnvironmentPatternConverter. If the specified environment property is not found in the current process environment, the user environment settings will be checked. If the property is still not found, the machine level environment settings will also be tested.","Fix for LOG4NET-123. Process, User, and System level Environment variables (EnvironmentVariableTarget) are now recognized in EnvironmentPatternConverter under .NET 2.0. Patch submitted by Richard J Foster.", MODIFY EnvironmentPatternConverter.csEnvironmentPatternConverter Convert ADD EnvironmentPatternConverterTest.csEnvironmentPatternConverterTest UserLevelEnvironmentVariable EnvironmentPatternConverterTest EnvironmentPatternConverter EnvironmentPatternConverter EnvironmentPatternConverterTest ProcessLevelEnvironmentVariable EnvironmentPatternConverterTest EnvironmentPatternConverter Convert EnvironmentPatternConverterTest SystemLevelEnvironmentVariable MODIFY SystemInfoTest.cs MODIFY log4net.Tests.vs2005.csproj
+0,LOG4NET-218,2f3bb2d6736c90407b942e053d63916e16dac66e,"Test StringFormatTest.TestFormatString fails The test ""StringFormatTest.TestFormatString"" fails with the following message:
+
+NUnit.Framework.AssertionException: Test formatting error
+    String lengths differ.  Expected length=272, but was length=291.
+    Strings differ at index 46.
+    expected: <""...ror>Exception during StringFormat: Index (zero based) must be greater ..."">
+     but was: <""...ror>Exception during StringFormat: Der Index, basierend auf 0 (null), ..."">
+    --------------------------------------------------^
+
+The test seems to be dependent from the language settings of the current user",LOG4NET-342 added a FAQ entry that describes how to check if the repository was configured and how one can enumerate the configuration messages, MODIFY faq.xml
+0,LOG4NET-275,73a4921de015d4262273055b04ea37206a224038,"Update site content for Apache Project Branding Requirements  All Apache projects are to bring their sites into conformance with the Apache Project Branding requirements (http://www.apache.org/foundation/marks/pmcs) by Q1 2011.
+",skip test that tries to set a system level environment variable if user lacks the permission to set it.  LOG4NET-301, MODIFY EnvironmentPatternConverterTest.csEnvironmentPatternConverterTest SystemLevelEnvironmentVariable
+0,LOG4NET-394,2307d48008bee04ed208dd8cf854f420f95d48dd,Lambda-based ILog-Extensions should catch errors The new lambda syntax introduced with LOG4NET-290 allow wrapping log related code in a lambda to be executed only if necessary. In the log4net spirit of being a reliable logging system (see http://logging.apache.org/log4net/release/faq.html) also the log related code contained in the lambda should not block application by throwing exception and so the lambda execution shluld be wrapped in a try...catch,LOG4NET-397 expand a little on the problems people may face with the two different strong name keys, MODIFY faq.xml
+0,LOG4NET-408,1874be5bbe7166a70b930e2df6887d84c86dd4d8,"Correction on InterProcessLock This is github pull request 6: https://github.com/apache/log4net/pull/6
+
+{quote}
+This correction enables opening a new file without causing all the AcquireLock blocking with AbandonedMutexException caused by incorrect state on ReleaseLock, namely m_mutexClosed.
+
+The bug was found using InterProcessLockwith RollingFileAppender with date pattern on file name, at midnight the new file is opened and all logging becomes blocked at InterProcessLock.AcquireLock on m_mutex.WaitOne.
+{quote}",merge fix for LOG4NET-376 from 1.2.x branch, MODIFY AbsoluteTimeDateFormatter.csAbsoluteTimeDateFormatter FormatDate
+1,LOG4NET-28,d9cc0bb25bdf4615422bf9f110012ebd45314157,"AdoNetAppender does not support inserting NULL into columns The AdoNetAppender does not support inserting NULL values into columns.
+
+If a column allows NULL values then the AdoNetAppender should allow NULL values to be inserted. For most value types this means using the DBNull value for the parameter. The AdoNetAppenderParameter should convert CLI null values into DBNull values before setting the parameter value.",Test for LOG4NET-28 demonstrating how to insert NULL values using both an xml configuration and progmatic configuration., MODIFY AdoNetAppenderTest.csAdoNetAppenderTest NullPropertyProgmaticConfig AdoNetAppenderTest NullPropertyXmlConfig
+0,LOG4NET-215,5b2160524efa38a35a82ffdaf0aec0c07ce44e22,"Exception on Convert for return %class{1} name in function^
+
+override protected void Convert(TextWriter writer, LoggingEvent loggingEvent)
+		{
+			string name = GetFullyQualifiedName(loggingEvent);
+			if (m_precision <= 0)
+			{
+				writer.Write(name);
+			}
+			else 
+			{
+				int len = name.Length;
+
+				// We subtract 1 from 'len' when assigning to 'end' to avoid out of
+				// bounds exception in return name.Substring(end+1, len). This can happen if
+				// precision is 1 and the logger name ends with a dot. 
+				int end = len - 1;
+				for(int i=m_precision; i>0; i--) 
+				{
+                    end = name.LastIndexOf('.', end - 1);
+					if (end == -1)
+					{
+						writer.Write(name);
+						return;
+					}
+				}
+				writer.Write(name.Substring(end+1, len-end-1));
+			}	  
+		}
+
+if ""string name = GetFullyQualifiedName(loggingEvent); "" return '?' (noname class-name) in line ""end = name.LastIndexOf('.', end - 1);"" exceptrion because end = 0...
+
+",Allow default value for event id to be specified via configuration.  LOG4NET-214, MODIFY EventLogAppender.csEventLogAppender Append
+0,LOG4NET-478,dd93053a04399b64ac57403e834658da6fa7d690,"TPL for .NET 3.5 AsyncAppender has the following code:
+#if FRAMEWORK_4_0_OR_ABOVE
+            logTask = new Task(() => { });
+            logTask.Start();
+#endif
+
+Instead of checking framework version it is better to check another macro like HAS_TPL.
+
+There is a TPL support for .NET 3.5 through unofficial System.Threading ( https://www.nuget.org/packages/System.Threading.dll/ )","LOG4NET-479 fix vs2008 build, patch due to NN", MODIFY log4net.vs2008.csproj
+0,LOG4NET-44,6de62c784acb8c0499ea3b7b84b34bff956a4e6a,"XmlLayout emits all properties under a node named global-properties, rather than just properties. The global-properties name is incorrect as all properties for the event are included. The node name should be changed to properties.",Fix for LOG4NET-11. Added a Flush(true) method that will flush the lossy buffer, MODIFY BufferingAppenderSkeleton.csBufferingAppenderSkeleton Flush BufferingAppenderSkeleton OnClose BufferingAppenderSkeleton Flush MODIFY CyclicBuffer.csCyclicBuffer PopAll CyclicBuffer Clear
+0,LOG4NET-460,b7035aac6eb4fd10d4f87b5f59c1a0f964cca747,"log4net.Repository.Hierarchy.Logger ignores overridden virtual properties log4net.Repository.Hierarchy.Logger declares Hierarchy property as virtual, however, when reading the value it uses the private field m_hierarchy, which is not the correct value (and probably null) if a derived class has overridden the Hierarchy property.
+This leads to a NullReferenceException when invoking the IsEnabledFor method, which is used in the Log method.
+
+Expected: overriding the Hierarchy property works
+Actual: overriding the Hierarchy property leaves the private field m_hierarchy unset, which causes NullReferenceExceptions to be thrown
+
+This issue also appears to apply for Level and m_level.  The EffectiveLevel property accesses the private m_level field instead of the virtual Level property, which may also lead to NullReferenceException.",LOG4NET-407 don't start new threads if appender has been closed, MODIFY AsyncAppenderTest.csAsyncAppenderTest ShouldNotLogAfterClose MODIFY AsyncAppender.csAsyncAppender Append AsyncAppender OnClose AsyncAppender Append
+0,LOG4NET-46,6de62c784acb8c0499ea3b7b84b34bff956a4e6a,"Support appenders that can output multiple events efficiently Some appenders can efficiently output batches of events. Currently there is no way to pass a batch of events to an appender.
+
+Add an interface IBulkAppender that exposes a DoAppend method that takes an array of events. This interface can be supported by appenders that can process in bulk.",Fix for LOG4NET-11. Added a Flush(true) method that will flush the lossy buffer, MODIFY BufferingAppenderSkeleton.csBufferingAppenderSkeleton Flush BufferingAppenderSkeleton OnClose BufferingAppenderSkeleton Flush MODIFY CyclicBuffer.csCyclicBuffer PopAll CyclicBuffer Clear
+0,LOG4NET-443,61ca3990f6a28245ab78273480ee74891d9564b2,"Logger.CallAppenders I do have an .NET application (Windows Service) that collects data from a lot of sources (DBs, log files, machines event logs, ...) and uses Log4Net to log details of the actions / execution.  As expected, I'm using a high number of threads to collect data, threads that are writing logs in some files (RollingFileAppenderer).
+
+Lately it happens that the entire application is BLOCKED because all threads were trying to acquire a read lock, like in the stack trace:
+000000001ac3d998 00000000774715fa [HelperMethodFrame: 000000001ac3d998] System.Threading.Thread.SleepInternal(Int32)
+000000001ac3da90 000007fef747b5e9 System.Threading.Thread.Sleep(Int32)
+000000001ac3dac0 000007fef5fb9631 System.Threading.ReaderWriterLockSlim.EnterMyLockSpin()
+000000001ac3db90 000007fef5cd297e System.Threading.ReaderWriterLockSlim.TryEnterReadLockCore(TimeoutTracker)
+000000001ac3dbf0 000007fef5cd28fa System.Threading.ReaderWriterLockSlim.TryEnterReadLock(TimeoutTracker)
+000000001ac3dc40 000007fe98fb4efd log4net.Repository.Hierarchy.Logger.CallAppenders(log4net.Core.LoggingEvent)
+000000001ac3dcc0 000007fe98fb4907 log4net.Repository.Hierarchy.Logger.Log(System.Type, log4net.Core.Level, System.Object, System.Exception)
+000000001ac3dd30 000007fe98fb47f9 log4net.Core.LogImpl.Info(System.Object)  
+
+It's important to mention that my threads have a timeout, and if they do not finish the job in the given interval they are ABORTED.
+
+Searching for a solution, I found a possible explanation of application hanging here: http://chabster.blogspot.ro/2013/07/a-story-of-orphaned-readerwriterlockslim.html","LOG4NET-447 provide a PopAllEvents method for thread-safe access to
+MemoryAppender
+
+Patch by  Gregory Babski", ADD MemoryAppenderTest.csMemoryAppenderTest LogMessages MemoryAppenderTest TestThreadSafety MODIFY MemoryAppender.csMemoryAppender PopAllEvents
+0,LOG4NET-129,14a7664eb2b74cb20aa812e18e0ae70548b5d502,"EventLogAppender EventID parsing does not handle Active Properties properly The EventLogAppender supports setting the EventID of the Event being logged through Context Properties, as described here:
+http://www.mail-archive.com/log4net-user@logging.apache.org/msg02396.html
+
+However, since GlobalContext is inappropriate for storing the EventID (as it is likely to be specific for any given individual call to Log) and ThreadContext cannot be used reliably when running in the context of ASP.NET (since ASP.NET might switch the request between threads during execution, as outlined here: http://piers7.blogspot.com/2005/12/log4net-context-problems-with-aspnet.html ), it would be nice to be able to use an Active Property instead (which could, for instance, delegate calls for the EventID to data stored in HttpContext)
+
+Unfortunately, this does not work, since the EventLogAppender assumes that the Context Property holding the EventID is either int or string. The relevant code is found in EventLogAppender.cs, in the override protected void Append(LoggingEvent loggingEvent) method:
+
+if (eventIDPropertyObj is int)
+{
+	eventID = (int)eventIDPropertyObj;
+}
+else
+{
+	string eventIDPropertyString = eventIDPropertyObj as string;
+}
+
+Any Active Property object will end up as null through the ""as string"" call, and be ignored.
+
+Suggested naive fix: If eventIDPropertyString is non-null and of other type than int or string, call ToString() on the object and TryParse as int. Or use whatever handling of Active Properties found elsewhere in log4net.","Make MinimalLock work again with appendToFile=false.  LOG4NET-311, fixes two tests mentioned in LOG4NET-301, regression introduced as part of LOG4NET-164", MODIFY FileAppender.csFileAppender MinimalLock AcquireLock
+0,LOG4NET-232,26060334da4fc07c5f768da5a1f7a647a70de42b,"Use ReaderWriterLockSlim instead of ReaderWriterLock. ReaderWriterLock should be replaced with ReaderWriterLockSlim according to Microsoft for performance and simplification reasons.
+
+MSDN: http://msdn.microsoft.com/en-us/library/system.threading.readerwriterlock.aspx
+
+The .NET Framework has two reader-writer locks, ReaderWriterLockSlim and ReaderWriterLock. ReaderWriterLockSlim is recommended for all new development. ReaderWriterLockSlim is similar to ReaderWriterLock, but it has simplified rules for recursion and for upgrading and downgrading lock state. ReaderWriterLockSlim avoids many cases of potential deadlock. In addition, the performance of ReaderWriterLockSlim is significantly better than ReaderWriterLock. ","LOG4NET-342 added the property Configured to ILog that allows to check if the repository was configured properly
+
+Usecase:
+   if (log.Configured == false) 
+   { 
+      throw new ConfigurationErrorsException(""Log4net failed to initialize properly.""); 
+   }", MODIFY LogImpl.cs MODIFY ILog.cs
+1,LOG4NET-511,de1e306a79f466ea7ae8baa5f6d959d9b34db873,"API to flush appenders I would like to see an API that flushes any appenders that have buffered data. E.g. a method LogManager.Flush().  An application might call such a method at regular intervals, e.g. on a Timer.
+
+A naive implementation with the current log4net would iterate through appenders, looking for those that support flushing, and call the appender's flush method, e.g.:
+
+    foreach (IAppender appender in 
+             LogManager.GetRepository().GetAppenders())
+    {
+        BufferingAppenderSkeleton bas = appender 
+                        as BufferingAppenderSkeleton;  
+        if (bas != null) bas.Flush();
+    }
+
+But (a) I'm not sure this is thread-safe and (b) there are potentially other appenders that may want to be able to flush data (e.g. a TextWriterAppender with ImmediateFlush = false).
+
+The request consists of:
+
+- Add an interface, IFlushableAppender or equivalent, with a single method Flush().
+- Implement this interface in all relevant appenders (BufferingAppenderSkeleton, TextWriterAppender, ...)
+- Add a thread-safe static Flush() method to LogManager.
+",LOG4NET-511 make #37 compile for .NET 2.0 and .NET Core, MODIFY DebugAppender.cs MODIFY IFlushable.cs MODIFY LogManager.csLogManager Flush MODIFY LoggerRepositorySkeleton.csLoggerRepositorySkeleton Flush
+0,LOG4NET-170,013cdb8fa04e3a3f4bf0543c90277de6a217b627,Documentation improvement re: fixing and active properties Documentation improvement - see http://www.nabble.com/ASP.NET%2C-AdoNetAppender-and-deferred-property-execution-tt18865968.html,Fix for LOG4NET-128. Explain the comma/semicolon differences between various versions of the Framework., MODIFY SmtpAppender.cs
+1,LOG4NET-52,652340adbe4977e9b70f635f76465e93d9e501da,"Allow XML configurator to set properties of type Object Currently the XML config parse cannot set string values on properties of type object. 
+It is possible to force the parser to do this by explicitly setting the type on the element, e.g. <foo type=""System.String"" value=""test"" />.
+It would be more natural if this explicit type was not required.","LOG4NET-52 Allow XML configurator to set properties of type Object.
+Fixed check for Level type that was too wide; it matched Object when it should not have. Level is a sealed type so an equals check on the type is all that is required.
+Fixed conversion of String to Object. There is an implicit conversion because it is a supertype, but the code in OptionConverter did not account for this.", MODIFY XmlHierarchyConfigurator.csXmlHierarchyConfigurator ConvertStringTo MODIFY OptionConverter.csOptionConverter ConvertStringTo
+0,LOG4NET-117,bec1fa114507de8036cb8daa8af0c6242f9d9ed7,"Migrate web content generation of Maven 2.0 The other LS projects have been migrating to Maven 2.0 for documentation generation and deployment, packaging and, for the Java projects, build and dependency management.  Migrating log4net would complete the migration and would allow consistency between the web content of the various projects.
+
+The initial commit overlays the existing source code struction with fragments of the Maven Standard Directory Layout,.  The following directories are added:
+
+src/assembly - release packaging info, includes assembly.bin borrowed from another project.
+
+src/changes - project change list.  Includes sample changes.xml.  log4cxx has an XSLT transform that can generate changes.xml from a downloaded JIRA issue list.  Used to generate change-report.html.
+
+src/site - documentation source files, site.xml contains navigation and layout details for all generated pages
+src/site/apt - web content in Maven's APT (almost plain text) format
+src/site/resources - static content copied over without processing
+src/site/xdoc - XDoc content, I copied the existing xdocs content here, but deleted a few no longer needed pages
+
+The existing C# code in src should be relocated to src/main/cs and the build and project files appropriately changed.  For extra credit, the following relocations would bring the layout closer to a typical Maven layout:
+
+change log4net.build to generate DLL's in target (maybe target\bin) instead of bin
+svn rm docs
+svn mv examples src/examples
+svn mv extensions src/extensions
+svn mv tests/src src/test/cs
+svn mv tests/nant.build src/test/nant.build (modified to build test DLL's in target)
+svn rm xdocs
+
+
+pom.xml - Maven project descriptor, contains info used to generate much of the web content
+
+After installing Maven 2.0.7 (which requires a JDK 1.4 or later).  Running mvn site will generate the web content in target/site/index.html.
+
+mvn site-deploy should deploy the content to the logging/site/trunk/docs SVN for staging before going live on logging.apache.org.  The implementation of site-deploy uses Maven to generate the web content, invoke Nant to checkout the existing content, uses Maven's SCP deployment to copy the generated content over the existing content, and then invokes Nant to set svn:mime-type and finally commit the changes.  The deployment stalled on the commit when run from Maven, but if I ctrl+c'd the process and then manually ""svn commit"", the changes were processed.
+
+I set up a Windows build environment but ran into problems with both NUnit and NDoc that I wasn't able to get around.  Setting up the SSHD to receive the ""uploaded"" web content before deployment was also less than ideal. It may be simpler to add mono, ndoc and nant to the VM used to build the other LS projects for web creation.  I have left stubs that should have published the API docs if I had been successful getting them from NDoc.
+
+",make doc match the implementation.  LOG4NET-297, MODIFY AppenderSkeleton.cs
+0,LOG4NET-23,252574f67d0bdabea33a7f9c73d1a941299f9e8a,example-apps.html links are off by one folder level In the doc/release/example-apps.html document the href links to the example folders are all off by 1 folder level. The links go up one too many folders.,Fix LOG4NET-25.  RollingFileAppender fails if RollOverIfDateBoundaryCrossing required and current directory is not ApplicationBase directory., MODIFY RollingFileAppender.csRollingFileAppender ActivateOptions
+1,LOG4NET-455,0d28efa8d9873efd2e6b7eb41a69a40b956e9a8e,LogicalThreadContext does not flow correctly through async/await  This ticket accompanies github pull request #12 https://github.com/apache/log4net/pull/12,"LOG4NET-455 LogicalThreadContext does not flow correctly through async/await 
+Patch by Alexander Houben
+
+closes #12 by @ahouben", ADD LogicalThreadContextTest.csLogicalThreadContextTest TestLogicalThreadStackPattern LogicalThreadContextTest SomeWorkProperties LogicalThreadContextTest TestLogicalThreadStackPattern2 LogicalThreadContextTest TestLogicalThreadStackPatternNullVal LogicalThreadContextTest TestLogicalThreadPropertiesPatternBasicGetSet LogicalThreadContextTest MoreWorkStack LogicalThreadContextTest TearDown LogicalThreadContextTest TestLogicalThreadStackPatternAsyncAwait LogicalThreadContextTest TestLogicalThreadPropertiesPatternAsyncAwait LogicalThreadContextTest TestLogicalThreadStackPatternNullVal2 LogicalThreadContextTest SomeWorkStack LogicalThreadContextTest MoreWorkProperties MODIFY Utils.csUtils RemovePropertyFromAllContexts MODIFY log4net.Tests.vs2010.csproj ADD log4net.Tests.vs2012.csproj MODIFY AssemblyInfo.cs MODIFY LogicalThreadContext.cs MODIFY LogicalThreadContextProperties.csLogicalThreadContextProperties Clear LogicalThreadContextProperties Remove ADD LogicalThreadContextStack.csLogicalThreadContextStack AutoPopStackFrame AutoPopStackFrame LogicalThreadContextStack Push LogicalThreadContextStack StackFrame if LogicalThreadContextStack AutoPopStackFrame Dispose LogicalThreadContextStack ToString LogicalThreadContextStack Pop LogicalThreadContextStack GetFixedObject LogicalThreadContextStack Clear LogicalThreadContextStack LogicalThreadContextStack LogicalThreadContextStack StackFrame StackFrame LogicalThreadContextStack GetFullMessage ADD LogicalThreadContextStacks.csLogicalThreadContextStacks LogicalThreadContextStacks LogicalThreadContextStacks if LogicalThreadContextStacks if LogicalThreadContextStacks registerNew MODIFY log4net.vs2010.csproj ADD log4net.vs2012.csproj ADD log4net.vs2012.sln
+1,LOG4NET-376,3db262186c8ae7aee64d6e9278bf6298ecf4e9d1,"Race condition in AbsoluteTimeDateFormatter AbsoluteTimeDateFormatter's caching of the ""to the second"" timestamp string is not thread-safe.  It is possible for one thread to clear the check (that this timestamp matches the currently cached ""to the second"" timestamp), but then end up using an incorrect ""to the second"" timestamp string if another thread has changed it in the meantime.
+
+In our organization, we see this bug fairly regularly because we have a mix of ""real time"" loggers that immediately write out log lines and ""batching"" loggers that defer logging to a background task that runs every second.  We therefore regularly see log lines where the timestamp is off by a second or two.
+
+The following unit tests demonstrates the bug:
+
+    [TestFixture]
+    [Explicit]
+    public class Log4netTimestampBug
+    {
+        /// <summary>
+        /// This test demonstrates a bug with the log4net default time formatter (Iso8601DateFormatter)
+        /// where the logged timestamp can be seconds off from the actual input timestamp
+        /// The bug is caused to a race condition in the base class AbsoluteTimeDateFormatter
+        /// because this class caches the timestamp string to the second but it is possible for
+        /// the timestamp as written by a different thread to ""sneak in"" and be used by another
+        /// thread erroneously (the checking and usage of this string is not done under a lock, only
+        /// its modification) 
+        /// </summary>
+        [Test]
+        public void Test()
+        {
+            var now = DateTime.Now;
+            var times = Enumerable.Range(1, 1000000).Select(i => now.AddMilliseconds(i)).ToList();
+
+            var sb1 = new StringBuilder();
+            var sb2 = new StringBuilder();
+
+            var task1 = Task.Run(() => WriteAllTheTimes(times, new StringWriter(sb1)));
+            var task2 = Task.Delay(50).ContinueWith(t => WriteAllTheTimes(times, new StringWriter(sb2)));
+
+            Task.WaitAll(task1, task2);
+
+            var task1Strings = GetTimeStrings(sb1);
+            var task2Strings = GetTimeStrings(sb2);
+
+            var diffs = Enumerable.Range(0, times.Count).Where(i => task1Strings[i] != task2Strings[i]).ToList();
+
+            Console.WriteLine(""found {0} instances where the formatted timestamps are not the same"", diffs.Count);
+            Console.WriteLine();
+
+            var diffToLookAt = diffs.FirstOrDefault(i => i - 10 > 0 && i + 10 < times.Count);
+            if (diffToLookAt != 0)
+            {
+                Console.WriteLine(""Example Diff:"");
+                Console.WriteLine();
+                Console.WriteLine(""Index     Original Timestamp        Task 1 Format             Task 2 Format"");
+                for (int i = diffToLookAt - 10; i < diffToLookAt + 10; i++)
+                {
+                    Console.WriteLine(""{0,-7}   {1}   {2}   {3}   {4}"", i, times[i].ToString(""yyyy-MM-dd HH:mm:ss,fff""),
+                                      task1Strings[i], task2Strings[i], i == diffToLookAt ? ""**** DIFF HERE ****"" : """");
+                }
+            }
+
+            CollectionAssert.AreEqual(task1Strings, task2Strings);
+        }
+
+        private static List<string> GetTimeStrings(StringBuilder sb1)
+        {
+            return sb1.ToString().Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries).ToList();
+        }
+
+        private static void WriteAllTheTimes(IEnumerable<DateTime> times,
+                                             TextWriter writer)
+        {
+            var formatter = new Iso8601DateFormatter();
+            foreach (var t in times)
+            {
+                formatter.FormatDate(t, writer);
+                writer.WriteLine();
+            }
+        }
+    }
+
+
+
+
+","Some optimizations in locking for LOG4NET-376
+
+* remove inner lock in favor of fresh StringBuilders
+* reduce extent of outer lock
+
+also throw in generic dictionary for good measure", MODIFY AbsoluteTimeDateFormatter.csAbsoluteTimeDateFormatter FormatDate
+1,LOG4NET-55,195f281fe5dffb15088aaa74d0ee5e702d254452,"Allow default null text,""(null)"", and default not available text, ""NOT AVAILABLE"", to be configurable. ""(null)"" and ""NOT AVAILABLE"" are not settable by the user. Allow them to be settable via AppSettings keys:
+
+ <add key=""log4net.NullText"" value=""NULL-TEXT"" />
+ <add key=""log4net.NotAvailableText"" value=""NOT-AVAILABLE-TEXT"" />
+
+or attributes on the log4net node:
+
+ <log4net nullText=""NULL-TEXT"" notAvailableText=""NOT-AVAILABLE-TEXT"">
+ ...
+ </log4net>
+
+or in code:
+
+ log4net.Util.SystemInfo.NullText = ""NULL-TEXT"";
+ log4net.Util.SystemInfo.NotAvailableText = ""NOT-AVAILABLE-TEXT"";","LOG4NET-55 Allow ""(null)"" and ""NOT AVAILABLE"" to be settable via log4net.NullText and log4net.NotAvailableText appSettings keys.", MODIFY LoggingEvent.csLoggingEvent if LoggingEvent if MODIFY DefaultRenderer.csDefaultRenderer RenderObject MODIFY RendererMap.csRendererMap FindAndRender MODIFY PatternConverter.csPatternConverter WriteObject MODIFY IdentityPatternConverter.csIdentityPatternConverter Convert MODIFY ProcessIdPatternConverter.csProcessIdPatternConverter Convert MODIFY UserNamePatternConverter.csUserNamePatternConverter Convert MODIFY SystemInfo.csSystemInfo if SystemInfo if SystemInfo SystemInfo MODIFY ThreadContextStacks.csThreadContextStacks if
+0,LOG4NET-22,eb02bce2d20473bba7b2fddbad056f90651054dd,"XmlLayout allows output of invalid control characters XmlLayout allows output of invalid control characters.
+
+Reported by Mike Blake-Knox with additional comments from Curt Arnold.
+
+
+The XmlLayout encodes the character 0x1e as &#x1E; using the standard XML numeric character reference.
+
+This character code is in a range which is not allowed to appear in XML 1.0 either as a un-encoded value or as a numeric character reference.
+
+The valid character ranges are defined here in the XML recommendation:
+http://www.w3.org/TR/REC-xml/#charsets
+
+They are:
+
+#x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
+
+Numeric character references are not able to express characters from outside these ranges.
+
+The System.Xml.XmlTextWriter does not verify if the unicode character is valid in XML, but it does encode it as a numeric character reference if it cannot be expressed in the output encoding.
+
+To complicate matters further XML 1.1 does allow further, so called restricted characters, to be included in the output if they are encoded as numeric character references. These ranges are:
+
+[#x1-#x8] | [#xB-#xC] | [#xE-#x1F] | [#x7F-#x84] | [#x86-#x9F]
+
+See http://www.w3.org/TR/2004/REC-xml11-20040204/#charsets for details.",Fix for LOG4NET-45. Added constructor and property to take plugin type as a Type, MODIFY PluginAttribute.csPluginAttribute ToString PluginAttribute PluginAttribute PluginAttribute CreatePlugin PluginAttribute PluginAttribute PluginAttribute PluginAttribute
+0,LOG4NET-73,fcd26b8ccf169f9ea4e7cc02a5ff567a2dc3d544,"ADONetAppender.ActivateOptions() leaks database connection when called multiple times ADONetAppender.ActivateOptions() calls InitializeDatabaseConnection. This method does not check if the m_dbConnection is already initialised. If it is initialise then it will beleaked.
+
+Update InitializeDatabaseConnection to check and close the connection if not null.",Fix for LOG4NET-74. Made member variables protected., MODIFY MemoryAppender.cs
+0,LOG4NET-24,6a525039c435d10dbfefe366bcec49d087955dad,"Programmatic flush of BufferingAppenderSkeleton buffer Programmatic flush of BufferingAppenderSkeleton buffer
+
+The BufferingAppenderSkeleton holds a buffer of events which are to be delivered to the appender subclass via the SendBuffer method. This buffer currently cannot be programmatically flushed to the appender.
+
+It should be trivial to add support for a void Flush() method to the BufferingAppenderSkeleton class.
+",Fix LOG4NET-23. Folders off by 1 level, MODIFY example-apps.xml
+0,LOG4NET-266,26060334da4fc07c5f768da5a1f7a647a70de42b,"AdoNetAppender does not work on a IIS 7 website using Windows authentication  When the Windows Authentication is deactivated, the AdoNetAppender works properly.
+
+Howerver, once the Windows authentication is activated, the AdoNetAppender start working properly and then, after a few seconds, it is aborted and the following error message is retrieved:
+
+log4net:ERROR [AdoNetAppender] Failed in DoAppend
+System.ObjectDisposedException: Safe handle has been closed
+   at System.Runtime.InteropServices.SafeHandle.DangerousAddRef(Boolean& success)
+   at System.StubHelpers.StubHelpers.SafeHandleAddRef(SafeHandle pHandle, Boolean& success)
+   at Microsoft.Win32.Win32Native.GetTokenInformation(SafeTokenHandle TokenHandle, UInt32 TokenInformationClass, SafeLocalAllocHandle TokenInformation, UInt32 TokenInformationLength, UInt32& ReturnLength)
+   at System.Security.Principal.WindowsIdentity.GetTokenInformation(SafeTokenHandle tokenHandle, TokenInformationClass tokenInformationClass)
+   at System.Security.Principal.WindowsIdentity.get_User()
+   at System.Security.Principal.WindowsIdentity.GetName()
+   at System.Security.Principal.WindowsIdentity.get_Name()
+   at log4net.Core.LoggingEvent.get_Identity()
+   at log4net.Core.LoggingEvent.FixVolatileData(FixFlags flags)
+   at log4net.Appender.BufferingAppenderSkeleton.Append(LoggingEvent loggingEvent)
+   at log4net.Appender.AppenderSkeleton.DoAppend(LoggingEvent loggingEvent)
+
+
+See below the settings of the appender. Various options (i.e. Securitycontext )  have also been tested in vain.
+
+<appender name=""AdoNetAppender_SqlServer"" type=""log4net.Appender.AdoNetAppender"">
+		<bufferSize value=""1"" />
+		  <connectionType value=""System.Data.SqlClient.SqlConnection, System.Data, Version=1.0.3300.0, Culture=neutral, PublicKeyToken=b77a5c561934e089"" />
+		  <connectionString value=""data source=WWWWWW;initial catalog=XXXXX;integrated security=false;persist security info=True;User ID=sa;Password=YYYYYYYY"" />
+		 <commandText value=""sp_LOG_Insert""/>
+		<commandType value=""StoredProcedure"" />
+			<parameter>
+			<parameterName value=""@DATE"" />
+			<dbType value=""DateTime"" />
+			<layout type=""log4net.Layout.PatternLayout"" value=""%date{yyyy'-'MM'-'dd HH':'mm':'ss'.'fff}"" />
+		</parameter>
+		<parameter>
+			<parameterName value=""@THREAD"" />
+			<dbType value=""String"" />
+			<size value=""255"" />
+			<layout type=""log4net.Layout.PatternLayout"" value=""%thread"" />
+		</parameter>
+		<parameter>
+			<parameterName value=""@LEVEL"" />
+			<dbType value=""String"" />
+			<size value=""50"" />
+			<layout type=""log4net.Layout.PatternLayout"" value=""%level"" />
+		</parameter>
+		<parameter>
+			<parameterName value=""@LOGGER"" />
+			<dbType value=""String"" />
+			<size value=""255"" />
+			<layout type=""log4net.Layout.PatternLayout"" value=""%logger"" />
+		</parameter>
+		<parameter>
+			<parameterName value=""@MESSAGE"" />
+			<dbType value=""String"" />
+			<size value=""8000"" />
+			<layout type=""log4net.Layout.PatternLayout"" value=""%message"" />
+		</parameter>
+	  
+	</appender>
+
+","LOG4NET-342 added the property Configured to ILog that allows to check if the repository was configured properly
+
+Usecase:
+   if (log.Configured == false) 
+   { 
+      throw new ConfigurationErrorsException(""Log4net failed to initialize properly.""); 
+   }", MODIFY LogImpl.cs MODIFY ILog.cs
+0,LOG4NET-311,69e4789ebe481e8b138c971b42a94ec2f8a1099e,"MinimalLock and AppendToFile=false don't work together in trunk's FileAppender As part of adding the MutextLock with LOG4NET-164 the logic that open the file has been factored out into a method of the base class of all locking models.  The line that sets MinimalLock's m_append to true after opening the file has been lost on the way.
+
+This is responsible for two of the unit tests errors reported in LOG4NET-301.",test new MutexLock and make it actually work.  LOG4NET-164, MODIFY FileAppender.csFileAppender LockingModelBase CreateStream FileAppender MutexLock CloseFile FileAppender MutexLock AcquireLock FileAppender MutexLock ReleaseLock MODIFY RollingFileAppenderTest.csRollingFileAppenderTest TestMutexLockRecovers RollingFileAppenderTest TestMutexLockUnlocks RollingFileAppenderTest TestMutexLockFails
+0,LOG4NET-404,0b5dce128eb255fd55ad23421745011db7b700bb,assemblies for .NET 3.5 are missing ILogExtensions  ,LOG4NET-71 move log4net's sources to a subdirectory, MODIFY log4net.build MODIFY log4net.include RENAME AdoNetAppender.cs RENAME AnsiColorTerminalAppender.cs RENAME AppenderCollection.cs RENAME AppenderSkeleton.cs RENAME AspNetTraceAppender.cs RENAME BufferingAppenderSkeleton.cs RENAME BufferingForwardingAppender.cs RENAME ColoredConsoleAppender.cs RENAME ConsoleAppender.cs RENAME DebugAppender.cs RENAME EventLogAppender.cs RENAME FileAppender.cs RENAME ForwardingAppender.cs RENAME IAppender.cs RENAME IBulkAppender.cs RENAME LocalSyslogAppender.cs RENAME ManagedColoredConsoleAppender.cs RENAME MemoryAppender.cs RENAME NetSendAppender.cs RENAME OutputDebugStringAppender.cs RENAME RemoteSyslogAppender.cs RENAME RemotingAppender.cs RENAME RollingFileAppender.cs RENAME SmtpAppender.cs RENAME SmtpPickupDirAppender.cs RENAME TelnetAppender.cs RENAME TextWriterAppender.cs RENAME TraceAppender.cs RENAME UdpAppender.cs RENAME AssemblyInfo.cs RENAME AssemblyVersionInfo.cpp RENAME AssemblyVersionInfo.cs RENAME AssemblyVersionInfo.js RENAME AssemblyVersionInfo.vb RENAME AliasDomainAttribute.cs RENAME AliasRepositoryAttribute.cs RENAME BasicConfigurator.cs RENAME ConfiguratorAttribute.cs RENAME DOMConfigurator.cs RENAME DOMConfiguratorAttribute.cs RENAME DomainAttribute.cs RENAME Log4NetConfigurationSectionHandler.cs RENAME PluginAttribute.cs RENAME RepositoryAttribute.cs RENAME SecurityContextProviderAttribute.cs RENAME XmlConfigurator.cs RENAME XmlConfiguratorAttribute.cs RENAME CompactRepositorySelector.cs RENAME DefaultRepositorySelector.cs RENAME ErrorCode.cs RENAME ExceptionEvaluator.cs RENAME IAppenderAttachable.cs RENAME IErrorHandler.cs RENAME IFixingRequired.cs RENAME ILogger.cs RENAME ILoggerWrapper.cs RENAME IOptionHandler.cs RENAME IRepositorySelector.cs RENAME ITriggeringEventEvaluator.cs RENAME Level.cs RENAME LevelCollection.cs RENAME LevelEvaluator.cs RENAME LevelMap.cs RENAME LocationInfo.cs RENAME LogException.cs RENAME LogImpl.cs RENAME LoggerManager.cs RENAME LoggerWrapperImpl.cs RENAME LoggingEvent.cs RENAME MethodItem.cs RENAME SecurityContext.cs RENAME SecurityContextProvider.cs RENAME StackFrameItem.cs RENAME TimeEvaluator.cs RENAME WrapperMap.cs RENAME AbsoluteTimeDateFormatter.cs RENAME DateTimeDateFormatter.cs RENAME IDateFormatter.cs RENAME Iso8601DateFormatter.cs RENAME SimpleDateFormatter.cs RENAME DenyAllFilter.cs RENAME FilterDecision.cs RENAME FilterSkeleton.cs RENAME IFilter.cs RENAME LevelMatchFilter.cs RENAME LevelRangeFilter.cs RENAME LoggerMatchFilter.cs RENAME MdcFilter.cs RENAME NdcFilter.cs RENAME PropertyFilter.cs RENAME StringMatchFilter.cs RENAME GlobalContext.cs RENAME ILog.cs RENAME DynamicPatternLayout.cs RENAME ExceptionLayout.cs RENAME ILayout.cs RENAME IRawLayout.cs RENAME Layout2RawLayoutAdapter.cs RENAME LayoutSkeleton.cs RENAME AppDomainPatternConverter.cs RENAME AspNetCachePatternConverter.cs RENAME AspNetContextPatternConverter.cs RENAME AspNetPatternConverter.cs RENAME AspNetRequestPatternConverter.cs RENAME AspNetSessionPatternConverter.cs RENAME DatePatternConverter.cs RENAME ExceptionPatternConverter.cs RENAME FileLocationPatternConverter.cs RENAME FullLocationPatternConverter.cs RENAME IdentityPatternConverter.cs RENAME LevelPatternConverter.cs RENAME LineLocationPatternConverter.cs RENAME LoggerPatternConverter.cs RENAME MessagePatternConverter.cs RENAME MethodLocationPatternConverter.cs RENAME NamedPatternConverter.cs RENAME NdcPatternConverter.cs RENAME PatternLayoutConverter.cs RENAME PropertyPatternConverter.cs RENAME RelativeTimePatternConverter.cs RENAME StackTraceDetailPatternConverter.cs RENAME StackTracePatternConverter.cs RENAME ThreadPatternConverter.cs RENAME TypeNamePatternConverter.cs RENAME UserNamePatternConverter.cs RENAME UtcDatePatternConverter.cs RENAME PatternLayout.cs RENAME RawLayoutConverter.cs RENAME RawPropertyLayout.cs RENAME RawTimeStampLayout.cs RENAME RawUtcTimeStampLayout.cs RENAME SimpleLayout.cs RENAME XMLLayout.cs RENAME XMLLayoutBase.cs RENAME XmlLayoutSchemaLog4j.cs RENAME Log4netAssemblyInfo.cs RENAME LogManager.cs RENAME LogicalThreadContext.cs RENAME MDC.cs RENAME NDC.cs RENAME DefaultRenderer.cs RENAME IObjectRenderer.cs RENAME RendererMap.cs RENAME IPlugin.cs RENAME IPluginFactory.cs RENAME PluginCollection.cs RENAME PluginMap.cs RENAME PluginSkeleton.cs RENAME RemoteLoggingServerPlugin.cs RENAME ConfigurationChangedEventArgs.cs RENAME DefaultLoggerFactory.cs RENAME Hierarchy.cs RENAME ILoggerFactory.cs RENAME Logger.cs RENAME LoggerKey.cs RENAME ProvisionNode.cs RENAME RootLogger.cs RENAME XmlHierarchyConfigurator.cs RENAME IBasicRepositoryConfigurator.cs RENAME ILoggerRepository.cs RENAME IXmlRepositoryConfigurator.cs RENAME LoggerRepositorySkeleton.cs RENAME ThreadContext.cs RENAME AppenderAttachedImpl.cs RENAME CompositeProperties.cs RENAME ContextPropertiesBase.cs RENAME ConverterInfo.cs RENAME CountingQuietTextWriter.cs RENAME CyclicBuffer.cs RENAME EmptyCollection.cs RENAME EmptyDictionary.cs RENAME FormattingInfo.cs RENAME GlobalContextProperties.cs RENAME ILogExtensions.cs RENAME LevelMapping.cs RENAME LevelMappingEntry.cs RENAME LogLog.cs RENAME LogicalThreadContextProperties.cs RENAME NativeError.cs RENAME NullDictionaryEnumerator.cs RENAME NullEnumerator.cs RENAME NullSecurityContext.cs RENAME OnlyOnceErrorHandler.cs RENAME OptionConverter.cs RENAME PatternConverter.cs RENAME PatternParser.cs RENAME PatternString.cs RENAME AppDomainPatternConverter.cs RENAME DatePatternConverter.cs RENAME EnvironmentFolderPathPatternConverter.cs RENAME EnvironmentPatternConverter.cs RENAME IdentityPatternConverter.cs RENAME LiteralPatternConverter.cs RENAME NewLinePatternConverter.cs RENAME ProcessIdPatternConverter.cs RENAME PropertyPatternConverter.cs RENAME RandomStringPatternConverter.cs RENAME UserNamePatternConverter.cs RENAME UtcDatePatternConverter.cs RENAME PropertiesDictionary.cs RENAME PropertyEntry.cs RENAME ProtectCloseTextWriter.cs RENAME QuietTextWriter.cs RENAME ReadOnlyPropertiesDictionary.cs RENAME ReaderWriterLock.cs RENAME ReusableStringWriter.cs RENAME SystemInfo.cs RENAME SystemStringFormat.cs RENAME TextWriterAdapter.cs RENAME ThreadContextProperties.cs RENAME ThreadContextStack.cs RENAME ThreadContextStacks.cs RENAME Transform.cs RENAME BooleanConverter.cs RENAME ConversionNotSupportedException.cs RENAME ConverterRegistry.cs RENAME EncodingConverter.cs RENAME IConvertFrom.cs RENAME IConvertTo.cs RENAME IPAddressConverter.cs RENAME PatternLayoutConverter.cs RENAME PatternStringConverter.cs RENAME TypeConverter.cs RENAME TypeConverterAttribute.cs RENAME WindowsSecurityContext.cs RENAME log4net.vs2008.csproj RENAME log4net.vs2008.sln RENAME log4net.vs2010.csproj RENAME log4net.vs2010.sln MODIFY nant.build MODIFY log4net.Tests.vs2008.csproj MODIFY log4net.Tests.vs2010.csproj
+0,LOG4NET-297,bde1c9f25df968b55bf8987bc2f6377462be7dc8,"AppenderSkeleton.RequiresLayout docs and implementation don't match In AppenderSkeleton.cs:
+
+		/// <para>
+		/// This default implementation always returns <c>true</c>.
+		/// </para>
+		virtual protected bool RequiresLayout
+		{
+			get { return false; }
+		}
+",fix links in examples page.  LOG4NET-243, ADD blockLocalOnlyLinks.js getElementsByClass BlockLocalOnlyLinks MODIFY example-apps.xml
+0,LOG4NET-63,5d7cf795884a0217aed3edd15bf33808e5be5621,"1.2.9.0 Documentation typos ------------------------------------------------------------------------------------------------------------------------------------
+http://logging.apache.org/log4net/release/sdk/log4net.Layout.PatternLayout.html 
+This page has ""It's"" instead of ""Its"" in the following text (this appears several times) 
+WARNING Generating caller location information is extremely slow. It's use should be avoided unless execution speed is not an issue. 
+
+------------------------------------------------------------------------------------------------------------------------------------. 
+http://logging.apache.org/log4net/release/faq.html#what-is-log4net 
+This page has a broken link at the bottom of the page under the ""How do I report bugs?"" title, where it says ""See the support page for details."" 
+The ""support"" link here is broken here (it's set to http://logging.apache.org/support.html instead of http://logging.apache.org/log4net/support.html) 
+
+------------------------------------------------------------------------------------------------------------------------------------
+Page http://logging.apache.org/log4net/release/manual/configuration.html
+Typo 1:
+In the following paragraph, the Last sentence should have ""logger"" as plural, i.e. ""All loggers ultimately...""
+Root Logger
+Only one root logger element may only be defined and it must be a child of <log4net> element. The root logger is the root of the logger hierarchy. All loggers ultimately inherit from this logger.
+
+Typo 2:
+Under the ""Loggers"" section, the ""additivity"" attribute is mentioned as a required attribute in the table of attributes, whereas I believe it is optional.
+------------------------------------------------------------------------------------------------------------------------------------",Fix for LOG4NET-56. Added support for rendering IEnumerators rather than just collections., MODIFY DefaultRenderer.csDefaultRenderer RenderObject
+0,LOG4NET-243,09f7293056e8abf36655537318384e9bd0ff5c9e,"broken link on http://logging.apache.org/log4net/release/example-apps.html the link in the text: ""The following examples are only available in the log4net release download, not on-line. To obtain the examples download one of the log4net releases.""  in the Overview section points to http://logging.apache.org/log4net/downloads.html 
+
+whereas it should point to http://logging.apache.org/log4net/download.html . 
+
+The current link yields a 404.","ThreadContextTest and PatternLayoutTest influence each other via contexts, reset the contexts.  LOG4NET-301", MODIFY ThreadContextTest.csThreadContextTest TestThreadStackPattern2 ThreadContextTest TestThreadPropertiesPattern ThreadContextTest TestBackgroundThreadContextProperty ThreadContextTest TearDown ThreadContextTest TestThreadStackPattern ThreadContextTest TestThreadStackPatternNullVal2 ThreadContextTest ExecuteBackgroundThread ThreadContextTest TestThreadStackPatternNullVal MODIFY PatternLayoutTest.csPatternLayoutTest TestGlobalPropertiesPattern PatternLayoutTest TestThreadPropertiesPattern PatternLayoutTest TearDown MODIFY Utils.csUtils RemovePropertyFromAllContexts
+0,LOG4NET-318,78c420aea76cb9c7cded0d7205fc28fe67c840db,"log4net doesn't pass verification Run PEVerify tool. (http://msdn.microsoft.com/en-us/library/62bwd2yd(v=VS.100).aspx)
+
+I get
+[IL]: Error: [log4net.dll : log4net.Plugin.RemoteLoggingServerPlugin::Attach][offset 0x00000029] Method is not visible.
+
+It is a good idea to add verification step for the build process.
+
+Thanks.
+","LOG4NET-378 fixed a problem where rolled log files get overwritten when the application is restarted
+
+The cause is that InitializeFromOneFile() does not succesfully detect the filenames.", MODIFY RollingFileAppender.csRollingFileAppender InitializeFromOneFile
+0,LOG4NET-241,14a7664eb2b74cb20aa812e18e0ae70548b5d502,"Issue tracking page does not link to project The issue tracking page http://logging.apache.org/log4net/issue-tracking.html links to http://issues.apache.org/jira/ which is not particularly helpful.
+
+It should link to http://issues.apache.org/jira/browse/LOG4NET or https://issues.apache.org/jira/browse/LOG4NET
+
+","Make MinimalLock work again with appendToFile=false.  LOG4NET-311, fixes two tests mentioned in LOG4NET-301, regression introduced as part of LOG4NET-164", MODIFY FileAppender.csFileAppender MinimalLock AcquireLock
+1,LOG4NET-35,b5e2ca40735957d84d2734c573f88cc75ec8a627,"Exception rendering ThreadContextStack if null value pushed into stack If a null value is pushed into a ThreadContext stack then an internal log4net error is generated when the ThreadContextStack is rendered.
+The following error and stack trace are output into the log:
+
+<log4net.Error>Exception rendering object type [log4net.Util.ThreadContextStack]<stackTrace>System.NullReferenceException: Object reference not set to an instance of an object.
+   at log4net.Util.StackFrame.get_FullMessage()
+   at log4net.Util.ThreadContextStack.GetFullMessage()
+   at log4net.Util.ThreadContextStack.ToString()
+   at log4net.ObjectRenderer.DefaultRenderer.RenderObject(RendererMap rendererMap, Object obj, TextWriter writer)
+   at log4net.ObjectRenderer.RendererMap.FindAndRender(Object obj, TextWriter writer)</stackTrace></log4net.Error>",Fix for LOG4NET-35 Exception rendering ThreadContextStack if null value pushed into stack. Fix and tests included, MODIFY ThreadContextStack.csThreadContextStack StackFrame if ThreadContextStack StackFrame if ADD ThreadContextTest.csThreadContextTest TestThreadStackPattern2 ThreadContextTest TestThreadStackPatternNullVal ThreadContextTest TestThreadStackPatternNullVal2 ThreadContextTest TestThreadPropertiesPattern ThreadContextTest TestThreadStackPattern MODIFY log4net.Tests.csproj
+0,LOG4NET-455,eeef15d53127f7929c015d4992adf4e58bf9e121,LogicalThreadContext does not flow correctly through async/await  This ticket accompanies github pull request #12 https://github.com/apache/log4net/pull/12,"LOG4NET-457 SMTP Appender should trim leading and trailing separators from address fields
+
+based on patch by Éric Daigneault
+closes #13", MODIFY SmtpAppender.csSmtpAppender MaybeTrimSeparators
+0,LOG4NET-51,4d1b0c824d6c189b8da52c726d2b906c966a081c,WmiAppender Add a sample appender that supports firing events to WMI,"Fix for LOG4NET-50 Process.StartTime hangs on some systems
+Changed to store the time the library is loaded rather than looking up the start time for the current process.", MODIFY SystemInfo.csSystemInfo if
+1,LOG4NET-292,6475d5cf718696a01c5cfbcc2b9179ab9191852c,"Managed ColoredConsoleAppender for .NET2/Mono. The original ColoredConsoleAppender was written before the .NET framework (and Mono) had built-in support for console colors so it was written using Win32 API calls. The AnsiColorTerminalAppender, while it works, isn't understood by the Windows command prompt so there's no console appender that works on both environments.
+
+I'm attaching a replacement for both classes that uses the new (.NET 2) console colors and works on both platforms. It is based on the existing ColoredConsoleAppender. The color mapping values are not compatible with the previous version since this one uses the standard .NET 2 ConsoleColor enumeration values.",Documentation for managed colored console appender.  Submitted by Pavlos Touboulidis.  LOG4NET-292, MODIFY pom.xml MODIFY config-examples.xml MODIFY framework-support.xml
+0,LOG4NET-408,c152704aa155d20cc835583419cd6b909a78418f,"Correction on InterProcessLock This is github pull request 6: https://github.com/apache/log4net/pull/6
+
+{quote}
+This correction enables opening a new file without causing all the AcquireLock blocking with AbandonedMutexException caused by incorrect state on ReleaseLock, namely m_mutexClosed.
+
+The bug was found using InterProcessLockwith RollingFileAppender with date pattern on file name, at midnight the new file is opened and all logging becomes blocked at InterProcessLock.AcquireLock on m_mutex.WaitOne.
+{quote}","LOG4NET-71 move around extensions.  Don't try to build them, yet", DELETE nant.build DELETE nant.config DELETE cs-extensions.sln DELETE nant.build DELETE nant.config DELETE nant.build DELETE nant.config DELETE nant.build DELETE nant.config DELETE nant.build DELETE nant.config DELETE nant.build DELETE nant.config DELETE nant.build DELETE nant.config RENAME AssemblyInfo.cs RENAME EventIDLogImpl.cs RENAME EventIDLogManager.cs RENAME IEventIDLog.cs RENAME log4net.Ext.EventID.csproj RENAME AssemblyInfo.cs RENAME MarshalByRefLogImpl.cs RENAME MarshalByRefLogManager.cs RENAME log4net.Ext.MarshalByRef.csproj
+0,LOG4NET-34,4e6114e136c6af46ae0fb9d485c91f61f18b41c9,"Allow xml config values to be set via XmlNodeType.CDATA or XmlNodeType.Text rather than just value=""foo"" Currently values for xml config nodes must be passed in via the value attribute:
+
+ <conversionPattern value=""%5p %d{yyyy-MM-dd hh:mm:ss tt} (%c:%L) - %m%n"" />
+
+Why isn't this syntax supported?
+
+ <conversionPattern>%5p %d{yyyy-MM-dd hh:mm:ss tt} (%c:%L) - %m%n</conversionPattern>
+
+If the above syntax were supported, a possible solution to this question:
+
+ http://www.mail-archive.com/log4net-user%40logging.apache.org/msg01791.html
+
+would be:
+
+ <conversionPattern>
+  <![CDATA[<header>%n <date>%d</date>%n <user>%u</user>%n <info>%m</info>%n</header>%n]]>
+ </conversionPattern>",Fix for LOG4NET-37. Allow the RepositorySelector type to be sepecified using the AppSettings config, MODIFY LoggerManager.csLoggerManager LoggerManager
+0,LOG4NET-3,eb02bce2d20473bba7b2fddbad056f90651054dd,"Support per event patterns in FileAppender File name If I could specify file name patter for
+(Rolling)FileAppender that would be filled by the
+appender prior to openning the file, I could let many
+individuals run the same applikation (on terminal
+server) and still log to file (not RemotingAppender or
+ADONetAppernder)
+
+I guess, pattern like &quot;rootLog%U.log&quot; would do, if
+appender replaced %U with
+Thread.CurrentThread.CurrentPrincipal.Identity.Name ...
+Or %T with thread id and so on...
+
+Anonymous",Fix for LOG4NET-45. Added constructor and property to take plugin type as a Type, MODIFY PluginAttribute.csPluginAttribute ToString PluginAttribute PluginAttribute PluginAttribute CreatePlugin PluginAttribute PluginAttribute PluginAttribute PluginAttribute
+0,LOG4NET-143,cf6e898f05a0d770abb50e493fecdb1fa2f3735f,"Invalid Repository Config Uri composition from ""log4net.Config"" application setting In DefaultRepositorySelector class in method ConfigureRepository(Assembly assembly, ILoggerRepository repository) (DefaultRepositorySelector.cs, line 706) code perform config uri composition from applicationBaseDirectory path and specified in ""log4net.Config"" settings file name. Because SystemInfo.ApplicationBaseDirectory property return path not ended with slash '\' at line 706 during ""new Uri(applicationBaseDirectory)"" operation executed trimmed last folder, so config uri made invalid.",explain when to use comma and when to use semicolon in documentation summary as well.  LOG4NET-128, MODIFY SmtpAppender.cs
+1,LOG4NET-128,013cdb8fa04e3a3f4bf0543c90277de6a217b627,"Either documentation is incorrect or a bug in SmtpAppender Sending the mails via SmtpAppender to more than one receipient fails as described in the documentation. The documentation says that all receipients should be added semicolon-separated. This fails, but adding the receipients comma-separated works. So, either the documentaion is incorrect or this is a bug.",Fix for LOG4NET-128. Explain the comma/semicolon differences between various versions of the Framework., MODIFY SmtpAppender.cs
+0,LOG4NET-344,61ca3990f6a28245ab78273480ee74891d9564b2,"Make AdoNetAppender not to stuck application process The original AdoNetAppender could stuck application during log insertion.
+Because it use the sync method call to do database insert, once the DB is unavailable or table was locked.
+I change the implementation that has an inner queue inside to store the messages, and the other independent thread will be going to cunsuming the queue messages and do DB insertion.
+
+This implementation will not have any impact on application performance and much stable.
+
+Trade off: Once the queue max buffer was full, the later coming log message would be ignored and gone forever. But log4net is not designed for guarantee delivery in purpose, right? So it's not big deal at all. :)  ","LOG4NET-447 provide a PopAllEvents method for thread-safe access to
+MemoryAppender
+
+Patch by  Gregory Babski", ADD MemoryAppenderTest.csMemoryAppenderTest LogMessages MemoryAppenderTest TestThreadSafety MODIFY MemoryAppender.csMemoryAppender PopAllEvents
+1,LOG4NET-59,4766e8c8befad9de9c52573cdeb2487ca4169e25,"[PATCH] to RollingFileAppender.cs to add the ability to roll files based on universal time (UTC). the file naming and rolling time zone is selected via a new property. the default value of this property provides backwards compatible bahviour. the patch is done on the published 1.2.9beta version. the diff file is only informative (not made with the right tool), use original and patched files to create a useful diff (accpet my apologies for this). -L",Additional fix for LOG4NET-59 to ensure correct call to System.IO.File.GetLastWriteTime or GetLastWriteTimeUtc, MODIFY RollingFileAppender.csRollingFileAppender RollOverIfDateBoundaryCrossing
+0,LOG4NET-386,5c023f6a22bfb93873a5ce0d6f5ac7e7275e2914,Can't access ThreadContext properties I want to be able to retrieve all the properties out of ThreadContext.Properties collection.  This collection does not expose any methods for iteration or for getting keys out of the dictionary.  Could something be added to do this?  (I apologize in advance for filling out any fields incorrectly. This is my first time logging an issue.),"LOG4NET-205 fixed LoggingEvent to put the UserNameProperty and the IdentityProperty into the composite properties dictionary
+
+This way the PropertyFilter can look up and filter by UserName and Identity.", MODIFY LoggingEvent.csLoggingEvent CreateCompositeProperties
+0,LOG4NET-66,186421082617e3383b52c97153fc31b3ee8d2982,"PreserveFileExtension with StaticFileName I found that the patch to make all RollingFileAppender log files have the same file extension (provided by Joshua Bassett) didn't work properly if the log4net configuration used a static file name.
+
+I've attached a patch to version 312319 with his changes and mine merged.
+
+Mike",Fixed LOG4NET-63. Fixed typos and broken links in documentation., MODIFY FileAppender.csFileAppender LockingStream EndWrite MODIFY RollingFileAppender.cs MODIFY PatternLayout.cs MODIFY faq.xml MODIFY configuration.xml
+0,LOG4NET-214,14a7664eb2b74cb20aa812e18e0ae70548b5d502,"EventLogAppender should also use config file to set EventId It should be possible to set the EventId of the EventLogAppender using the config file.
+
+example:
+IT would like to be able to setup EventId for certain error without having to recompile the application:
+
+<appender name=""EventLogAppender_Terminated"" type=""log4net.Appender.EventLogAppender"" >
+    <applicationName value=""..."" />
+    <eventId value=""1234"" /> 
+    <layout type=""log4net.Layout.PatternLayout"">
+        <conversionPattern value=""........."" />
+    </layout>
+    <filter type=""log4net.Filter.LevelRangeFilter"">
+        <levelMin value=""ERROR"" />
+    </filter>
+    <filter type=""log4net.Filter.StringMatchFilter"">
+        <stringToMatch value=""DatabaseException"" />
+    </filter>
+    <filter type=""log4net.Filter.DenyAllFilter"" />
+</appender>
+
+ 
+","Make MinimalLock work again with appendToFile=false.  LOG4NET-311, fixes two tests mentioned in LOG4NET-301, regression introduced as part of LOG4NET-164", MODIFY FileAppender.csFileAppender MinimalLock AcquireLock
+0,LOG4NET-34,6ce3f56a402faab37b1f0b4da477e8ce67ed68d4,"Allow xml config values to be set via XmlNodeType.CDATA or XmlNodeType.Text rather than just value=""foo"" Currently values for xml config nodes must be passed in via the value attribute:
+
+ <conversionPattern value=""%5p %d{yyyy-MM-dd hh:mm:ss tt} (%c:%L) - %m%n"" />
+
+Why isn't this syntax supported?
+
+ <conversionPattern>%5p %d{yyyy-MM-dd hh:mm:ss tt} (%c:%L) - %m%n</conversionPattern>
+
+If the above syntax were supported, a possible solution to this question:
+
+ http://www.mail-archive.com/log4net-user%40logging.apache.org/msg01791.html
+
+would be:
+
+ <conversionPattern>
+  <![CDATA[<header>%n <date>%d</date>%n <user>%u</user>%n <info>%m</info>%n</header>%n]]>
+ </conversionPattern>",Fix for LOG4NET-36 System.Diagnostics.Trace may throw exception if AppDomain does not have config file. Added try catch blocks, MODIFY LogLog.csLogLog EmitErrorLine LogLog EmitOutLine
+1,LOG4NET-148,a3dd7409333e6d8dfa06f282e9ab3687dc60e50f,"ThreadContext uses LocalDataStore to store ThreadSpecific data instead should be using  [ThreadStatic] variables. According to this article (http://blogs.msdn.com/junfeng/archive/2005/12/31/508423.aspx) and production issues encountered: using LocalDataStore is not a scalable approach for any web server that gets a significant amount of traffic.
+
+The ThreadContext object should be modified to use [ThreadStatic] variables.
+
+From the article:
+The Whidbey RTM implementation of Thread.GetData/Thread.SetData has several scalability issues caused by global locks being taken. The appdomain-global lock taken in LocalDataStore.SetData is one of them. There is another global lock taken in ThreadNative::GetDomainLocalStore that is even worse since it is process-global.
+
+The best workaround is to use [ThreadStatic] variables instead of Thread.GetData/Thread.SetData",LOG4NET-148 fix build error in thread context properties, MODIFY ThreadContextProperties.csThreadContextProperties GetProperties
+0,LOG4NET-66,635cadac4e548c0a12e69544e8e932e69e39a2a1,"PreserveFileExtension with StaticFileName I found that the patch to make all RollingFileAppender log files have the same file extension (provided by Joshua Bassett) didn't work properly if the log4net configuration used a static file name.
+
+I've attached a patch to version 312319 with his changes and mine merged.
+
+Mike",Fix for LOG4NET-56. Added support for rendering all IEnumerable types rather than just collections. Added spacial case for IDictionary to ensure that the enumerator returned will enumerate DisctionaryEntry objects even with .NET 2.0 generic collections., MODIFY DefaultRenderer.csDefaultRenderer RenderEnumerator DefaultRenderer RenderCollection DefaultRenderer RenderObject
+0,LOG4NET-214,7eabd638ae213d2a94b68f03e5b0f3b6a479565d,"EventLogAppender should also use config file to set EventId It should be possible to set the EventId of the EventLogAppender using the config file.
+
+example:
+IT would like to be able to setup EventId for certain error without having to recompile the application:
+
+<appender name=""EventLogAppender_Terminated"" type=""log4net.Appender.EventLogAppender"" >
+    <applicationName value=""..."" />
+    <eventId value=""1234"" /> 
+    <layout type=""log4net.Layout.PatternLayout"">
+        <conversionPattern value=""........."" />
+    </layout>
+    <filter type=""log4net.Filter.LevelRangeFilter"">
+        <levelMin value=""ERROR"" />
+    </filter>
+    <filter type=""log4net.Filter.StringMatchFilter"">
+        <stringToMatch value=""DatabaseException"" />
+    </filter>
+    <filter type=""log4net.Filter.DenyAllFilter"" />
+</appender>
+
+ 
+",link to KEYS file on download page.  LOG4NET-242, MODIFY download.apt
+0,LOG4NET-13,9e1ead9259bca8cc9b20678810d5703e5166fb16,"Allow SMTPAppender to have replaceable parameters in Subject It would be helpful to be able to have parameters that
+are replaced on a per-log event basis on the Subject
+line for the SMTPAppender.
+
+Example:
+I have multiple web servers running a .NET web service
+and all use log4net. When an error occurs, they use the
+SMTPAppender to notify me. It would be very useful to
+include the host name of the sender in the subject line
+so that I could easily determine which web server had
+an error instead of having to look into the email.
+
+In thinking more about this it could either be the
+Subject line or the From line that has replacable
+parameters. Perhaps even make it so that these
+properties can use the <layout> tag.
+
+Jeremy Wiebe - jeropa",Fix for LOG4NET-46. Added IBulkAppender interface. Added implementation to AppenderSkeleton and subclasses, MODIFY AsyncAppender.csAsyncAppender AsyncAppend AsyncAppender DoAppend MODIFY AppenderSkeleton.csAppenderSkeleton FilterEvent AppenderSkeleton Append AppenderSkeleton DoAppend AppenderSkeleton DoAppend MODIFY BufferingAppenderSkeleton.csBufferingAppenderSkeleton Flush BufferingAppenderSkeleton SendBuffer BufferingAppenderSkeleton SendFromBuffer BufferingAppenderSkeleton SendBuffer BufferingAppenderSkeleton OnClose BufferingAppenderSkeleton Append MODIFY BufferingForwardingAppender.csBufferingForwardingAppender SendBuffer MODIFY FileAppender.csFileAppender Append MODIFY ForwardingAppender.csForwardingAppender Append ADD IBulkAppender.cs MODIFY RollingFileAppender.csRollingFileAppender Append RollingFileAppender Append RollingFileAppender AdjustFileBeforeAppend MODIFY TextWriterAppender.csTextWriterAppender Append TextWriterAppender Append MODIFY AppenderAttachedImpl.csAppenderAttachedImpl AppendLoopOnAppenders AppenderAttachedImpl CallAppend MODIFY log4net.csproj
+0,LOG4NET-243,4c77e243badefb4253e9e7600d2eccc703b2f3fb,"broken link on http://logging.apache.org/log4net/release/example-apps.html the link in the text: ""The following examples are only available in the log4net release download, not on-line. To obtain the examples download one of the log4net releases.""  in the Overview section points to http://logging.apache.org/log4net/downloads.html 
+
+whereas it should point to http://logging.apache.org/log4net/download.html . 
+
+The current link yields a 404.",properly resolve relative URI of config file name given via log4net.Config appsetting.  LOG4NET-143, MODIFY DefaultRepositorySelector.csDefaultRepositorySelector ConfigureRepository
+0,LOG4NET-311,5b2160524efa38a35a82ffdaf0aec0c07ce44e22,"MinimalLock and AppendToFile=false don't work together in trunk's FileAppender As part of adding the MutextLock with LOG4NET-164 the logic that open the file has been factored out into a method of the base class of all locking models.  The line that sets MinimalLock's m_append to true after opening the file has been lost on the way.
+
+This is responsible for two of the unit tests errors reported in LOG4NET-301.",Allow default value for event id to be specified via configuration.  LOG4NET-214, MODIFY EventLogAppender.csEventLogAppender Append
+0,LOG4NET-410,b0dd540d1750385feb154d074e2c6ad7c580fe28,"Please delete old releases from mirroring system To reduce the load on the ASF mirrors, projects are required to delete old releases [1]
+
+Please can you remove all non-current releases?
+
+Thanks!
+
+[Note that older releases are always available from the ASF archive server]
+
+[1] http://www.apache.org/dev/release.html#when-to-archive
+
+","LOG4NET-408 InterprocessLock forgot there was a Mutex to close after closing the file for the first time, causing problems with rolling files.  Patch by  Igor Candido via github PR.  closes #6", MODIFY FileAppender.csFileAppender InterProcessLock OpenFile
+1,LOG4NET-399,655233d1395e181c4eb845b9f26e34b4a763de90,"Does not build for Compact Framework 2.0 NAnt 0.92 (Build 0.92.4543.0; release; 6/9/2012)
+Copyright (C) 2001-2012 Gerry Shaw
+http://nant.sourceforge.net
+
+[loadtasks] Scanning directory ""D:\05-Tools\log4net-1.2.12\extensions\common\neutral"" for extension assemblies.
+[loadtasks] Scanning assembly ""NAnt.CompressionTasks"" for extensions.
+[loadtasks] Creating TaskBuilder for GUnzip
+[loadtasks] Adding task 'gunzip' from D:\05-Tools\nant-0.92\bin\NAnt.CompressionTasks.dll:NAnt.Compression.Tasks.GUnzip
+[loadtasks] Creating TaskBuilder for TarTask
+[loadtasks] Adding task 'tar' from D:\05-Tools\nant-0.92\bin\NAnt.CompressionTasks.dll:NAnt.Compression.Tasks.TarTask
+[loadtasks] Creating TaskBuilder for UnTarTask
+[loadtasks] Adding task 'untar' from D:\05-Tools\nant-0.92\bin\NAnt.CompressionTasks.dll:NAnt.Compression.Tasks.UnTarTask
+[loadtasks] Creating TaskBuilder for UnZipTask
+[loadtasks] Adding task 'unzip' from D:\05-Tools\nant-0.92\bin\NAnt.CompressionTasks.dll:NAnt.Compression.Tasks.UnZipTask
+[loadtasks] Creating TaskBuilder for ZipTask
+[loadtasks] Adding task 'zip' from D:\05-Tools\nant-0.92\bin\NAnt.CompressionTasks.dll:NAnt.Compression.Tasks.ZipTask
+[loadtasks] Scanning assembly ""NAnt.DotNetTasks"" for extensions.
+[loadtasks] Found method GetResourceCulture.
+[loadtasks] Creating TaskBuilder for AssemblyInfoTask
+[loadtasks] Adding task 'asminfo' from D:\05-Tools\nant-0.92\bin\NAnt.DotNetTasks.dll:NAnt.DotNet.Tasks.AssemblyInfoTask
+[loadtasks] Creating TaskBuilder for AssemblyLinkerTask
+[loadtasks] Adding task 'al' from D:\05-Tools\nant-0.92\bin\NAnt.DotNetTasks.dll:NAnt.DotNet.Tasks.AssemblyLinkerTask
+[loadtasks] Creating TaskBuilder for CscTask
+[loadtasks] Adding task 'csc' from D:\05-Tools\nant-0.92\bin\NAnt.DotNetTasks.dll:NAnt.DotNet.Tasks.CscTask
+[loadtasks] Creating TaskBuilder for DelaySignTask
+[loadtasks] Adding task 'delay-sign' from D:\05-Tools\nant-0.92\bin\NAnt.DotNetTasks.dll:NAnt.DotNet.Tasks.DelaySignTask
+[loadtasks] Creating TaskBuilder for IlasmTask
+[loadtasks] Adding task 'ilasm' from D:\05-Tools\nant-0.92\bin\NAnt.DotNetTasks.dll:NAnt.DotNet.Tasks.IlasmTask
+[loadtasks] Creating TaskBuilder for JscTask
+[loadtasks] Adding task 'jsc' from D:\05-Tools\nant-0.92\bin\NAnt.DotNetTasks.dll:NAnt.DotNet.Tasks.JscTask
+[loadtasks] Creating TaskBuilder for LicenseTask
+[loadtasks] Adding task 'license' from D:\05-Tools\nant-0.92\bin\NAnt.DotNetTasks.dll:NAnt.DotNet.Tasks.LicenseTask
+[loadtasks] Creating TaskBuilder for NDocTask
+[loadtasks] Adding task 'ndoc' from D:\05-Tools\nant-0.92\bin\NAnt.DotNetTasks.dll:NAnt.DotNet.Tasks.NDocTask
+[loadtasks] Creating TaskBuilder for RegsvcsTask
+[loadtasks] Adding task 'regsvcs' from D:\05-Tools\nant-0.92\bin\NAnt.DotNetTasks.dll:NAnt.DotNet.Tasks.RegsvcsTask
+[loadtasks] Creating TaskBuilder for ResGenTask
+[loadtasks] Adding task 'resgen' from D:\05-Tools\nant-0.92\bin\NAnt.DotNetTasks.dll:NAnt.DotNet.Tasks.ResGenTask
+[loadtasks] Creating TaskBuilder for ScriptTask
+[loadtasks] Adding task 'script' from D:\05-Tools\nant-0.92\bin\NAnt.DotNetTasks.dll:NAnt.DotNet.Tasks.ScriptTask
+[loadtasks] Creating TaskBuilder for VbcTask
+[loadtasks] Adding task 'vbc' from D:\05-Tools\nant-0.92\bin\NAnt.DotNetTasks.dll:NAnt.DotNet.Tasks.VbcTask
+[loadtasks] Creating TaskBuilder for VjcTask
+[loadtasks] Adding task 'vjc' from D:\05-Tools\nant-0.92\bin\NAnt.DotNetTasks.dll:NAnt.DotNet.Tasks.VjcTask
+[loadtasks] Scanning assembly ""NAnt.NUnit1Tasks"" for extensions.
+[loadtasks] Creating TaskBuilder for NUnitTask
+[loadtasks] Adding task 'nunit' from D:\05-Tools\nant-0.92\bin\NAnt.NUnit1Tasks.dll:NAnt.NUnit1.Tasks.NUnitTask
+[loadtasks] Scanning assembly ""NAnt.NUnit2Tasks"" for extensions.
+[loadtasks] Creating TaskBuilder for NUnit2Task
+[loadtasks] Adding task 'nunit2' from D:\05-Tools\nant-0.92\bin\NAnt.NUnit2Tasks.dll:NAnt.NUnit2.Tasks.NUnit2Task
+[loadtasks] Scanning assembly ""NAnt.SourceControlTasks"" for extensions.
+[loadtasks] Creating TaskBuilder for ChangeLogTask
+[loadtasks] Adding task 'cvs-changelog' from D:\05-Tools\nant-0.92\bin\NAnt.SourceControlTasks.dll:NAnt.SourceControl.Tasks.ChangeLogTask
+[loadtasks] Creating TaskBuilder for CheckoutTask
+[loadtasks] Adding task 'cvs-checkout' from D:\05-Tools\nant-0.92\bin\NAnt.SourceControlTasks.dll:NAnt.SourceControl.Tasks.CheckoutTask
+[loadtasks] Creating TaskBuilder for CvsPass
+[loadtasks] Adding task 'cvs-pass' from D:\05-Tools\nant-0.92\bin\NAnt.SourceControlTasks.dll:NAnt.SourceControl.Tasks.CvsPass
+[loadtasks] Creating TaskBuilder for CvsTask
+[loadtasks] Adding task 'cvs' from D:\05-Tools\nant-0.92\bin\NAnt.SourceControlTasks.dll:NAnt.SourceControl.Tasks.CvsTask
+[loadtasks] Creating TaskBuilder for ExportTask
+[loadtasks] Adding task 'cvs-export' from D:\05-Tools\nant-0.92\bin\NAnt.SourceControlTasks.dll:NAnt.SourceControl.Tasks.ExportTask
+[loadtasks] Creating TaskBuilder for RTagTask
+[loadtasks] Adding task 'cvs-rtag' from D:\05-Tools\nant-0.92\bin\NAnt.SourceControlTasks.dll:NAnt.SourceControl.Tasks.RTagTask
+[loadtasks] Creating TaskBuilder for TagTask
+[loadtasks] Adding task 'cvs-tag' from D:\05-Tools\nant-0.92\bin\NAnt.SourceControlTasks.dll:NAnt.SourceControl.Tasks.TagTask
+[loadtasks] Creating TaskBuilder for UpdateTask
+[loadtasks] Adding task 'cvs-update' from D:\05-Tools\nant-0.92\bin\NAnt.SourceControlTasks.dll:NAnt.SourceControl.Tasks.UpdateTask
+[loadtasks] Scanning assembly ""NAnt.VisualCppTasks"" for extensions.
+[loadtasks] Found method QuoteArgumentValue.
+[loadtasks] Found method GetObjOutputFile.
+[loadtasks] Found method QuoteArgumentValue.
+[loadtasks] Found method ProcessTrailingBackslash.
+[loadtasks] Found method DuplicateTrailingBackslash.
+[loadtasks] Found method FixTrailingBackslash.
+[loadtasks] Found method CleanTrailingBackslash.
+[loadtasks] Found method QuoteArgumentValue.
+[loadtasks] Creating TaskBuilder for ClTask
+[loadtasks] Adding task 'cl' from D:\05-Tools\nant-0.92\bin\NAnt.VisualCppTasks.dll:NAnt.VisualCpp.Tasks.ClTask
+[loadtasks] Creating TaskBuilder for LibTask
+[loadtasks] Adding task 'lib' from D:\05-Tools\nant-0.92\bin\NAnt.VisualCppTasks.dll:NAnt.VisualCpp.Tasks.LibTask
+[loadtasks] Creating TaskBuilder for LinkTask
+[loadtasks] Adding task 'link' from D:\05-Tools\nant-0.92\bin\NAnt.VisualCppTasks.dll:NAnt.VisualCpp.Tasks.LinkTask
+[loadtasks] Creating TaskBuilder for McTask
+[loadtasks] Adding task 'mc' from D:\05-Tools\nant-0.92\bin\NAnt.VisualCppTasks.dll:NAnt.VisualCpp.Tasks.McTask
+[loadtasks] Creating TaskBuilder for MidlTask
+[loadtasks] Adding task 'midl' from D:\05-Tools\nant-0.92\bin\NAnt.VisualCppTasks.dll:NAnt.VisualCpp.Tasks.MidlTask
+[loadtasks] Creating TaskBuilder for RcTask
+[loadtasks] Adding task 'rc' from D:\05-Tools\nant-0.92\bin\NAnt.VisualCppTasks.dll:NAnt.VisualCpp.Tasks.RcTask
+[loadtasks] Scanning assembly ""NAnt.VSNetTasks"" for extensions.
+[loadtasks] Found method GetRelatedFiles.
+[loadtasks] Found method op_Equality.
+[loadtasks] Found method op_Inequality.
+[loadtasks] Found method Parse.
+[loadtasks] Found method IsEnterpriseTemplateProject.
+[loadtasks] Found method LoadGuid.
+[loadtasks] Found method IsSupported.
+[loadtasks] Found method IsSupported.
+[loadtasks] Found method GetProjectGuid.
+[loadtasks] Found method IsSupported.
+[loadtasks] Found method CreateCLArgumentMap.
+[loadtasks] Found method CreateLinkerArgumentMap.
+[loadtasks] Found method CreateMidlArgumentMap.
+[loadtasks] Found method LoadGuid.
+[loadtasks] Found method IsSupported.
+[loadtasks] Found method GetFileContentsStatic.
+[loadtasks] Creating TaskBuilder for SolutionTask
+[loadtasks] Adding task 'solution' from D:\05-Tools\nant-0.92\bin\NAnt.VSNetTasks.dll:NAnt.VSNet.Tasks.SolutionTask
+[loadtasks] Scanning assembly ""NAnt.Win32Tasks"" for extensions.
+[loadtasks] Found method ExtractTypeLibPath.
+[loadtasks] Creating TaskBuilder for AxImpTask
+[loadtasks] Adding task 'aximp' from D:\05-Tools\nant-0.92\bin\NAnt.Win32Tasks.dll:NAnt.Win32.Tasks.AxImpTask
+[loadtasks] Creating TaskBuilder for LocateSdkTask
+[loadtasks] Adding task 'locatesdk' from D:\05-Tools\nant-0.92\bin\NAnt.Win32Tasks.dll:NAnt.Win32.Tasks.LocateSdkTask
+[loadtasks] Creating TaskBuilder for MonoRegistryTask
+[loadtasks] Adding task 'monoregistry' from D:\05-Tools\nant-0.92\bin\NAnt.Win32Tasks.dll:NAnt.Win32.Tasks.MonoRegistryTask
+[loadtasks] Creating TaskBuilder for ReadRegistryTask
+[loadtasks] Adding task 'readregistry' from D:\05-Tools\nant-0.92\bin\NAnt.Win32Tasks.dll:NAnt.Win32.Tasks.ReadRegistryTask
+[loadtasks] Creating TaskBuilder for RegAsmTask
+[loadtasks] Adding task 'regasm' from D:\05-Tools\nant-0.92\bin\NAnt.Win32Tasks.dll:NAnt.Win32.Tasks.RegAsmTask
+[loadtasks] Creating TaskBuilder for TlbExpTask
+[loadtasks] Adding task 'tlbexp' from D:\05-Tools\nant-0.92\bin\NAnt.Win32Tasks.dll:NAnt.Win32.Tasks.TlbExpTask
+[loadtasks] Creating TaskBuilder for TlbImpTask
+[loadtasks] Adding task 'tlbimp' from D:\05-Tools\nant-0.92\bin\NAnt.Win32Tasks.dll:NAnt.Win32.Tasks.TlbImpTask
+[loadtasks] Scanning assembly ""NAnt.Core"" for extensions.
+[loadtasks] Found method InitializeBuildElement.
+[loadtasks] Found method GetFullName.
+[loadtasks] Found method GetName.
+[loadtasks] Found method GetLocation.
+[loadtasks] Found method GetCodeBase.
+[loadtasks] Found method GetEscapedCodeBase.
+[loadtasks] Found method GetFullName.
+[loadtasks] Found method GetName.
+[loadtasks] Found method GetVersion.
+[loadtasks] Found method Parse.
+[loadtasks] Found method ToString.
+[loadtasks] Found method ToInt.
+[loadtasks] Found method ToDouble.
+[loadtasks] Found method ConvertToString.
+[loadtasks] Found method ToDateTime.
+[loadtasks] Found method ToBoolean.
+[loadtasks] Found method Now.
+[loadtasks] Found method GetYear.
+[loadtasks] Found method GetMonth.
+[loadtasks] Found method GetDay.
+[loadtasks] Found method GetHour.
+[loadtasks] Found method GetMinute.
+[loadtasks] Found method GetSecond.
+[loadtasks] Found method GetMillisecond.
+[loadtasks] Found method GetTicks.
+[loadtasks] Found method GetDayOfWeek.
+[loadtasks] Found method GetDayOfYear.
+[loadtasks] Found method GetDaysInMonth.
+[loadtasks] Found method IsLeapYear.
+[loadtasks] Found method Parse.
+[loadtasks] Found method ToString.
+[loadtasks] Found method ToString.
+[loadtasks] Found method GetCurrentDirectory.
+[loadtasks] Found method GetHostName.
+[loadtasks] Found method Parse.
+[loadtasks] Found method ToString.
+[loadtasks] Found method GetFolderPath.
+[loadtasks] Found method GetMachineName.
+[loadtasks] Found method GetOperatingSystem.
+[loadtasks] Found method GetUserName.
+[loadtasks] Found method GetVariable.
+[loadtasks] Found method VariableExists.
+[loadtasks] Found method GetVersion.
+[loadtasks] Found method NewLine.
+[loadtasks] Found method GetCompanyName.
+[loadtasks] Found method GetFileVersion.
+[loadtasks] Found method GetProductName.
+[loadtasks] Found method GetProductVersion.
+[loadtasks] Found method Parse.
+[loadtasks] Found method ToString.
+[loadtasks] Found method Parse.
+[loadtasks] Found method ToString.
+[loadtasks] Found method Round.
+[loadtasks] Found method Floor.
+[loadtasks] Found method Ceiling.
+[loadtasks] Found method Abs.
+[loadtasks] Found method IsWin32.
+[loadtasks] Found method IsWindows.
+[loadtasks] Found method IsUnix.
+[loadtasks] Found method GetPlatform.
+[loadtasks] Found method GetVersion.
+[loadtasks] Found method ToString.
+[loadtasks] Found method Combine.
+[loadtasks] Found method ChangeExtension.
+[loadtasks] Found method GetDirectoryName.
+[loadtasks] Found method GetExtension.
+[loadtasks] Found method GetFileName.
+[loadtasks] Found method GetFileNameWithoutExtension.
+[loadtasks] Found method GetPathRoot.
+[loadtasks] Found method GetTempFileName.
+[loadtasks] Found method GetTempPath.
+[loadtasks] Found method HasExtension.
+[loadtasks] Found method IsPathRooted.
+[loadtasks] Found method GetLength.
+[loadtasks] Found method Substring.
+[loadtasks] Found method StartsWith.
+[loadtasks] Found method EndsWith.
+[loadtasks] Found method ToLower.
+[loadtasks] Found method ToUpper.
+[loadtasks] Found method Replace.
+[loadtasks] Found method Contains.
+[loadtasks] Found method IndexOf.
+[loadtasks] Found method LastIndexOf.
+[loadtasks] Found method PadLeft.
+[loadtasks] Found method PadRight.
+[loadtasks] Found method Trim.
+[loadtasks] Found method TrimStart.
+[loadtasks] Found method TrimEnd.
+[loadtasks] Found method GetTotalDays.
+[loadtasks] Found method GetTotalHours.
+[loadtasks] Found method GetTotalMinutes.
+[loadtasks] Found method GetTotalSeconds.
+[loadtasks] Found method GetTotalMilliseconds.
+[loadtasks] Found method GetDays.
+[loadtasks] Found method GetHours.
+[loadtasks] Found method GetMinutes.
+[loadtasks] Found method GetSeconds.
+[loadtasks] Found method GetMilliseconds.
+[loadtasks] Found method GetTicks.
+[loadtasks] Found method FromDays.
+[loadtasks] Found method FromHours.
+[loadtasks] Found method FromMinutes.
+[loadtasks] Found method FromSeconds.
+[loadtasks] Found method FromMilliseconds.
+[loadtasks] Found method FromTicks.
+[loadtasks] Found method Parse.
+[loadtasks] Found method ToString.
+[loadtasks] Found method GetMajor.
+[loadtasks] Found method GetMinor.
+[loadtasks] Found method GetBuild.
+[loadtasks] Found method GetRevision.
+[loadtasks] Found method Parse.
+[loadtasks] Found method ToString.
+[loadtasks] Found method WriteSchema.
+[loadtasks] Found method FindMoreRecentLastWriteTime.
+[loadtasks] Found method FindMoreRecentLastWriteTime.
+[loadtasks] Found method TranslatePath.
+[loadtasks] Found method CopyFile.
+[loadtasks] Found method MoveFile.
+[loadtasks] Found method ReadFile.
+[loadtasks] Found method GetTempDirectory.
+[loadtasks] Found method CombinePaths.
+[loadtasks] Found method GetFullPath.
+[loadtasks] Found method GetHomeDirectory.
+[loadtasks] Found method ResolveFile.
+[loadtasks] Found method GetTypeFromString.
+[loadtasks] Found method RegisterSharedAssembly.
+[loadtasks] Found method GetString.
+[loadtasks] Found method GetString.
+[loadtasks] Found method GetString.
+[loadtasks] Found method EndsWith.
+[loadtasks] Found method IsNullOrEmpty.
+[loadtasks] Found method ConvertEmptyToNull.
+[loadtasks] Found method ConvertNullToEmpty.
+[loadtasks] Found method Join.
+[loadtasks] Found method Clone.
+[loadtasks] Found method Main.
+[loadtasks] Found method ShowProjectHelp.
+[loadtasks] Found method GetBuildFileName.
+[loadtasks] Found method CreateLogger.
+[loadtasks] Found method CreateListener.
+[loadtasks] Found method Synchronized.
+[loadtasks] Found method Synchronized.
+[loadtasks] Found method IsVolumeCaseSensitive.
+[loadtasks] Found method get_IsWindows.
+[loadtasks] Found method get_TaskBuilders.
+[loadtasks] Found method get_DataTypeBuilders.
+[loadtasks] Found method get_FilterBuilders.
+[loadtasks] Found method ScanAssembly.
+[loadtasks] Found method ScanAssembly.
+[loadtasks] Found method ScanDir.
+[loadtasks] Found method CreateTask.
+[loadtasks] Found method CreateFilter.
+[loadtasks] Found method CreateDataType.
+[loadtasks] Creating FilterBuilder for ""ExpandProperties"".
+[loadtasks] Adding filter ""expandproperties"" from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Filters.ExpandProperties.
+[loadtasks] Creating FilterBuilder for ""ReplaceString"".
+[loadtasks] Adding filter ""replacestring"" from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Filters.ReplaceString.
+[loadtasks] Creating FilterBuilder for ""ReplaceTokens"".
+[loadtasks] Adding filter ""replacetokens"" from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Filters.ReplaceTokens.
+[loadtasks] Creating FilterBuilder for ""TabsToSpaces"".
+[loadtasks] Adding filter ""tabstospaces"" from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Filters.TabsToSpaces.
+[loadtasks] Creating TaskBuilder for AttribTask
+[loadtasks] Adding task 'attrib' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.AttribTask
+[loadtasks] Creating TaskBuilder for AvailableTask
+[loadtasks] Adding task 'available' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.AvailableTask
+[loadtasks] Creating TaskBuilder for CallTask
+[loadtasks] Adding task 'call' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.CallTask
+[loadtasks] Creating TaskBuilder for ChooseTask
+[loadtasks] Adding task 'choose' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.ChooseTask
+[loadtasks] Creating TaskBuilder for CopyTask
+[loadtasks] Adding task 'copy' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.CopyTask
+[loadtasks] Creating TaskBuilder for DeleteTask
+[loadtasks] Adding task 'delete' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.DeleteTask
+[loadtasks] Creating TaskBuilder for DescriptionTask
+[loadtasks] Adding task 'description' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.DescriptionTask
+[loadtasks] Creating TaskBuilder for EchoTask
+[loadtasks] Adding task 'echo' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.EchoTask
+[loadtasks] Creating TaskBuilder for ExecTask
+[loadtasks] Adding task 'exec' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.ExecTask
+[loadtasks] Creating TaskBuilder for FailTask
+[loadtasks] Adding task 'fail' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.FailTask
+[loadtasks] Creating TaskBuilder for GetTask
+[loadtasks] Adding task 'get' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.GetTask
+[loadtasks] Creating TaskBuilder for IfTask
+[loadtasks] Adding task 'if' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.IfTask
+[loadtasks] Creating TaskBuilder for IfNotTask
+[loadtasks] Adding task 'ifnot' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.IfNotTask
+[loadtasks] Creating TaskBuilder for IncludeTask
+[loadtasks] Adding task 'include' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.IncludeTask
+[loadtasks] Creating TaskBuilder for LoadFileTask
+[loadtasks] Adding task 'loadfile' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.LoadFileTask
+[loadtasks] Creating TaskBuilder for LoadTasksTask
+[loadtasks] Adding task 'loadtasks' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.LoadTasksTask
+[loadtasks] Creating TaskBuilder for LoopTask
+[loadtasks] Adding task 'foreach' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.LoopTask
+[loadtasks] Creating TaskBuilder for MailTask
+[loadtasks] Adding task 'mail' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.MailTask
+[loadtasks] Creating TaskBuilder for MkDirTask
+[loadtasks] Adding task 'mkdir' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.MkDirTask
+[loadtasks] Creating TaskBuilder for MoveTask
+[loadtasks] Adding task 'move' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.MoveTask
+[loadtasks] Creating TaskBuilder for NAntSchemaTask
+[loadtasks] Adding task 'nantschema' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.NAntSchemaTask
+[loadtasks] Creating TaskBuilder for NAntTask
+[loadtasks] Adding task 'nant' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.NAntTask
+[loadtasks] Creating TaskBuilder for PropertyTask
+[loadtasks] Adding task 'property' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.PropertyTask
+[loadtasks] Creating TaskBuilder for RegexTask
+[loadtasks] Adding task 'regex' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.RegexTask
+[loadtasks] Creating TaskBuilder for SetEnvTask
+[loadtasks] Adding task 'setenv' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.SetEnvTask
+[loadtasks] Creating TaskBuilder for SleepTask
+[loadtasks] Adding task 'sleep' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.SleepTask
+[loadtasks] Creating TaskBuilder for StyleTask
+[loadtasks] Adding task 'style' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.StyleTask
+[loadtasks] Creating TaskBuilder for SysInfoTask
+[loadtasks] Adding task 'sysinfo' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.SysInfoTask
+[loadtasks] Creating TaskBuilder for TouchTask
+[loadtasks] Adding task 'touch' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.TouchTask
+[loadtasks] Creating TaskBuilder for TryCatchTask
+[loadtasks] Adding task 'trycatch' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.TryCatchTask
+[loadtasks] Creating TaskBuilder for TStampTask
+[loadtasks] Adding task 'tstamp' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.TStampTask
+[loadtasks] Creating TaskBuilder for UpToDateTask
+[loadtasks] Adding task 'uptodate' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.UpToDateTask
+[loadtasks] Creating TaskBuilder for XmlPeekTask
+[loadtasks] Adding task 'xmlpeek' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.XmlPeekTask
+[loadtasks] Creating TaskBuilder for XmlPokeTask
+[loadtasks] Adding task 'xmlpoke' from D:\05-Tools\nant-0.92\bin\NAnt.Core.dll:NAnt.Core.Tasks.XmlPokeTask
+[loadtasks] Scanning assembly ""NAnt.MSNetTasks"" for extensions.
+[loadtasks] Creating TaskBuilder for IldasmTask
+[loadtasks] Adding task 'ildasm' from D:\05-Tools\nant-0.92\bin\NAnt.MSNetTasks.dll:NAnt.MSNet.Tasks.IldasmTask
+[loadtasks] Creating TaskBuilder for ServiceControllerTask
+[loadtasks] Adding task 'servicecontroller' from D:\05-Tools\nant-0.92\bin\NAnt.MSNetTasks.dll:NAnt.MSNet.Tasks.ServiceControllerTask
+[loadtasks] Scanning assembly ""NAnt.MSBuild"" for extensions.
+Buildfile: file:///D:/05-Tools/log4net-1.2.12/log4net.build
+Target framework: Microsoft .NET Framework 4.0
+Base Directory: D:\05-Tools\log4net-1.2.12.
+Target(s) specified: compile-netcf-2.0 
+
+  [include] Including file D:\05-Tools\log4net-1.2.12\log4net.include.
+Build sequence for target `set-build-configuration' is check-current-build-config, set-build-configuration
+Complete build sequence is check-current-build-config, set-build-configuration, check-htmlhelp-compiler, display-setup, display-target-framework, set-package-configuration, generate-assembly-description, compile-all, compile-runtime, compile-build, compile, check-bin-dir, check-doc-dir, check-sdkdoc-dir, check-sdkdoc-debug, check-build-debug, check-build-defines, set-netcf-1.0-runtime-configuration, check-log4net-basedir, check-current-bin-dir, clean-current-bin-dir, compile-netcf-1.0, set-netcf-2.0-runtime-configuration, compile-netcf-2.0, set-net-1.0-runtime-configuration, compile-net-1.0, set-net-1.1-runtime-configuration, compile-net-1.1, set-net-2.0-runtime-configuration, compile-net-2.0, set-net-3.5-runtime-configuration, compile-net-3.5, set-net-3.5-cp-runtime-configuration, compile-net-3.5-cp, set-net-4.0-runtime-configuration, compile-net-4.0, set-net-4.0-cp-runtime-configuration, compile-net-4.0-cp, set-mono-1.0-runtime-configuration, compile-mono-1.0, set-mono-2.0-runtime-configuration, compile-mono-2.0, set-sscli-1.0-runtime-configuration, compile-sscli-1.0, set-cli-1.0-configuration, compile-cli-1.0, generate-sdkdoc-all, check-current-sdkdoc-dir, check-current-sdkdoc-debug, clean-current-sdkdoc-dir, generate-sdkdoc-step1, generate-sdkdoc, set-release-build-configuration, generate-sdkdoc-for-site, generate-site, package, package-src, package-bin, check-current-build-debug, check-current-build-defines, check-log4net-output-dir, check-log4net-assembly, set-debug-build-configuration, set-build-configuration-flags, set-framework-configuration
+
+check-current-build-config:
+
+
+set-build-configuration:
+
+Build sequence for target `set-debug-build-configuration' is set-debug-build-configuration
+Complete build sequence is set-debug-build-configuration, check-htmlhelp-compiler, display-setup, display-target-framework, set-package-configuration, generate-assembly-description, compile-all, compile-runtime, compile-build, check-current-build-config, compile, check-bin-dir, check-doc-dir, check-sdkdoc-dir, check-sdkdoc-debug, check-build-debug, check-build-defines, set-netcf-1.0-runtime-configuration, check-log4net-basedir, check-current-bin-dir, clean-current-bin-dir, compile-netcf-1.0, set-netcf-2.0-runtime-configuration, compile-netcf-2.0, set-net-1.0-runtime-configuration, compile-net-1.0, set-net-1.1-runtime-configuration, compile-net-1.1, set-net-2.0-runtime-configuration, compile-net-2.0, set-net-3.5-runtime-configuration, compile-net-3.5, set-net-3.5-cp-runtime-configuration, compile-net-3.5-cp, set-net-4.0-runtime-configuration, compile-net-4.0, set-net-4.0-cp-runtime-configuration, compile-net-4.0-cp, set-mono-1.0-runtime-configuration, compile-mono-1.0, set-mono-2.0-runtime-configuration, compile-mono-2.0, set-sscli-1.0-runtime-configuration, compile-sscli-1.0, set-cli-1.0-configuration, compile-cli-1.0, generate-sdkdoc-all, check-current-sdkdoc-dir, check-current-sdkdoc-debug, clean-current-sdkdoc-dir, generate-sdkdoc-step1, generate-sdkdoc, set-release-build-configuration, generate-sdkdoc-for-site, generate-site, package, package-src, package-bin, check-current-build-debug, check-current-build-defines, check-log4net-output-dir, check-log4net-assembly, set-build-configuration, set-build-configuration-flags, set-framework-configuration
+Build sequence for target `set-debug-build-configuration' is set-debug-build-configuration
+Complete build sequence is set-debug-build-configuration, check-htmlhelp-compiler, display-setup, display-target-framework, set-package-configuration, generate-assembly-description, compile-all, compile-runtime, compile-build, check-current-build-config, compile, check-bin-dir, check-doc-dir, check-sdkdoc-dir, check-sdkdoc-debug, check-build-debug, check-build-defines, set-netcf-1.0-runtime-configuration, check-log4net-basedir, check-current-bin-dir, clean-current-bin-dir, compile-netcf-1.0, set-netcf-2.0-runtime-configuration, compile-netcf-2.0, set-net-1.0-runtime-configuration, compile-net-1.0, set-net-1.1-runtime-configuration, compile-net-1.1, set-net-2.0-runtime-configuration, compile-net-2.0, set-net-3.5-runtime-configuration, compile-net-3.5, set-net-3.5-cp-runtime-configuration, compile-net-3.5-cp, set-net-4.0-runtime-configuration, compile-net-4.0, set-net-4.0-cp-runtime-configuration, compile-net-4.0-cp, set-mono-1.0-runtime-configuration, compile-mono-1.0, set-mono-2.0-runtime-configuration, compile-mono-2.0, set-sscli-1.0-runtime-configuration, compile-sscli-1.0, set-cli-1.0-configuration, compile-cli-1.0, generate-sdkdoc-all, check-current-sdkdoc-dir, check-current-sdkdoc-debug, clean-current-sdkdoc-dir, generate-sdkdoc-step1, generate-sdkdoc, set-release-build-configuration, generate-sdkdoc-for-site, generate-site, package, package-src, package-bin, check-current-build-debug, check-current-build-defines, check-log4net-output-dir, check-log4net-assembly, set-build-configuration, set-build-configuration-flags, set-framework-configuration
+
+set-debug-build-configuration:
+
+Build sequence for target `set-build-configuration-flags' is check-current-build-config, set-build-configuration-flags
+Complete build sequence is check-current-build-config, set-build-configuration-flags, check-htmlhelp-compiler, display-setup, display-target-framework, set-package-configuration, generate-assembly-description, compile-all, compile-runtime, compile-build, compile, check-bin-dir, check-doc-dir, check-sdkdoc-dir, check-sdkdoc-debug, check-build-debug, check-build-defines, set-netcf-1.0-runtime-configuration, check-log4net-basedir, check-current-bin-dir, clean-current-bin-dir, compile-netcf-1.0, set-netcf-2.0-runtime-configuration, compile-netcf-2.0, set-net-1.0-runtime-configuration, compile-net-1.0, set-net-1.1-runtime-configuration, compile-net-1.1, set-net-2.0-runtime-configuration, compile-net-2.0, set-net-3.5-runtime-configuration, compile-net-3.5, set-net-3.5-cp-runtime-configuration, compile-net-3.5-cp, set-net-4.0-runtime-configuration, compile-net-4.0, set-net-4.0-cp-runtime-configuration, compile-net-4.0-cp, set-mono-1.0-runtime-configuration, compile-mono-1.0, set-mono-2.0-runtime-configuration, compile-mono-2.0, set-sscli-1.0-runtime-configuration, compile-sscli-1.0, set-cli-1.0-configuration, compile-cli-1.0, generate-sdkdoc-all, check-current-sdkdoc-dir, check-current-sdkdoc-debug, clean-current-sdkdoc-dir, generate-sdkdoc-step1, generate-sdkdoc, set-release-build-configuration, generate-sdkdoc-for-site, generate-site, package, package-src, package-bin, check-current-build-debug, check-current-build-defines, check-log4net-output-dir, check-log4net-assembly, set-build-configuration, set-debug-build-configuration, set-framework-configuration
+Build sequence for target `set-build-configuration-flags' is check-current-build-config, set-build-configuration-flags
+Complete build sequence is check-current-build-config, set-build-configuration-flags, check-htmlhelp-compiler, display-setup, display-target-framework, set-package-configuration, generate-assembly-description, compile-all, compile-runtime, compile-build, compile, check-bin-dir, check-doc-dir, check-sdkdoc-dir, check-sdkdoc-debug, check-build-debug, check-build-defines, set-netcf-1.0-runtime-configuration, check-log4net-basedir, check-current-bin-dir, clean-current-bin-dir, compile-netcf-1.0, set-netcf-2.0-runtime-configuration, compile-netcf-2.0, set-net-1.0-runtime-configuration, compile-net-1.0, set-net-1.1-runtime-configuration, compile-net-1.1, set-net-2.0-runtime-configuration, compile-net-2.0, set-net-3.5-runtime-configuration, compile-net-3.5, set-net-3.5-cp-runtime-configuration, compile-net-3.5-cp, set-net-4.0-runtime-configuration, compile-net-4.0, set-net-4.0-cp-runtime-configuration, compile-net-4.0-cp, set-mono-1.0-runtime-configuration, compile-mono-1.0, set-mono-2.0-runtime-configuration, compile-mono-2.0, set-sscli-1.0-runtime-configuration, compile-sscli-1.0, set-cli-1.0-configuration, compile-cli-1.0, generate-sdkdoc-all, check-current-sdkdoc-dir, check-current-sdkdoc-debug, clean-current-sdkdoc-dir, generate-sdkdoc-step1, generate-sdkdoc, set-release-build-configuration, generate-sdkdoc-for-site, generate-site, package, package-src, package-bin, check-current-build-debug, check-current-build-defines, check-log4net-output-dir, check-log4net-assembly, set-build-configuration, set-debug-build-configuration, set-framework-configuration
+
+check-current-build-config:
+
+
+set-build-configuration-flags:
+
+Build sequence for target `set-framework-configuration' is check-current-build-config, set-framework-configuration
+Complete build sequence is check-current-build-config, set-framework-configuration, check-htmlhelp-compiler, display-setup, display-target-framework, set-package-configuration, generate-assembly-description, compile-all, compile-runtime, compile-build, compile, check-bin-dir, check-doc-dir, check-sdkdoc-dir, check-sdkdoc-debug, check-build-debug, check-build-defines, set-netcf-1.0-runtime-configuration, check-log4net-basedir, check-current-bin-dir, clean-current-bin-dir, compile-netcf-1.0, set-netcf-2.0-runtime-configuration, compile-netcf-2.0, set-net-1.0-runtime-configuration, compile-net-1.0, set-net-1.1-runtime-configuration, compile-net-1.1, set-net-2.0-runtime-configuration, compile-net-2.0, set-net-3.5-runtime-configuration, compile-net-3.5, set-net-3.5-cp-runtime-configuration, compile-net-3.5-cp, set-net-4.0-runtime-configuration, compile-net-4.0, set-net-4.0-cp-runtime-configuration, compile-net-4.0-cp, set-mono-1.0-runtime-configuration, compile-mono-1.0, set-mono-2.0-runtime-configuration, compile-mono-2.0, set-sscli-1.0-runtime-configuration, compile-sscli-1.0, set-cli-1.0-configuration, compile-cli-1.0, generate-sdkdoc-all, check-current-sdkdoc-dir, check-current-sdkdoc-debug, clean-current-sdkdoc-dir, generate-sdkdoc-step1, generate-sdkdoc, set-release-build-configuration, generate-sdkdoc-for-site, generate-site, package, package-src, package-bin, check-current-build-debug, check-current-build-defines, check-log4net-output-dir, check-log4net-assembly, set-build-configuration, set-debug-build-configuration, set-build-configuration-flags
+
+check-current-build-config:
+
+
+set-framework-configuration:
+
+Build sequence for target `set-net-4.0-runtime-configuration' is check-bin-dir, check-doc-dir, check-sdkdoc-dir, check-sdkdoc-debug, check-current-build-config, check-build-debug, check-build-defines, set-net-4.0-runtime-configuration
+Complete build sequence is check-bin-dir, check-doc-dir, check-sdkdoc-dir, check-sdkdoc-debug, check-current-build-config, check-build-debug, check-build-defines, set-net-4.0-runtime-configuration, check-htmlhelp-compiler, display-setup, display-target-framework, set-package-configuration, generate-assembly-description, compile-all, compile-runtime, compile-build, compile, set-netcf-1.0-runtime-configuration, check-log4net-basedir, check-current-bin-dir, clean-current-bin-dir, compile-netcf-1.0, set-netcf-2.0-runtime-configuration, compile-netcf-2.0, set-net-1.0-runtime-configuration, compile-net-1.0, set-net-1.1-runtime-configuration, compile-net-1.1, set-net-2.0-runtime-configuration, compile-net-2.0, set-net-3.5-runtime-configuration, compile-net-3.5, set-net-3.5-cp-runtime-configuration, compile-net-3.5-cp, compile-net-4.0, set-net-4.0-cp-runtime-configuration, compile-net-4.0-cp, set-mono-1.0-runtime-configuration, compile-mono-1.0, set-mono-2.0-runtime-configuration, compile-mono-2.0, set-sscli-1.0-runtime-configuration, compile-sscli-1.0, set-cli-1.0-configuration, compile-cli-1.0, generate-sdkdoc-all, check-current-sdkdoc-dir, check-current-sdkdoc-debug, clean-current-sdkdoc-dir, generate-sdkdoc-step1, generate-sdkdoc, set-release-build-configuration, generate-sdkdoc-for-site, generate-site, package, package-src, package-bin, check-current-build-debug, check-current-build-defines, check-log4net-output-dir, check-log4net-assembly, set-build-configuration, set-debug-build-configuration, set-build-configuration-flags, set-framework-configuration
+Build sequence for target `set-net-4.0-runtime-configuration' is check-bin-dir, check-doc-dir, check-sdkdoc-dir, check-sdkdoc-debug, check-current-build-config, check-build-debug, check-build-defines, set-net-4.0-runtime-configuration
+Complete build sequence is check-bin-dir, check-doc-dir, check-sdkdoc-dir, check-sdkdoc-debug, check-current-build-config, check-build-debug, check-build-defines, set-net-4.0-runtime-configuration, check-htmlhelp-compiler, display-setup, display-target-framework, set-package-configuration, generate-assembly-description, compile-all, compile-runtime, compile-build, compile, set-netcf-1.0-runtime-configuration, check-log4net-basedir, check-current-bin-dir, clean-current-bin-dir, compile-netcf-1.0, set-netcf-2.0-runtime-configuration, compile-netcf-2.0, set-net-1.0-runtime-configuration, compile-net-1.0, set-net-1.1-runtime-configuration, compile-net-1.1, set-net-2.0-runtime-configuration, compile-net-2.0, set-net-3.5-runtime-configuration, compile-net-3.5, set-net-3.5-cp-runtime-configuration, compile-net-3.5-cp, compile-net-4.0, set-net-4.0-cp-runtime-configuration, compile-net-4.0-cp, set-mono-1.0-runtime-configuration, compile-mono-1.0, set-mono-2.0-runtime-configuration, compile-mono-2.0, set-sscli-1.0-runtime-configuration, compile-sscli-1.0, set-cli-1.0-configuration, compile-cli-1.0, generate-sdkdoc-all, check-current-sdkdoc-dir, check-current-sdkdoc-debug, clean-current-sdkdoc-dir, generate-sdkdoc-step1, generate-sdkdoc, set-release-build-configuration, generate-sdkdoc-for-site, generate-site, package, package-src, package-bin, check-current-build-debug, check-current-build-defines, check-log4net-output-dir, check-log4net-assembly, set-build-configuration, set-debug-build-configuration, set-build-configuration-flags, set-framework-configuration
+
+check-bin-dir:
+
+
+check-doc-dir:
+
+
+check-sdkdoc-dir:
+
+
+check-sdkdoc-debug:
+
+
+check-current-build-config:
+
+
+check-build-debug:
+
+
+check-build-defines:
+
+
+set-net-4.0-runtime-configuration:
+
+Build sequence for target `compile-netcf-2.0' is check-bin-dir, check-doc-dir, check-sdkdoc-dir, check-sdkdoc-debug, check-current-build-config, check-build-debug, check-build-defines, set-netcf-2.0-runtime-configuration, check-log4net-basedir, check-current-bin-dir, clean-current-bin-dir, compile-netcf-2.0
+Complete build sequence is check-bin-dir, check-doc-dir, check-sdkdoc-dir, check-sdkdoc-debug, check-current-build-config, check-build-debug, check-build-defines, set-netcf-2.0-runtime-configuration, check-log4net-basedir, check-current-bin-dir, clean-current-bin-dir, compile-netcf-2.0, check-htmlhelp-compiler, display-setup, display-target-framework, set-package-configuration, generate-assembly-description, compile-all, compile-runtime, compile-build, compile, set-netcf-1.0-runtime-configuration, compile-netcf-1.0, set-net-1.0-runtime-configuration, compile-net-1.0, set-net-1.1-runtime-configuration, compile-net-1.1, set-net-2.0-runtime-configuration, compile-net-2.0, set-net-3.5-runtime-configuration, compile-net-3.5, set-net-3.5-cp-runtime-configuration, compile-net-3.5-cp, set-net-4.0-runtime-configuration, compile-net-4.0, set-net-4.0-cp-runtime-configuration, compile-net-4.0-cp, set-mono-1.0-runtime-configuration, compile-mono-1.0, set-mono-2.0-runtime-configuration, compile-mono-2.0, set-sscli-1.0-runtime-configuration, compile-sscli-1.0, set-cli-1.0-configuration, compile-cli-1.0, generate-sdkdoc-all, check-current-sdkdoc-dir, check-current-sdkdoc-debug, clean-current-sdkdoc-dir, generate-sdkdoc-step1, generate-sdkdoc, set-release-build-configuration, generate-sdkdoc-for-site, generate-site, package, package-src, package-bin, check-current-build-debug, check-current-build-defines, check-log4net-output-dir, check-log4net-assembly, set-build-configuration, set-debug-build-configuration, set-build-configuration-flags, set-framework-configuration
+
+set-netcf-2.0-runtime-configuration:
+
+ [property] Target framework changed to ""Microsoft .NET Compact Framework 2.0"".
+
+check-log4net-basedir:
+
+
+check-current-bin-dir:
+
+
+clean-current-bin-dir:
+
+     [echo] Cleaning the bin/netcf/2.0/debug binaries directory.
+   [delete] Deleting directory 'D:\05-Tools\log4net-1.2.12\bin\netcf\2.0\debug'.
+    [mkdir] Creating directory 'D:\05-Tools\log4net-1.2.12\bin\netcf\2.0\debug'.
+
+compile-netcf-2.0:
+
+      [csc] Output file 'D:\05-Tools\log4net-1.2.12\bin\netcf\2.0\debug\log4net.dll' does not exist, rebuilding.
+      [csc] Compiling 223 files to 'D:\05-Tools\log4net-1.2.12\bin\netcf\2.0\debug\log4net.dll'.
+      [csc] Contents of C:\Users\dajones\AppData\Local\Temp\tmp28D5.tmp.
+      [csc] /fullpaths
+      [csc] ""/doc:D:\05-Tools\log4net-1.2.12\bin\netcf\2.0\debug\log4net.xml""
+      [csc] /debug
+      [csc] ""/define:DEBUG""
+      [csc] ""/define:TRACE""
+      [csc] /nostdlib
+      [csc] /nologo
+      [csc] ""/target:library""
+      [csc] ""/define:DEBUG,TRACE,NETCF,NETCF_2_0""
+      [csc] ""/out:D:\05-Tools\log4net-1.2.12\bin\netcf\2.0\debug\log4net.dll""
+      [csc] /warnaserror
+      [csc] ""/reference:C:\Program Files (x86)\Microsoft.NET\SDK\CompactFramework\v2.0\WindowsCE\mscorlib.dll""
+      [csc] ""/reference:C:\Program Files (x86)\Microsoft.NET\SDK\CompactFramework\v2.0\WindowsCE\System.dll""
+      [csc] ""/reference:C:\Program Files (x86)\Microsoft.NET\SDK\CompactFramework\v2.0\WindowsCE\System.Data.dll""
+      [csc] ""/reference:C:\Program Files (x86)\Microsoft.NET\SDK\CompactFramework\v2.0\WindowsCE\System.Xml.dll""
+      [csc] ""/resource:D:\05-Tools\log4net-1.2.12\LICENSE,LICENSE""
+      [csc] ""/resource:D:\05-Tools\log4net-1.2.12\NOTICE,NOTICE""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\AdoNetAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\AnsiColorTerminalAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\AppenderCollection.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\AppenderSkeleton.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\AspNetTraceAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\BufferingAppenderSkeleton.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\BufferingForwardingAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\ColoredConsoleAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\ConsoleAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\DebugAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\EventLogAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\FileAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\ForwardingAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\IAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\IBulkAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\LocalSyslogAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\ManagedColoredConsoleAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\MemoryAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\NetSendAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\OutputDebugStringAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\RemoteSyslogAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\RemotingAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\RollingFileAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\SmtpAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\SmtpPickupDirAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\TelnetAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\TextWriterAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\TraceAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Appender\UdpAppender.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Config\AliasDomainAttribute.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Config\AliasRepositoryAttribute.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Config\BasicConfigurator.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Config\ConfiguratorAttribute.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Config\DomainAttribute.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Config\DOMConfigurator.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Config\DOMConfiguratorAttribute.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Config\Log4NetConfigurationSectionHandler.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Config\PluginAttribute.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Config\RepositoryAttribute.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Config\SecurityContextProviderAttribute.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Config\XmlConfigurator.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Config\XmlConfiguratorAttribute.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\CompactRepositorySelector.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\DefaultRepositorySelector.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\ErrorCode.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\ExceptionEvaluator.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\IAppenderAttachable.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\IErrorHandler.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\IFixingRequired.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\ILogger.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\ILoggerWrapper.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\IOptionHandler.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\IRepositorySelector.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\ITriggeringEventEvaluator.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\Level.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\LevelCollection.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\LevelEvaluator.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\LevelMap.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\LocationInfo.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\LogException.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\LoggerManager.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\LoggerWrapperImpl.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\LoggingEvent.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\LogImpl.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\MethodItem.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\SecurityContext.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\SecurityContextProvider.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\StackFrameItem.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\TimeEvaluator.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Core\WrapperMap.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\DateFormatter\AbsoluteTimeDateFormatter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\DateFormatter\DateTimeDateFormatter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\DateFormatter\IDateFormatter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\DateFormatter\Iso8601DateFormatter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\DateFormatter\SimpleDateFormatter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Filter\DenyAllFilter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Filter\FilterDecision.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Filter\FilterSkeleton.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Filter\IFilter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Filter\LevelMatchFilter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Filter\LevelRangeFilter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Filter\LoggerMatchFilter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Filter\MdcFilter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Filter\NdcFilter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Filter\PropertyFilter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Filter\StringMatchFilter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\AppDomainPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\AspNetCachePatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\AspNetContextPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\AspNetPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\AspNetRequestPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\AspNetSessionPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\DatePatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\ExceptionPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\FileLocationPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\FullLocationPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\IdentityPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\LevelPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\LineLocationPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\LoggerPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\MessagePatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\MethodLocationPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\NamedPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\NdcPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\PatternLayoutConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\PropertyPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\RelativeTimePatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\StackTraceDetailPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\StackTracePatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\ThreadPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\TypeNamePatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\UserNamePatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Pattern\UtcDatePatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\DynamicPatternLayout.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\ExceptionLayout.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\ILayout.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\IRawLayout.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\Layout2RawLayoutAdapter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\LayoutSkeleton.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\PatternLayout.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\RawLayoutConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\RawPropertyLayout.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\RawTimeStampLayout.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\RawUtcTimeStampLayout.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\SimpleLayout.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\XMLLayout.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\XMLLayoutBase.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Layout\XmlLayoutSchemaLog4j.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\ObjectRenderer\DefaultRenderer.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\ObjectRenderer\IObjectRenderer.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\ObjectRenderer\RendererMap.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Plugin\IPlugin.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Plugin\IPluginFactory.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Plugin\PluginCollection.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Plugin\PluginMap.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Plugin\PluginSkeleton.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Plugin\RemoteLoggingServerPlugin.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Repository\Hierarchy\DefaultLoggerFactory.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Repository\Hierarchy\Hierarchy.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Repository\Hierarchy\ILoggerFactory.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Repository\Hierarchy\Logger.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Repository\Hierarchy\LoggerKey.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Repository\Hierarchy\ProvisionNode.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Repository\Hierarchy\RootLogger.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Repository\Hierarchy\XmlHierarchyConfigurator.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Repository\ConfigurationChangedEventArgs.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Repository\IBasicRepositoryConfigurator.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Repository\ILoggerRepository.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Repository\IXmlRepositoryConfigurator.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Repository\LoggerRepositorySkeleton.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\PatternStringConverters\AppDomainPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\PatternStringConverters\DatePatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\PatternStringConverters\EnvironmentFolderPathPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\PatternStringConverters\EnvironmentPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\PatternStringConverters\IdentityPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\PatternStringConverters\LiteralPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\PatternStringConverters\NewLinePatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\PatternStringConverters\ProcessIdPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\PatternStringConverters\PropertyPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\PatternStringConverters\RandomStringPatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\PatternStringConverters\UserNamePatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\PatternStringConverters\UtcDatePatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\TypeConverters\BooleanConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\TypeConverters\ConversionNotSupportedException.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\TypeConverters\ConverterRegistry.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\TypeConverters\EncodingConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\TypeConverters\IConvertFrom.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\TypeConverters\IConvertTo.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\TypeConverters\IPAddressConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\TypeConverters\PatternLayoutConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\TypeConverters\PatternStringConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\TypeConverters\TypeConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\TypeConverters\TypeConverterAttribute.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\AppenderAttachedImpl.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\CompositeProperties.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\ContextPropertiesBase.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\ConverterInfo.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\CountingQuietTextWriter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\CyclicBuffer.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\EmptyCollection.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\EmptyDictionary.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\FormattingInfo.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\GlobalContextProperties.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\ILogExtensions.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\LevelMapping.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\LevelMappingEntry.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\LogicalThreadContextProperties.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\LogLog.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\NativeError.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\NullDictionaryEnumerator.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\NullEnumerator.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\NullSecurityContext.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\OnlyOnceErrorHandler.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\OptionConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\PatternConverter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\PatternParser.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\PatternString.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\PropertiesDictionary.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\PropertyEntry.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\ProtectCloseTextWriter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\QuietTextWriter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\ReaderWriterLock.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\ReadOnlyPropertiesDictionary.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\ReusableStringWriter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\SystemInfo.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\SystemStringFormat.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\TextWriterAdapter.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\ThreadContextProperties.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\ThreadContextStack.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\ThreadContextStacks.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\Transform.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Util\WindowsSecurityContext.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\AssemblyInfo.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\AssemblyVersionInfo.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\GeneratedAssemblyInfo.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\GlobalContext.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\ILog.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\Log4netAssemblyInfo.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\LogicalThreadContext.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\LogManager.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\MDC.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\NDC.cs""
+      [csc] ""D:\05-Tools\log4net-1.2.12\src\ThreadContext.cs""
+      [csc] 
+      [csc] Starting 'C:\Windows\Microsoft.NET\Framework\v2.0.50727\csc.exe (@""C:\Users\dajones\AppData\Local\Temp\tmp28D5.tmp"" /noconfig)' in 'D:\05-Tools\log4net-1.2.12'
+      [csc] d:\05-Tools\log4net-1.2.12\src\Core\StackFrameItem.cs(44,31): error CS0246: The type or namespace name 'StackFrame' could not be found (are you missing a using directive or an assembly reference?)
+      [csc] d:\05-Tools\log4net-1.2.12\src\Util\ThreadContextProperties.cs(41,4): error CS0246: The type or namespace name 'ThreadStatic' could not be found (are you missing a using directive or an assembly reference?)
+
+BUILD FAILED
+
+D:\05-Tools\log4net-1.2.12\log4net.build(413,6):
+External Program Failed: C:\Windows\Microsoft.NET\Framework\v2.0.50727\csc.exe (return code was 1):
+NAnt.Core.BuildException: D:\05-Tools\log4net-1.2.12\log4net.build(413,6):
+External Program Failed: C:\Windows\Microsoft.NET\Framework\v2.0.50727\csc.exe (return code was 1)
+   at NAnt.Core.Tasks.ExternalProgramBase.ExecuteTask()
+   at NAnt.DotNet.Tasks.CompilerBase.ExecuteTask()
+   at NAnt.Core.Task.Execute()
+   at NAnt.Core.Target.Execute()
+   at NAnt.Core.Project.Execute(String targetName, Boolean forceDependencies)
+   at NAnt.Core.Project.Execute()
+   at NAnt.Core.Project.Run()
+
+Total time: 0.5 seconds.
+
+",LOG4NET-399 doesn't build on CF 2.0, MODIFY StackFrameItem.cs MODIFY ThreadContextProperties.csThreadContextProperties GetKeys ThreadContextProperties Clear ThreadContextProperties if ThreadContextProperties Remove ThreadContextProperties GetProperties
+0,LOG4NET-76,f51c60d914ba1ffb6ed34ae1ed275913572c4131,"TextWriterAdapter is not thread safe When logging using the XmlAppender, our company application can generate overlapping appender calls.  TextWriterAppender is not thread safe.
+
+",Point to existing FAQ entry.  LOG4NET-310, MODIFY EventLogAppender.csEventLogAppender ActivateOptions
+0,LOG4NET-73,75f0d6ef0bb353f893d1065d16e8f1bd873af8d2,"ADONetAppender.ActivateOptions() leaks database connection when called multiple times ADONetAppender.ActivateOptions() calls InitializeDatabaseConnection. This method does not check if the m_dbConnection is already initialised. If it is initialise then it will beleaked.
+
+Update InitializeDatabaseConnection to check and close the connection if not null.",Fix for LOG4NET-72. CultureInfo.GetCultureInfo is not supported on .net 1.0 and 1.1, MODIFY StringFormatTest.csStringFormatTest TestLogFormatApi_NoFatal StringFormatTest TestLogFormatApi_NoDebug StringFormatTest TestLogFormatApi_NoError StringFormatTest TestLogFormatApi_Error StringFormatTest TestLogFormatApi_NoWarn StringFormatTest TestLogFormatApi_NoInfo StringFormatTest TestLogFormatApi_Debug StringFormatTest TestLogFormatApi_Warn StringFormatTest TestLogFormatApi_Fatal StringFormatTest TestLogFormatApi_Info
+1,LOG4NET-376,1874be5bbe7166a70b930e2df6887d84c86dd4d8,"Race condition in AbsoluteTimeDateFormatter AbsoluteTimeDateFormatter's caching of the ""to the second"" timestamp string is not thread-safe.  It is possible for one thread to clear the check (that this timestamp matches the currently cached ""to the second"" timestamp), but then end up using an incorrect ""to the second"" timestamp string if another thread has changed it in the meantime.
+
+In our organization, we see this bug fairly regularly because we have a mix of ""real time"" loggers that immediately write out log lines and ""batching"" loggers that defer logging to a background task that runs every second.  We therefore regularly see log lines where the timestamp is off by a second or two.
+
+The following unit tests demonstrates the bug:
+
+    [TestFixture]
+    [Explicit]
+    public class Log4netTimestampBug
+    {
+        /// <summary>
+        /// This test demonstrates a bug with the log4net default time formatter (Iso8601DateFormatter)
+        /// where the logged timestamp can be seconds off from the actual input timestamp
+        /// The bug is caused to a race condition in the base class AbsoluteTimeDateFormatter
+        /// because this class caches the timestamp string to the second but it is possible for
+        /// the timestamp as written by a different thread to ""sneak in"" and be used by another
+        /// thread erroneously (the checking and usage of this string is not done under a lock, only
+        /// its modification) 
+        /// </summary>
+        [Test]
+        public void Test()
+        {
+            var now = DateTime.Now;
+            var times = Enumerable.Range(1, 1000000).Select(i => now.AddMilliseconds(i)).ToList();
+
+            var sb1 = new StringBuilder();
+            var sb2 = new StringBuilder();
+
+            var task1 = Task.Run(() => WriteAllTheTimes(times, new StringWriter(sb1)));
+            var task2 = Task.Delay(50).ContinueWith(t => WriteAllTheTimes(times, new StringWriter(sb2)));
+
+            Task.WaitAll(task1, task2);
+
+            var task1Strings = GetTimeStrings(sb1);
+            var task2Strings = GetTimeStrings(sb2);
+
+            var diffs = Enumerable.Range(0, times.Count).Where(i => task1Strings[i] != task2Strings[i]).ToList();
+
+            Console.WriteLine(""found {0} instances where the formatted timestamps are not the same"", diffs.Count);
+            Console.WriteLine();
+
+            var diffToLookAt = diffs.FirstOrDefault(i => i - 10 > 0 && i + 10 < times.Count);
+            if (diffToLookAt != 0)
+            {
+                Console.WriteLine(""Example Diff:"");
+                Console.WriteLine();
+                Console.WriteLine(""Index     Original Timestamp        Task 1 Format             Task 2 Format"");
+                for (int i = diffToLookAt - 10; i < diffToLookAt + 10; i++)
+                {
+                    Console.WriteLine(""{0,-7}   {1}   {2}   {3}   {4}"", i, times[i].ToString(""yyyy-MM-dd HH:mm:ss,fff""),
+                                      task1Strings[i], task2Strings[i], i == diffToLookAt ? ""**** DIFF HERE ****"" : """");
+                }
+            }
+
+            CollectionAssert.AreEqual(task1Strings, task2Strings);
+        }
+
+        private static List<string> GetTimeStrings(StringBuilder sb1)
+        {
+            return sb1.ToString().Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries).ToList();
+        }
+
+        private static void WriteAllTheTimes(IEnumerable<DateTime> times,
+                                             TextWriter writer)
+        {
+            var formatter = new Iso8601DateFormatter();
+            foreach (var t in times)
+            {
+                formatter.FormatDate(t, writer);
+                writer.WriteLine();
+            }
+        }
+    }
+
+
+
+
+",merge fix for LOG4NET-376 from 1.2.x branch, MODIFY AbsoluteTimeDateFormatter.csAbsoluteTimeDateFormatter FormatDate
+0,LOG4NET-43,eb02bce2d20473bba7b2fddbad056f90651054dd,"Specifying an empty string as a property in the config file results in an error Specifying an empty string as a property (either as <property/> or <property></property>) results in the following:
+
+log4net:ERROR XmlHierarchyConfigurator: Failed to construct object of type [System.String] Exception: System.MissingMethodException: No parameterless constructor defined for this object.
+   at System.RuntimeType.CreateInstanceImpl(Boolean publicOnly)
+   at System.Activator.CreateInstance(Type type, Boolean nonPublic)
+   at System.Activator.CreateInstance(Type type)
+   at log4net.Repository.Hierarchy.XmlHierarchyConfigurator.CreateObjectFromXml(XmlElement element, Type defaultTargetType, Type typeConstraint) in S:\local\log4net-cvs\logging-log4net\src\Repository\Hierarchy\XmlHierarchyConfigurator.cs:line 924",Fix for LOG4NET-45. Added constructor and property to take plugin type as a Type, MODIFY PluginAttribute.csPluginAttribute ToString PluginAttribute PluginAttribute PluginAttribute CreatePlugin PluginAttribute PluginAttribute PluginAttribute PluginAttribute
+0,LOG4NET-223,80f2330f7e88ef2c94a856825850bedb4a24608d,"[PATCH] Improve AnsiColorTerminalAppender to support marking colors as Light The attached patch adds the ability to mark AnsiColors as Light using AnsiAttribute. This fixes a minor glitch in AnsiColorTerminalAppender that would cause AnsiColorTerminalAppender to output a grey-ish color instead of white when BackColor was set to AnsiColor.White by allowing the user to set the proper option of AnsiAttribute.Light and AnsiColor.White, rather than setting BackColor manually to 67 (60 for the light adjustment, 7 for white), and allows more color expressivity.",ColoredConsoleAppender using Console.ForegroundColor on .NET 2.0+.  LOG4NET-292.  Submitted by Pavlos Touboulidis, MODIFY pom.xml ADD ManagedColoredConsoleAppender.csManagedColoredConsoleAppender Append ManagedColoredConsoleAppender AddMapping ManagedColoredConsoleAppender ActivateOptions ManagedColoredConsoleAppender if ManagedColoredConsoleAppender ManagedColoredConsoleAppender MODIFY log4net.vs2008.csproj MODIFY log4net.vs2010.csproj
+0,LOG4NET-215,6ad97a4127f5bfb691957f83cdd68cfcbc7035f3,"Exception on Convert for return %class{1} name in function^
+
+override protected void Convert(TextWriter writer, LoggingEvent loggingEvent)
+		{
+			string name = GetFullyQualifiedName(loggingEvent);
+			if (m_precision <= 0)
+			{
+				writer.Write(name);
+			}
+			else 
+			{
+				int len = name.Length;
+
+				// We subtract 1 from 'len' when assigning to 'end' to avoid out of
+				// bounds exception in return name.Substring(end+1, len). This can happen if
+				// precision is 1 and the logger name ends with a dot. 
+				int end = len - 1;
+				for(int i=m_precision; i>0; i--) 
+				{
+                    end = name.LastIndexOf('.', end - 1);
+					if (end == -1)
+					{
+						writer.Write(name);
+						return;
+					}
+				}
+				writer.Write(name.Substring(end+1, len-end-1));
+			}	  
+		}
+
+if ""string name = GetFullyQualifiedName(loggingEvent); "" return '?' (noname class-name) in line ""end = name.LastIndexOf('.', end - 1);"" exceptrion because end = 0...
+
+",add log4net.Config.Watch appsetting to configure as comanion to log4net.Config to determine whether the config is going to be watched.  Submitted by Uri Goldstein.  LOG4NET-246, MODIFY DefaultRepositorySelector.csDefaultRepositorySelector ConfigureRepository
+0,LOG4NET-275,cf6e898f05a0d770abb50e493fecdb1fa2f3735f,"Update site content for Apache Project Branding Requirements  All Apache projects are to bring their sites into conformance with the Apache Project Branding requirements (http://www.apache.org/foundation/marks/pmcs) by Q1 2011.
+",explain when to use comma and when to use semicolon in documentation summary as well.  LOG4NET-128, MODIFY SmtpAppender.cs
+1,LOG4NET-168,a233bcb1bd3b771cf8bdf9c011f639f341d0a4a7,"New property ReplyTo address for the SmtpAppender required log4net is often used in administrative utilities and used to send mails in case of errors. It is total unrealistic to assume each used mail-address really exists. Mostly ""virtual address"" are used, means:They do not have any pop3 mailbox. So, if sending mail fails from the smpt server, no user can be informed. A property, which allows to specify the ""reply-to"" address on the SmtpAppender would solve this problem.
+",Fix for LOG4NET-168. Add ReplyTo property to SmtpAppender., MODIFY SmtpAppender.csSmtpAppender SendEmail
+1,LOG4NET-390,c2c678f0f62096375d4d90e7a081edc03da35872,"ReadOnlyAppenderCollection.ToArray returns empty array log4net.Appender.AppenderCollection.ReadOnlyAppenderCollection does not override ToArray().
+As a consequence ToArray calls returns always empty arrays.
+
+Fix:
+public override IAppender[] ToArray()
+{
+    return m_collection.ToArray();
+}",LOG4NET-390 fixed the ToArray() method of the ReadOnlyAppenderCollection, MODIFY AppenderCollection.csAppenderCollection ReadOnlyAppenderCollection ToArray
+1,LOG4NET-202,758ce4bb1adadc02cfa1c8073545a6aa8886dcb6,"AdoNetAppenderParameter.Size Property is not optional The AdoNetAppenderParameter.Size page (http://logging.apache.org/log4net/release/sdk/log4net.Appender.AdoNetAppenderParameter.Size.html) says ""This property is optional. If not specified the ADO.NET provider will attempt to infer the size from the value.""
+
+However, I just got the following exception in the log4net internal debug trace, with the following parameter (maps to a VARCHAR(MAX)):
+
+<parameter>
+      <parameterName value=""@exception"" />
+      <dbType value=""String"" />
+      <layout type=""log4net.Layout.ExceptionLayout"" />
+</parameter>
+
+log4net:ERROR [AdoNetAppender] Could not prepare database command [INSERT INTO ....]
+System.InvalidOperationException: SqlCommand.Prepare method requires all variable length parameters to have an explicitly set non-zero Size.
+   at System.Data.SqlClient.SqlParameter.Prepare(SqlCommand cmd)
+   at System.Data.SqlClient.SqlCommand.Prepare()
+   at log4net.Appender.AdoNetAppender.InitializeDatabaseCommand()
+
+This would suggest the Size parameter cannot be null.",Use -1 as size when using VARCHAR(max) and friends.  LOG4NET-202, MODIFY AdoNetAppender.cs
+0,LOG4NET-242,4c77e243badefb4253e9e7600d2eccc703b2f3fb,"Download page does not have link to KEYS file The download page http://logging.apache.org/log4net/download.html has a link describing why one should verify releases, but fails to provide a link to the relevant KEYS file
+
+",properly resolve relative URI of config file name given via log4net.Config appsetting.  LOG4NET-143, MODIFY DefaultRepositorySelector.csDefaultRepositorySelector ConfigureRepository
+0,LOG4NET-310,69e4789ebe481e8b138c971b42a94ec2f8a1099e,"EventLogAppender's ActivateOptions throws SecurityException on Vista/Win2k3 and later when not run as administrator ActivateOptions uses EventLog.SourceExists which throws an exception of the source hasn't been found in any of the logs the user was allowed to read and there are others (in particular ""Security"") that the user is not allowed to access.
+
+This is the reason of one of the unit test errors I reported in LOG4NET-301
+
+Even if the code catches the exception and assumes the source doesn't exist this won't help as EventLog.CreateEventSource must not be called without administrator privileges either.
+
+",test new MutexLock and make it actually work.  LOG4NET-164, MODIFY FileAppender.csFileAppender LockingModelBase CreateStream FileAppender MutexLock CloseFile FileAppender MutexLock AcquireLock FileAppender MutexLock ReleaseLock MODIFY RollingFileAppenderTest.csRollingFileAppenderTest TestMutexLockRecovers RollingFileAppenderTest TestMutexLockUnlocks RollingFileAppenderTest TestMutexLockFails
+0,LOG4NET-34,b5e2ca40735957d84d2734c573f88cc75ec8a627,"Allow xml config values to be set via XmlNodeType.CDATA or XmlNodeType.Text rather than just value=""foo"" Currently values for xml config nodes must be passed in via the value attribute:
+
+ <conversionPattern value=""%5p %d{yyyy-MM-dd hh:mm:ss tt} (%c:%L) - %m%n"" />
+
+Why isn't this syntax supported?
+
+ <conversionPattern>%5p %d{yyyy-MM-dd hh:mm:ss tt} (%c:%L) - %m%n</conversionPattern>
+
+If the above syntax were supported, a possible solution to this question:
+
+ http://www.mail-archive.com/log4net-user%40logging.apache.org/msg01791.html
+
+would be:
+
+ <conversionPattern>
+  <![CDATA[<header>%n <date>%d</date>%n <user>%u</user>%n <info>%m</info>%n</header>%n]]>
+ </conversionPattern>",Fix for LOG4NET-35 Exception rendering ThreadContextStack if null value pushed into stack. Fix and tests included, MODIFY ThreadContextStack.csThreadContextStack StackFrame if ThreadContextStack StackFrame if ADD ThreadContextTest.csThreadContextTest TestThreadStackPattern2 ThreadContextTest TestThreadStackPatternNullVal ThreadContextTest TestThreadStackPatternNullVal2 ThreadContextTest TestThreadPropertiesPattern ThreadContextTest TestThreadStackPattern MODIFY log4net.Tests.csproj
+0,LOG4NET-297,7eabd638ae213d2a94b68f03e5b0f3b6a479565d,"AppenderSkeleton.RequiresLayout docs and implementation don't match In AppenderSkeleton.cs:
+
+		/// <para>
+		/// This default implementation always returns <c>true</c>.
+		/// </para>
+		virtual protected bool RequiresLayout
+		{
+			get { return false; }
+		}
+",link to KEYS file on download page.  LOG4NET-242, MODIFY download.apt
+0,LOG4NET-241,b9c24915eadbbb665778ef42524fd74d99eb969a,"Issue tracking page does not link to project The issue tracking page http://logging.apache.org/log4net/issue-tracking.html links to http://issues.apache.org/jira/ which is not particularly helpful.
+
+It should link to http://issues.apache.org/jira/browse/LOG4NET or https://issues.apache.org/jira/browse/LOG4NET
+
+","Use mvn purely to generate the site, improve layout a bit, add footer as required by branding rules.  LOG4NET-117, LOG4NET-275", MODIFY pom.xml MODIFY download.apt ADD maven-base.css ADD site.vm MODIFY site.xml MODIFY building.xml MODIFY features.xml MODIFY framework-support.xml MODIFY configuration.xml MODIFY contexts.xml MODIFY introduction.xml MODIFY release-notes.xml DELETE project.xml DELETE site.vsl
+0,LOG4NET-143,e1c9c3b7bb26b3564062859a86b38b793048548a,"Invalid Repository Config Uri composition from ""log4net.Config"" application setting In DefaultRepositorySelector class in method ConfigureRepository(Assembly assembly, ILoggerRepository repository) (DefaultRepositorySelector.cs, line 706) code perform config uri composition from applicationBaseDirectory path and specified in ""log4net.Config"" settings file name. Because SystemInfo.ApplicationBaseDirectory property return path not ended with slash '\' at line 706 during ""new Uri(applicationBaseDirectory)"" operation executed trimmed last folder, so config uri made invalid.",FixingTest failed when rerunning tests in NUnit GUI without reloading the DLL.  Related to LOG4NET-301, MODIFY FixingTest.csFixingTest TestAllFixedValues FixingTest FixingTest FixingTest TestUnfixedValues FixingTest AssertExpectedLoggingEvent FixingTest CreateRepository FixingTest TestNoFixedValues
+0,LOG4NET-370,0697e5ce56655b0c12ffa9c7441cf8a11d53b08f,"RemoteSyslogAppender doesn't properly handle newline in log message RemoteSyslogAppender sends log messages containing newline characters to syslog, however the syslog RFC 3164 states that the message portion of the syslog packet can only contain visible ASCII characters and spaces.  This causes multiline log messages to render on a single line in at least some instances.
+
+The solution appears to be sending each line of the log message as a separate syslog packet.  I have modified RemoteSyslogAppender to support this behavior and will provide a patch file.
+
+Here is the relevant portion of the RFC:
+
+4.1.3 MSG Part of a syslog Packet
+
+   The MSG part will fill the remainder of the syslog packet.  This will
+   usually contain some additional information of the process that
+   generated the message, and then the text of the message.  There is no
+   ending delimiter to this part.  The MSG part of the syslog packet
+   MUST contain visible (printing) characters.  The code set
+   traditionally and most often used has also been seven-bit ASCII in an
+   eight-bit field like that used in the PRI and HEADER parts.  In this
+   code set, the only allowable characters are the ABNF VCHAR values
+   (%d33-126) and spaces (SP value %d32).  However, no indication of the
+   code set used within the MSG is required, nor is it expected.  Other
+   code sets MAY be used as long as the characters used in the MSG are
+   exclusively visible characters and spaces similar to those described
+   above.  The selection of a code set used in the MSG part SHOULD be
+   made with thoughts of the intended receiver.  A message containing
+   characters in a code set that cannot be viewed or understood by a
+   recipient will yield no information of value to an operator or
+   administrator looking at it.
+
+http://www.ietf.org/rfc/rfc3164.txt",LOG4NET-371 mention in the introduction that *Format methods do not use ObjectRenderers, MODIFY introduction.xml
+0,LOG4NET-310,5d255ad5b9f2365ba2d4ffdadc740979ed8105f4,"EventLogAppender's ActivateOptions throws SecurityException on Vista/Win2k3 and later when not run as administrator ActivateOptions uses EventLog.SourceExists which throws an exception of the source hasn't been found in any of the logs the user was allowed to read and there are others (in particular ""Security"") that the user is not allowed to access.
+
+This is the reason of one of the unit test errors I reported in LOG4NET-301
+
+Even if the code catches the exception and assumes the source doesn't exist this won't help as EventLog.CreateEventSource must not be called without administrator privileges either.
+
+",ensure tests reset static LogLog configuration if they change it.  Fixes the two LogLog tests that are part of the ten failing tests in LOG4NET-301, MODIFY ConfigurationMessages.csConfigurationMessages ConfigurationMessagesTest MODIFY LogLogTest.csLogLogTest EmitInternalMessages
+0,LOG4NET-265,14a7664eb2b74cb20aa812e18e0ae70548b5d502,"RemoteFileAppender Tests fail on Windows 7 Compiled the version of log4net in the repository and ran the unit tests. All of the RemotingAppenderTests fail. Enabling internal logging gives the following error.
+
+log4net:ERROR [RemotingAppender] ErrorCode: GenericFailure. Failed in SendBufferCallback
+System.Runtime.Serialization.SerializationException: Because of security restrictions, the type System.Runtime.Remoting.ObjRef cannot be accessed. ---> System.Security.SecurityException: Request failed.
+   at System.Runtime.Serialization.FormatterServices.nativeGetSafeUninitializedObject(RuntimeType type)
+   at System.Runtime.Serialization.FormatterServices.GetSafeUninitializedObject(Type type)
+The action that failed was:
+Demand
+The type of the first permission that failed was:
+System.Security.Permissions.SecurityPermission
+The first permission that failed was:
+<IPermission class=""System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089""
+version=""1""
+Flags=""Infrastructure""/>
+
+The demand was for:
+<PermissionSet class=""System.Security.PermissionSet""
+version=""1"">
+<IPermission class=""System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089""
+version=""1""
+Flags=""Infrastructure""/>
+</PermissionSet>
+
+The only permitted permissions were:
+<PermissionSet class=""System.Security.PermissionSet""
+version=""1"">
+<IPermission class=""System.Security.Permissions.SecurityPermission, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089""
+version=""1""
+Flags=""SerializationFormatter""/>
+</PermissionSet>
+
+The method that caused the failure was:
+System.Runtime.Remoting.Channels.ServerProcessing ProcessMessage(System.Runtime.Remoting.Channels.IServerChannelSinkStack, System.Runtime.Remoting.Messaging.IMessage, System.Runtime.Remoting.Channels.ITransportHeaders, System.IO.Stream, System.Runtime.Remoting.Messaging.IMessage ByRef, System.Runtime.Remoting.Channels.ITransportHeaders ByRef, System.IO.Stream ByRef)
+","Make MinimalLock work again with appendToFile=false.  LOG4NET-311, fixes two tests mentioned in LOG4NET-301, regression introduced as part of LOG4NET-164", MODIFY FileAppender.csFileAppender MinimalLock AcquireLock
+0,LOG4NET-214,8400fecdd81394a86d4192889446d40678dcfb90,"EventLogAppender should also use config file to set EventId It should be possible to set the EventId of the EventLogAppender using the config file.
+
+example:
+IT would like to be able to setup EventId for certain error without having to recompile the application:
+
+<appender name=""EventLogAppender_Terminated"" type=""log4net.Appender.EventLogAppender"" >
+    <applicationName value=""..."" />
+    <eventId value=""1234"" /> 
+    <layout type=""log4net.Layout.PatternLayout"">
+        <conversionPattern value=""........."" />
+    </layout>
+    <filter type=""log4net.Filter.LevelRangeFilter"">
+        <levelMin value=""ERROR"" />
+    </filter>
+    <filter type=""log4net.Filter.StringMatchFilter"">
+        <stringToMatch value=""DatabaseException"" />
+    </filter>
+    <filter type=""log4net.Filter.DenyAllFilter"" />
+</appender>
+
+ 
+",Pass through characters in range #x100-#xd7ff inside XmlFormat.  LOG4NET-229, MODIFY Transform.cs ADD TransformTest.csTransformTest MaskXmlInvalidCharactersMasks0Char TransformTest MaskXmlInvalidCharactersAllowsJapaneseCharacters MODIFY log4net.Tests.vs2003.csproj MODIFY log4net.Tests.vs2008.csproj MODIFY log4net.Tests.vs2010.csproj
+0,LOG4NET-212,f51c60d914ba1ffb6ed34ae1ed275913572c4131,"Threading bug in the PatternConverter.cs Every once in a while I get the following exception:
+
+   System.ArgumentOutOfRangeException: Index and length must refer to a location within the string.
+    Parameter name: length
+       at System.String.InternalSubStringWithChecks(Int32 startIndex, Int32 length, Boolean fAlwaysCopy)
+       at System.Text.StringBuilder.ToString(Int32 startIndex, Int32 length)
+       at log4net.Util.PatternConverter.Format(TextWriter writer, Object state) in xxx\Log4Net\src\Util\PatternConverter.cs:line 187
+       at log4net.Layout.PatternLayout.Format(TextWriter writer, LoggingEvent loggingEvent) in xxx\Log4Net\src\Layout\PatternLayout.cs:line 1009
+       at Nemmco.Common.Initialization.Internal.NemLoggingAppender.Execute(DateTime lastTrigger, DateTime currentTrigger) in xxxInitialization\Internal\InitializationLogging.cs:line 765
+--snip--
+
+From my own investigation it looks like the problem occurs because the shared string buffer (from the m_formatWriter.GetStringBuilder() call) may end up in a state where its size is adjusted differently on separate threads, causing one thread to over-estimate the available length.
+
+I wonder if the re-use of a StringWriter / StringBuilder in this scenario actually outweighs the threading implications? The simplest fix would be to replace use of m_formatWriter with use of a local StringWriter / StringBuilder.",Point to existing FAQ entry.  LOG4NET-310, MODIFY EventLogAppender.csEventLogAppender ActivateOptions
+1,LOG4NET-554,201ad1ae3ced298e77469f99e548244a7f772b06,LogicalThreadContext was removed in .NETStandard LogicalThreadContext was excluded from dotnetcore version due to System.Runtime.Remoting.Messaging no longer being available going forward.,"LOG4NET-554 Use AsyncLocal for LogicalThreadContext
+
+Patch by Thomas Clegg.
+
+closes #52", MODIFY log4net.tests.xproj MODIFY project.json MODIFY log4net.xproj MODIFY project.json MODIFY LoggingEvent.csLoggingEvent CreateCompositeProperties LoggingEvent if MODIFY LogicalThreadContextProperties.csLogicalThreadContextProperties GetProperties LogicalThreadContextProperties GetLogicalProperties LogicalThreadContextProperties GetCallContextData LogicalThreadContextProperties Clear LogicalThreadContextProperties Remove LogicalThreadContextProperties SetCallContextData LogicalThreadContextProperties SetLogicalProperties MODIFY PropertyPatternConverter.csPropertyPatternConverter Convert MODIFY framework-support.xml MODIFY LogicalThreadContextTest.cs MODIFY Utils.csUtils RemovePropertyFromAllContexts
+1,LOG4NET-141,fbcb130112ea1100cc61bd61d4aa10b42edc69c1,Add CreateConnection method to AdoNetAppender to allow subclasses to have control of IDbConnection. The IDbConnection is created in the private method InitializeDatabaseConnection. Use the Connection property to set the connection object does not work when a reconnect is required. Add a CreateConnection method to allow sub-classes that handle creating their own connection.,Fix for LOG4NET-141. Added CreateConnection method that accepts the resolved connection Type and the resolved connection string to allow sub-classes more control on how the IDbConnection is created. Refactored duplicate code for closing/disposing the IDbCommand and IDbConnection objects into DisposeCommand/Connection., MODIFY AdoNetAppender.csAdoNetAppender InitializeDatabaseConnection AdoNetAppender DisposeCommand AdoNetAppender InitializeDatabaseCommand AdoNetAppender DiposeConnection AdoNetAppender OnClose AdoNetAppender CreateConnection AdoNetAppender SendBuffer
+0,LOG4NET-76,cf6e898f05a0d770abb50e493fecdb1fa2f3735f,"TextWriterAdapter is not thread safe When logging using the XmlAppender, our company application can generate overlapping appender calls.  TextWriterAppender is not thread safe.
+
+",explain when to use comma and when to use semicolon in documentation summary as well.  LOG4NET-128, MODIFY SmtpAppender.cs
+0,LOG4NET-77,243f1e9f3ee235955bade4b4fe664a903378719a,"A small improvement of log4net.Layout.Pattern.ExceptionPatternConverter  - added 'Option' propery support A small improvement of log4net.Layout.Pattern.ExceptionPatternConverter  - added 'Option' propery support
+Example of usage:
+    <appender name=""ConsoleAppender"" type=""log4net.Appender.ConsoleAppender"" >
+      <layout type=""log4net.Layout.PatternLayout"">
+        <conversionPattern value=""%exception{TargetSite} - %exception{Message}%newline"" />
+      </layout>
+    </appender>
+","Started to implement LOG4NET-87: Support ASP.Net related PatternConverters to allow items from the HttpContext.Current.Session, Cache, Request, etc. to be captured.", ADD AspNetCachePatternConverter.csAspNetCachePatternConverter Convert ADD AspNetContextPatternConverter.csAspNetContextPatternConverter Convert ADD AspNetPatternConverter.csAspNetPatternConverter Convert ADD AspNetRequestPatternConverter.csAspNetRequestPatternConverter Convert ADD AspNetSessionPatternConverter.csAspNetSessionPatternConverter Convert MODIFY PatternLayout.csPatternLayout PatternLayout MODIFY log4net.csproj
+1,LOG4NET-164,0d096ee39144d3a829b47e04bb0faf23756c6bc2,"using a named mutex for file appenders About logging to the same file from 2 or more instances of an application.
+As opposed to a minimallock which makes it still possible for 2 application instances to interfere. Why not use a named mutex so that the logging will wait for the lock to be released from another instance.
+",Fix for LOG4NET-164. Added MutexLock which allows for faster inter-process file locking compared to MinimalLock., MODIFY FileAppender.csFileAppender MutexLock CloseFile FileAppender LockingModelBase CloseStream FileAppender MutexLock AcquireLock FileAppender MutexLock OpenFile FileAppender MutexLock ReleaseLock FileAppender ExclusiveLock CloseFile FileAppender MinimalLock AcquireLock FileAppender ExclusiveLock OpenFile FileAppender LockingStream Dispose FileAppender MinimalLock ReleaseLock FileAppender LockingModelBase CreateStream
+1,LOG4NET-462,183fd72e56c22f3e72ac1751c5d79aa8139205bd,"ReadOnlyPropertiesDictionary not thread safe I have an application that runs as a windows service and spins up multiple AppDomains, each with their own loggers. I will often run into an issue where log4net appears to be causing one or more of the spun up AppDomains to not function properly. The relevant stack trace looks as follows:
+
+System.InvalidOperationException: Collection was modified; enumeration operation may not execute.
+  at System.Collections.Hashtable.HashtableEnumerator.MoveNext()
+  at log4net.Util.ReadOnlyPropertiesDictionary.GetObjectData(Serialization info, StreamingContext context)
+  at System.Runtime.Serialization.ObjectCloneHelper.GetObjectData(Object serObj, String&amp; typeName, String&amp; assemName, String[]&amp; fieldNames, Object[]&amp; fieldValues)
+
+I have not been able to find the specific conditions to reproduce this but it happens often enough to be a huge problem. Looking at the log4net source, the ReadOnlyPropertiesDictionary.GetObjectData() method does a foreach over the InnerHashTable collection but there is nothing to stop that collection from being modified outside of that loop which is leading to the exception. I am not sure where in my code I would be doing anything that modified that collection indirectly but I do know that I push several things on and off of the LogicalThreadContext.",port fix for LOG4NET-462 from 1.3 branch, MODIFY ReadOnlyPropertiesDictionary.csReadOnlyPropertiesDictionary GetObjectData
+1,LOG4NET-60,fc9e55d9044e80761bfaa96044fbe57740ed4882,"Bug in RollingFileAppender.cs causing failure to timely roll files on monthly interval code in said file looks like this
+
+				case RollPoint.TopOfMonth:
+					current = current.AddMilliseconds(-current.Millisecond);
+					current = current.AddSeconds(-current.Second);
+					current = current.AddMinutes(-current.Minute);
+					current = current.AddHours(-current.Hour);
+					current = current.AddMonths(1);
+					break;
+
+i belive it should look something like this
+
+				case RollPoint.TopOfMonth:
+					current = current.AddMilliseconds(-current.Millisecond);
+					current = current.AddSeconds(-current.Second);
+					current = current.AddMinutes(-current.Minute);
+					current = current.AddHours(-current.Hour);
+					current = current.AddDays(1 - current.Day);      // this line seems to be needed
+					current = current.AddMonths(1);
+					break;
+
+
+
+also in a separate issue, since there is no RollPoint.TopOfYear, this comment in another part of the code seems wrong:
+
+				//is the new file name equivalent to the 'current' one
+				//something has gone wrong if we hit this -- we should only
+				//roll over if the new file will be different from the old
+				string dateFormat = m_now.ToString(m_datePattern, System.Globalization.DateTimeFormatInfo.InvariantInfo);
+				if (m_scheduledFilename.Equals(File + dateFormat)) 
+				{
+					ErrorHandler.Error(""Compare "" + m_scheduledFilename + "" : "" + File + dateFormat);
+					return;
+				}
+
+if the date pattern specifies only the year (rolling yearly), then i think this ""error"" will be triggered incorrectly 11 times a year. it's fine not to roll, but reporting an error is inappropriate.
+","Fix for LOG4NET-60.
+Fixed issue with calculation of the NextCheckDate for TopOfMonth RollPoints.
+Added more descriptive docs on the NextCheckDate method.", MODIFY RollingFileAppender.csRollingFileAppender NextCheckDate
+0,LOG4NET-70,debba6201326ec2cfb7bdd8613f12fe3d212e418,CoreDll.dll referenced with different capitalisation The CoreDll.dll is referenced as both CoreDll.dll and coredll.dll. This has no effect on functionality but we should be consistant and use CoreDll.dll.,"Fix for LOG4NET-72. Moved String.Format call into separate class SystemStringFormat. This class holds the format string and arguments and only performs the String.Format when its ToString method is called.
+Added simple test to ensure that the String.Format methods are working correctly and error handling correctly.
+Updated the tests project nant.build to copy shared libs into the build output directory.", MODIFY LogImpl.csLogImpl DebugFormat LogImpl InfoFormat LogImpl ErrorFormat LogImpl DebugFormat LogImpl InfoFormat LogImpl FatalFormat LogImpl ErrorFormat LogImpl FatalFormat LogImpl WarnFormat LogImpl WarnFormat ADD SystemStringFormat.csSystemStringFormat ToString SystemStringFormat StringFormatError SystemStringFormat StringFormat SystemStringFormat RenderObject SystemStringFormat SystemStringFormat SystemStringFormat RenderArray MODIFY Transform.csTransform RenderArray Transform StringFormatError Transform RenderObject Transform StringFormat MODIFY log4net.csproj ADD prerequisites.txt MODIFY nant.build ADD StringFormatTest.csStringFormatTest TestThreadPropertiesPattern MODIFY log4net.Tests.csproj
+1,LOG4NET-259,0a2053a54b7da9ece0faee7f24dd666687c7d8de,"Log4Net does not create a new tab in Chainsaw I believe the problem is in XmlLayoutSchemaLog4j, and that you need to change ""log4japp"" to ""application"".
+
+According to the Chainsaw tutorial:
+Chainsaw automatically looks inside each received LoggingEvent for a special Application property to determine which tab to route an event to. If it cannot find this property, it attempts to use a secondary property usually added via the SocketAppender or SocketHubAppender which identify the remote host of these events. If neither of these are found, Chainsaw routes events to a default ""Unknown"" tab.
+
+Logging events generated internally by chainsaw include the following properties:
+<log4j:properties>
+    <log4j:data name=""application"" value=""Generator 1""/>
+    <log4j:data name=""hostname"" value=""localhost""/>
+    <log4j:data name=""log4jid"" value=""2""/>
+    <log4j:data name=""some string"" value=""some valueGenerator 1""/>
+</log4j:properties>
+
+Logging events generated by XmlLayoutSchemaLog4j include the following properties:
+<log4j:properties>
+    <log4j:data name=""log4net:UserName"" value=""DOMAIN\username""/>
+    <log4j:data name=""log4jid"" value=""281""/>
+    <log4j:data name=""log4jmachinename"" value=""machineName""/>
+    <log4j:data name=""log4net:HostName"" value=""machineName""/>
+    <log4j:data name=""log4japp"" value=""Application.exe""/>
+</log4j:properties>
+
+See also: http://www.mail-archive.com/log4j-dev@jakarta.apache.org/msg05361.html
+
+UPDATE: Documentation issue. See comments below.",LOG4NET-259 added documentation that mentions the need of configuring chainsaw tabs, MODIFY chainsaw.xml
+1,LOG4NET-25,ec4eea70a9e46f971c3e61dbe2e10f3edf6b812e,"RollingFileAppender can fail if RollOverIfDateBoundaryCrossing required RollingFileAppender fails if RollOverIfDateBoundaryCrossing required and current directory is not ApplicationBase directory.
+
+RollOverIfDateBoundaryCrossing is called before the base class (FileAppender) ActivateOptions method is called. Therefore the File property has not yet been converted to a fully qualified path. If the current directory is not the ApplicationBase directory (e.g. when running under ASP.NET) then the RollFile call will fail with the message ""Source does not exist"" in the internal debug log.",Fix LOG4NET-25. Ensure that m_scheduledFilename is not built until after File has been set to fully qualified path, MODIFY RollingFileAppender.csRollingFileAppender ActivateOptions
+0,LOG4NET-484,d79057ae35cb4934c976172fa758be40d08a9815,"System.ObjectDisposedException with FileAppender+InterProcessLock Configure lockingModel for InterProcessLock with RollingFileAppender.
+
+{code:xml|title=app.config}
+<?xml version=""1.0"" encoding=""utf-8""?>
+<configuration>
+	<configSections>
+		<section name=""log4net"" type=""log4net.Config.Log4NetConfigurationSectionHandler, log4net"" />
+	</configSections>
+	<log4net>
+		<appender name=""RollingFileAppender"" type=""log4net.Appender.RollingFileAppender"">
+			<file type=""log4net.Util.PatternString"" value=""test.log"" />
+			<encoding value=""utf-8"" />
+			<appendToFile value=""true""/>
+			<rollingStyle value=""Size""/>
+			<maxSizeRollBackups value=""10""/>
+			<maximumFileSize value=""1""/>
+			<staticLogFileName value=""true""/>
+			<layout type=""log4net.Layout.PatternLayout"">
+				<conversionPattern value=""%d [%t] %-5p %c{2} - %m%n""/>
+			</layout>
+			<lockingModel type=""log4net.Appender.FileAppender+InterProcessLock"" />
+		</appender>
+		<root>
+			<level value=""INFO""/>
+			<appender-ref ref=""RollingFileAppender""/>
+		</root>
+	</log4net>
+</configuration>
+{code}
+
+Make a log with roll :
+
+{code:title=Program.cs}
+using log4net;
+
+namespace ConsoleApplication131
+{
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			var log = LogManager.GetLogger(typeof(Program));
+			log.Info(""A"");
+			log.Info(""A"");
+		}
+	}
+}
+{code}
+
+You get this one roll:
+
+{noformat}
+log4net:ERROR Failed to Close appender [RollingFileAppender]
+System.ObjectDisposedException: Safe handle has been closed
+   at System.Threading.WaitHandle.WaitOneNative(SafeWaitHandle waitHandle, UInt32 millisecondsTimeout, Boolean hasThreadAffinity, Boolean exitContext)
+   at System.Threading.WaitHandle.WaitOne(Int64 timeout, Boolean exitContext)
+   at log4net.Appender.FileAppender.InterProcessLock.AcquireLock()
+   at log4net.Appender.FileAppender.LockingStream.AcquireLock()
+   at log4net.Appender.FileAppender.WriteFooter()
+   at log4net.Appender.TextWriterAppender.WriteFooterAndCloseWriter()
+   at log4net.Appender.TextWriterAppender.Reset()
+   at log4net.Appender.FileAppender.Reset()
+   at log4net.Appender.TextWriterAppender.OnClose()
+   at log4net.Appender.AppenderSkeleton.Close()
+   at log4net.Util.AppenderAttachedImpl.RemoveAllAppenders()
+{noformat}",LOG4NET-473: Added file extension attribute in SmtpPickupDirAppender (closes #19), MODIFY SmtpPickupDirAppender.csSmtpPickupDirAppender SmtpPickupDirAppender SmtpPickupDirAppender SendBuffer SmtpPickupDirAppender if SmtpPickupDirAppender if MODIFY SmtpPickupDirAppenderTest.csSmtpPickupDirAppenderTest DeleteTestFiles SmtpPickupDirAppenderTest SmtpPickupDirAppenderTest SmtpPickupDirAppenderTest SilentErrorHandler Error SmtpPickupDirAppenderTest CreateSmtpPickupDirAppender SmtpPickupDirAppenderTest SetUp SmtpPickupDirAppenderTest TestOutputContainsSentDate SmtpPickupDirAppenderTest CreateLogger SmtpPickupDirAppenderTest DestroyLogger SmtpPickupDirAppenderTest SilentErrorHandler Error SmtpPickupDirAppenderTest TearDown SmtpPickupDirAppenderTest InitializePickupDir SmtpPickupDirAppenderTest SilentErrorHandler Error SmtpPickupDirAppenderTest ResetLogger SmtpPickupDirAppenderTest TestConfigurableFileExtension SmtpPickupDirAppenderTest TestDefaultFileNameIsAGuid
+0,LOG4NET-212,b9c24915eadbbb665778ef42524fd74d99eb969a,"Threading bug in the PatternConverter.cs Every once in a while I get the following exception:
+
+   System.ArgumentOutOfRangeException: Index and length must refer to a location within the string.
+    Parameter name: length
+       at System.String.InternalSubStringWithChecks(Int32 startIndex, Int32 length, Boolean fAlwaysCopy)
+       at System.Text.StringBuilder.ToString(Int32 startIndex, Int32 length)
+       at log4net.Util.PatternConverter.Format(TextWriter writer, Object state) in xxx\Log4Net\src\Util\PatternConverter.cs:line 187
+       at log4net.Layout.PatternLayout.Format(TextWriter writer, LoggingEvent loggingEvent) in xxx\Log4Net\src\Layout\PatternLayout.cs:line 1009
+       at Nemmco.Common.Initialization.Internal.NemLoggingAppender.Execute(DateTime lastTrigger, DateTime currentTrigger) in xxxInitialization\Internal\InitializationLogging.cs:line 765
+--snip--
+
+From my own investigation it looks like the problem occurs because the shared string buffer (from the m_formatWriter.GetStringBuilder() call) may end up in a state where its size is adjusted differently on separate threads, causing one thread to over-estimate the available length.
+
+I wonder if the re-use of a StringWriter / StringBuilder in this scenario actually outweighs the threading implications? The simplest fix would be to replace use of m_formatWriter with use of a local StringWriter / StringBuilder.","Use mvn purely to generate the site, improve layout a bit, add footer as required by branding rules.  LOG4NET-117, LOG4NET-275", MODIFY pom.xml MODIFY download.apt ADD maven-base.css ADD site.vm MODIFY site.xml MODIFY building.xml MODIFY features.xml MODIFY framework-support.xml MODIFY configuration.xml MODIFY contexts.xml MODIFY introduction.xml MODIFY release-notes.xml DELETE project.xml DELETE site.vsl
+0,LOG4NET-242,bec1fa114507de8036cb8daa8af0c6242f9d9ed7,"Download page does not have link to KEYS file The download page http://logging.apache.org/log4net/download.html has a link describing why one should verify releases, but fails to provide a link to the relevant KEYS file
+
+",make doc match the implementation.  LOG4NET-297, MODIFY AppenderSkeleton.cs
+0,LOG4NET-155,a056a11fb478a35d6cf3d4f26dc391c34f2dabc2,"Add TimeEvaluator Hello,
+
+I'd like to submit this class. I find it handy together with RemotingAppender (or buffering appenders generally) where we don't want to send synchronously, but still want to have some timely feedback from the sites even if there is little logging.
+
+A sample configuration would be:
+
+    <appender name=""RemotingAppender"" type=""log4net.Appender.RemotingAppender"">
+      <param name=""Sink"" value=""tcp://localhost:11111/LoggingSink"" />
+      <param name=""Lossy"" value=""false"" />
+      <param name=""BufferSize"" value=""500"" />
+      <param name=""Fix"" value=""Partial"" />
+      <evaluator type=""log4net.Core.TimeEvaluator"">
+        <threshold value=""60""/>
+      </evaluator>
+    </appender>
+
+I've taken the existing LevelEvaluator from Nicko Cadell as a template to build this class.
+
+I've tried it and it worked, but haven't done any further testing.
+
+Best regards and thanks for the great works!
+Robert.","Fix for LOG4NET-126. Changed link to downloads page from ""downloads.html"" to ""download.html"".", MODIFY example-apps.xml

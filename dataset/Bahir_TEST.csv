@@ -1,0 +1,346 @@
+Label,Issue_KEY,Commit_SHA,Issue_Text,Commit_Text,Commit_Code
+0,BAHIR-41,29d8c7622cf9663e295d7616ae1e1b089fe80da9,[WEBSITE] Fix logo display in small devices Reported by [~jreijn],[BAHIR-31] Add basic documentation for ZeroMQ connector, ADD README.md
+0,BAHIR-39,29d8c7622cf9663e295d7616ae1e1b089fe80da9,MQTT as a streaming source for SQL Streaming. MQTT compatible streaming source for Spark SQL Streaming.,[BAHIR-31] Add basic documentation for ZeroMQ connector, ADD README.md
+0,BAHIR-154,eae02f29eb011f50bc313714e6cde62ce65804c4,"Refactor sql-cloudant to use Cloudant's java-cloudant features Cloudant's java-cloudant library (which is currently used for testing) contains several features that sql-cloudant can benefit from:
+- HTTP 429 backoff
+- View builder API to potentially simplify loading for _all_docs/views
+- Improved exception handling when executing HTTP requests
+- Future support for IAM API key
+
+Would need to replace current scala HTTP library with OkHttp library, and also replace play-json with GSON library.","[BAHIR-138] fix deprecated warnings in sql-cloudant
+
+Fix warnings in DefaultSource class, and in CloudantStreaming
+and CloudantStreamingSelector examples.
+
+How
+
+Imported spark.implicits._ to convert Spark RDD to Dataset
+Replaced deprecated json(RDD[String]) with json(Dataset[String])
+Improved streaming examples:
+
+Replaced registerTempTable with preferred createOrReplaceTempView
+Replaced !isEmpty with nonEmpty
+Use an accessible sales database so users can run the example without any setup
+Fixed error message when stopping tests by adding logic to streaming
+receiver to not store documents in Spark memory when stream has stopped
+
+Closes #59", MODIFY CloudantStreaming.scala getInstance main MODIFY CloudantStreamingSelector.scala main MODIFY CloudantReceiver.scala receive
+0,BAHIR-125,e3d9e6960941696ba073735e9d039c85146c217a,Update Bahir pom to use JAVA 8 and to align with Spark 2.2.0 dependencies  ,"[BAHIR-100] Enhance MQTT connector to support byte arrays
+
+Closes #47", MODIFY README.md MODIFY MQTTInputDStream.scala ADD MQTTPairedByteArrayInputDStream.scala onStart connectionLost getReceiver onStop messageArrived deliveryComplete MODIFY MQTTPairedInputDStream.scala MODIFY MQTTUtils.scala createPairedStream createPairedByteArrayStream createPairedByteArrayStream createPairedByteArrayStream createPairedStream createPairedByteArrayStream createPairedByteArrayStream createPairedStream createPairedByteArrayStream createPairedByteArrayStream createPairedStream createPairedStream createPairedStream createPairedStream MODIFY JavaMQTTStreamSuite.java testMQTTStream MODIFY MQTTStreamSuite.scala
+1,BAHIR-66,fb752570c7ac817b414c738e05b751dd5864feb6,"Add test that ZeroMQ streaming connector can receive data Add test cases that verify that the *ZeroMQ streaming connector* can receive streaming data.
+
+See [BAHIR-63|https://issues.apache.org/jira/browse/BAHIR-63]","[BAHIR-66] Switch to Java binding for ZeroMQ
+
+Initially, I just wanted to implement integration test for BAHIR-66.
+Google pointed me to JeroMQ, which provides official ZeroMQ binding
+for Java and does not require native libraries. I have decided to give
+it a try, but quickly realized that akka-zeromq module (transient
+dependency from current Bahir master) is not compatible with JeroMQ.
+Actually Akka team also wanted to move to JeroMQ (akka/akka#13856),
+but in the end decided to remove akka-zeromq project completely
+(akka/akka#15864, https://www.lightbend.com/blog/akka-roadmap-update-2014).
+
+Having in mind that akka-zeromq does not support latest version of ZeroMQ
+protocol and further development may come delayed, I have decided to refactor
+streaming-zeromq implementation and leverage JeroMQ. With the change we receive
+various benefits, such as support for PUB-SUB and PUSH-PULL messaging patterns
+and the ability to bind the socket on whatever end of communication channel
+(see test cases), subscription to multiple channels, etc. JeroMQ seems pretty
+reliable and reconnection is handled out-of-the-box. Actually, we could even
+start the ZeroMQ subscriber trying to connect to remote socket before other
+end created and bound the socket. While I tried to preserve backward compatibility
+of method signatures, there was no easy way to support Akka API and business
+logic that users could put there (e.g. akka.actor.ActorSystem).
+
+Closes #71", MODIFY README.md MODIFY ZeroMQWordCount.scala run bytesToStringIterator stringToByteString main MODIFY pom.xml ADD ZeroMQInputDStream.scala run onStop subscribe getReceiver receiveLoop onStart DELETE ZeroMQReceiver.scala preStart MODIFY ZeroMQUtils.scala createTextStream createTextJavaStream MODIFY LocalJavaStreamingContext.java setUp MODIFY JavaZeroMQStreamSuite.java testZeroMQStream call call testZeroMQAPICompatibility MODIFY log4j.properties MODIFY ZeroMQStreamSuite.scala checkAllReceived
+0,BAHIR-29,5e07303c65e2c88cd392691bdfe9f68391f51b5c,Add documentation for streaming-mqtt connector  ,"[BAHIR-38] clean Ivy cache during Maven install phase
+
+When we install the org.apache.bahir jars into the local
+Maven repository we also need to clean the previous jar
+files from the Ivy cache (~/iv2/cache/org.apache.bahir/*)
+so spark-submit -packages ... will pick up the new version
+from the the local Maven repository.
+
+Closes #14", MODIFY pom.xml
+0,BAHIR-163,adeb24ba86cc2a406b4305c0199ae7c451862fe8,Move Bahir-Spark build infrastructure to use Travis.CI  ,[BAHIR-162] Stop publishing MD5 hash with releases, MODIFY release-build.sh
+1,BAHIR-82,08aa06cfc38ee503164a58c414cfe654aaed6c61,Prepare release based on Apache Spark 2.0.2  ,[BAHIR-82] Bump Apache Spark dependency to release 2.0.2, MODIFY pom.xml
+1,BAHIR-35,416252915431f01bb7a4ef4f8b7b9ed9ab02c3f5,"Include Python code in the binary jars for use with ""--packages ..."" Currently, to make use the PySpark code (i.e streaming-mqtt/python) a user will have to download the jar from Maven central or clone the code from GitHub and then have to find individual *.py files, create a zip and add that to the {{spark-submit}} command with the {{--py-files}} option, or, add them to the {{PYTHONPATH}} when running locally.
+
+If we include the Python code in the binary build (to the jar that gets uploaded to Maven central), then users need not do any acrobatics besides using the {{--packages ...}} option.
+
+An example where the Python code is part of the binary jar is the [GraphFrames|https://spark-packages.org/package/graphframes/graphframes] package.","[BAHIR-35] Add Python sources to binary jar
+
+Add python sources to jar to enable `spark-submit --packages …`
+
+This can be verified by the following steps :
+
+ mvn clean install
+
+ rm -rf ~/.ivy2/cache/org.apache.bahir/
+
+ mosquitto -p 1883
+
+ bin/run-example \
+    org.apache.spark.examples.streaming.mqtt.MQTTPublisher \
+    tcp://localhost:1883 \
+    foo
+
+ ${SPARK_HOME}/bin/spark-submit \
+    --packages org.apache.bahir:spark-streaming-mqtt_2.11:2.0.0-SNAPSHOT \
+    streaming-mqtt/examples/src/main/python/streaming/mqtt_wordcount.py \
+    tcp://localhost:1883 \
+    foo
+
+Closes #11", MODIFY pom.xml
+0,BAHIR-42,9ad566815b8e2e654547d6022d20016025d49923,Refactor sql-streaming-mqtt examples to follow other projects pattern  ,[BAHIR-44] Add new sql-streaming-mqtt to distribution profile, MODIFY pom.xml
+1,BAHIR-101,f0d9a84f76cb34a432e1d2db053d2471a8ab2ba4,Add Spark SQL datasource for CounchDB/Cloudant  ,"[BAHIR-101] Spark SQL datasource for CounchDB/Cloudant
+
+Initial code supporting CounchDB/Cloudant as an Spark SQL
+data source. The initial source contains the core connector,
+examples, and basic documentation on the README.
+
+Closes #39.", MODIFY README.md MODIFY pom.xml ADD README.md ADD CloudantApp.py ADD CloudantDF.py ADD CloudantDFOption.py ADD CloudantApp.scala main ADD CloudantDF.scala main ADD CloudantDFOption.scala main ADD CloudantStreaming.scala getInstance main ADD CloudantStreamingSelector.scala main ADD pom.xml ADD application.conf ADD reference.conf ADD CloudantConfig.scala getRangeUrl getDbname getTotalRows getForbiddenErrStr getConflictErrStr getOneUrlExcludeDDoc1 getSubSetUrl allowPartition getLastNum getTotalUrl getBulkRows calculateCondition getCreateDBonSave getLastUrl getContinuousChangesUrl getChangesUrl calculate getAllDocsUrlExcludeDDoc getOneUrl getSelector getAllDocsUrl getSchemaSampleSize getRows getBulkPostUrl getDbUrl getOneUrlExcludeDDoc2 ADD CloudantReceiver.scala onStart onStop receive run ADD DefaultSource.scala buildScan createRelation create insert createRelation createRelation ADD FilterUtil.scala filter containsFiltersFor apply analyze evaluate getFiltersForPostProcess getFilterAttribute getInfo ADD JsonStoreConfigManager.scala getString getConfig getConfig getBool getLong getInt ADD JsonStoreDataAccess.scala getChanges convert convertSkip getOne getClPostRequest saveAll getTotalRows createDB processAll getMany getIterator processIterator ADD JsonStoreRDD.scala compute ADD JsonUtil.scala getField
+1,BAHIR-138,eae02f29eb011f50bc313714e6cde62ce65804c4,"Fix sql-cloudant deprecation messages Deprecation warnings in {{DefaultSource}}:
+
+{code}
+[INFO] --- scala-maven-plugin:3.2.2:compile (scala-compile-first) @ spark-sql-cloudant_2.11 ---
+[INFO] Compiling 11 Scala sources to sql-cloudant/target/scala-2.11/classes...
+[WARNING] sql-cloudant/src/main/scala/org/apache/bahir/cloudant/DefaultSource.scala:59: method json in class DataFrameReader is deprecated: Use json(Dataset[String]) instead.
+[WARNING]         val df = sqlContext.read.json(cloudantRDD)
+[WARNING]                                  ^
+[WARNING] sql-cloudant/src/main/scala/org/apache/bahir/cloudant/DefaultSource.scala:115: method json in class DataFrameReader is deprecated: Use json(Dataset[String]) instead.
+[WARNING]             dataFrame = sqlContext.read.json(cloudantRDD)
+[WARNING]                                         ^
+[WARNING] sql-cloudant/src/main/scala/org/apache/bahir/cloudant/DefaultSource.scala:121: method json in class DataFrameReader is deprecated: Use json(Dataset[String]) instead.
+[WARNING]             sqlContext.read.json(aRDD)
+[WARNING]                             ^
+[WARNING] sql-cloudant/src/main/scala/org/apache/bahir/cloudant/DefaultSource.scala:152: method json in class DataFrameReader is deprecated: Use json(Dataset[String]) instead.
+[WARNING]               dataFrame = sqlContext.sparkSession.read.json(globalRDD)
+[WARNING]                                                        ^
+[WARNING] four warnings found
+{code}
+
+
+Deprecation warnings in {{CloudantStreaming}} and {{CloudantStreamingSelector}} examples:
+
+{code}
+[INFO] --- scala-maven-plugin:3.2.2:testCompile (scala-test-compile-first) @ spark-sql-cloudant_2.11 ---
+[INFO] Compiling 11 Scala sources to sql-cloudant/target/scala-2.11/test-classes...
+[WARNING] sql-cloudant/examples/src/main/scala/org/apache/spark/examples/sql/cloudant/CloudantStreaming.scala:46: method json in class DataFrameReader is deprecated: Use json(Dataset[String]) instead.
+[WARNING]       val changesDataFrame = spark.read.json(rdd)
+[WARNING]                                         ^
+[WARNING] sql-cloudant/examples/src/main/scala/org/apache/spark/examples/sql/cloudant/CloudantStreaming.scala:67: method registerTempTable in class Dataset is deprecated: Use createOrReplaceTempView(viewName) instead.
+[WARNING]           changesDataFrame.registerTempTable(""airportcodemapping"")
+[WARNING]                            ^
+[WARNING] sql-cloudant/examples/src/main/scala/org/apache/spark/examples/sql/cloudant/CloudantStreamingSelector.scala:50: method json in class DataFrameReader is deprecated: Use json(Dataset[String]) instead.
+[WARNING]       val changesDataFrame = spark.read.json(rdd)
+[WARNING]                                         ^
+[WARNING] three warnings found
+{code}","[BAHIR-138] fix deprecated warnings in sql-cloudant
+
+Fix warnings in DefaultSource class, and in CloudantStreaming
+and CloudantStreamingSelector examples.
+
+How
+
+Imported spark.implicits._ to convert Spark RDD to Dataset
+Replaced deprecated json(RDD[String]) with json(Dataset[String])
+Improved streaming examples:
+
+Replaced registerTempTable with preferred createOrReplaceTempView
+Replaced !isEmpty with nonEmpty
+Use an accessible sales database so users can run the example without any setup
+Fixed error message when stopping tests by adding logic to streaming
+receiver to not store documents in Spark memory when stream has stopped
+
+Closes #59", MODIFY CloudantStreaming.scala getInstance main MODIFY CloudantStreamingSelector.scala main MODIFY CloudantReceiver.scala receive
+0,BAHIR-18,13b127593e79debfbc97a9c1215198c780df50a4,"Include examples in Maven test build We need to find a way to include the examples in the Maven build but keep them excluded from the binary jar(s) and have IDEs like IntelliJ or Eclipse recognize the {{<module>/examples/src/\[java|scala\]}} as source files.
+
+One way this can be achieved is by including the examples as ""additional test sources"".","[BAHIR-19] Create source distribution assembly
+
+Add assemblie to create Bahir source release distribution", ADD pom.xml ADD src.xml MODIFY pom.xml
+0,BAHIR-179,5cfd7ac3154621b1780e2eb4719731030fc7d80a,fail silently when tests need docker image to be running  ,"[BAHIR-175] Fix MQTT recovery after checkpoint
+
+Closes #79", MODIFY MQTTStreamSource.scala messageArrived commit createDataReaderFactories initialize MODIFY MessageStore.scala MODIFY MQTTStreamSourceSuite.scala
+0,BAHIR-47,9ad566815b8e2e654547d6022d20016025d49923,Bring up release download for Apache Bahir website  ,[BAHIR-44] Add new sql-streaming-mqtt to distribution profile, MODIFY pom.xml
+0,BAHIR-122,e3d9e6960941696ba073735e9d039c85146c217a,"[PubSub] Make ""ServiceAccountCredentials"" really broadcastable The origin implementation broadcast the key file path to Spark cluster, then the executor read key file with the broadcasted path. Which is absurd, if you are using a shared Spark cluster in a group/company, you certainly not want to (and have no right to) put your key file on each instance of the cluster.
+
+If you store the key file on driver node and submit your job to a remote cluster. You would get the following warning:
+{{WARN ReceiverTracker: Error reported by receiver for stream 0: Failed to pull messages - java.io.FileNotFoundException}}","[BAHIR-100] Enhance MQTT connector to support byte arrays
+
+Closes #47", MODIFY README.md MODIFY MQTTInputDStream.scala ADD MQTTPairedByteArrayInputDStream.scala onStart connectionLost getReceiver onStop messageArrived deliveryComplete MODIFY MQTTPairedInputDStream.scala MODIFY MQTTUtils.scala createPairedStream createPairedByteArrayStream createPairedByteArrayStream createPairedByteArrayStream createPairedStream createPairedByteArrayStream createPairedByteArrayStream createPairedStream createPairedByteArrayStream createPairedByteArrayStream createPairedStream createPairedStream createPairedStream createPairedStream MODIFY JavaMQTTStreamSuite.java testMQTTStream MODIFY MQTTStreamSuite.scala
+1,BAHIR-187,ac05edeff1c2f22fe962f57aeeb5f121068500be,"Reduce size of sql-cloudant test database Reduce the number of documents from 1967 to 100 in the n_flight.json test file.
+ ","[BAHIR-187] Sppedup tests by reducing test data files
+
+Reduced the JSON test files to shorten time required
+to complete test cases
+
+Closes #75", MODIFY n_flight.json MODIFY CloudantAllDocsDFSuite.scala MODIFY CloudantChangesDFSuite.scala MODIFY CloudantOptionSuite.scala MODIFY CloudantSparkSQLSuite.scala
+1,BAHIR-141,cc61a83a79d912f8eb842507ecca0b2d82f734e6,"Support for Array[Byte] in SparkGCPCredentials.jsonServiceAccount Existing implementation of SparkGCPCredentials.jsonServiceAccount has only support for reading the credential file from given path in config(i.e local path). If developer does not have access to worker node it makes easy for developer to add the byte array of json service file rather than path(which will not be available on worker node and will lead to FileNotFound Exaception)from the machine where driver is submitting job from.
+
+
+ ","[BAHIR-141] Support GCP JSON key type as binary array
+
+Closes #82
+Closes #53", MODIFY README.md MODIFY SparkGCPCredentials.scala this metadataServiceAccount httpTransport p12ServiceAccount jsonServiceAccount build p12ServiceAccount scopes jsonServiceAccount jacksonFactory this MODIFY SparkGCPCredentialsBuilderSuite.scala jsonAssumption p12Assumption
+0,BAHIR-186,0601698c3721fb3db58431683e556af28ffc0d6a,Support SSL connection in MQTT SQL Streaming Mailing list discussion: https://www.mail-archive.com/user@bahir.apache.org/msg00022.html.,"[BAHIR-103] New module with common utilities and test classes
+
+Closes #73", ADD pom.xml RENAME FileHelper.scala recursiveDeleteDir deleteFileQuietly RENAME Logging.scala ADD Retry.scala RENAME ConditionalSparkFunSuite.scala runIf testIf RENAME LocalJavaStreamingContext.java setUp MODIFY pom.xml MODIFY pom.xml MODIFY pom.xml MODIFY ClientSparkFunSuite.scala beforeAll runIfTestsEnabled testIfEnabled afterAll MODIFY CloudantAllDocsDFSuite.scala MODIFY CloudantChangesDFSuite.scala MODIFY CloudantOptionSuite.scala MODIFY CloudantSparkSQLSuite.scala MODIFY TestUtils.scala deleteRecursively shouldRunTest MODIFY pom.xml MODIFY AkkaStreamSourceSuite.scala MODIFY pom.xml MODIFY CachedMQTTClient.scala MODIFY MQTTStreamSink.scala MODIFY MQTTUtils.scala DELETE BahirUtils.scala visitFile recursiveDeleteDir postVisitDirectory DELETE Logging.scala MODIFY LocalMessageStoreSuite.scala MODIFY MQTTStreamSinkSuite.scala MODIFY MQTTStreamSourceSuite.scala MODIFY pom.xml MODIFY JavaAkkaUtilsSuite.java call testAkkaUtils onReceive MODIFY pom.xml DELETE LocalJavaStreamingContext.java setUp tearDown MODIFY MQTTStreamSuite.scala MODIFY pom.xml MODIFY pom.xml DELETE LocalJavaStreamingContext.java tearDown setUp DELETE PubsubFunSuite.scala testIfEnabled runIfTestsEnabled MODIFY PubsubStreamSuite.scala beforeAll MODIFY PubsubTestUtils.scala shouldRunTest MODIFY pom.xml DELETE LocalJavaStreamingContext.java tearDown setUp MODIFY pom.xml
+1,BAHIR-24,12f130846ef7523138e98e79bfd823f61acab3b3,Fix MQTT Python code When the Bahir project was created from Spark revision {{8301fadd8}} the Python code (incl. examples) were not updated with respect to the modified project structure and test cases were left out from the import.,"[BAHIR-24] fix MQTT Python code, examples, add tests
+
+Changes in this PR:
+
+- remove unnecessary files from streaming-mqtt/python
+- updated all *.py files with respect to the modified
+  project structure pyspark.streaming.mqtt --> mqtt
+- add test cases that were left out from the import and
+  add shell script to run them:
+    - streaming-mqtt/python-tests/run-python-tests.sh
+    - streaming-mqtt/python-tests/tests.py
+- modify MQTTTestUtils.scala to limit the required disk storage space
+- modify bin/run-example script to setup PYTHONPATH to run Python examples
+
+Closes #10", MODIFY .gitignore MODIFY run-example MODIFY pom.xml MODIFY mqtt_wordcount.py ADD run-python-tests.sh ADD tests.py tearDown _startContext test_mqtt_stream _retry_or_timeout _randomTopic test_mqtt_stream.retry setUp _startContext.getOutput DELETE __init__.py DELETE dstream.py rightOuterJoin countByValue pprint _validate_window_param glom.func reduceByWindow checkpoint mapValues repartition __init__ mapPartitionsWithIndex reduceByKeyAndWindow.invReduceFunc countByValueAndWindow glom updateStateByKey.reduceFunc _jdstream mapPartitions persist mapPartitions.func flatMapValues saveAsTextFiles.saveAsTextFile context flatMap combineByKey combineByKey.func groupByKeyAndWindow map.func groupByKey cogroup updateStateByKey filter reduce partitionBy transformWith reduceByKeyAndWindow.reduceFunc pprint.takeAndPrint countByWindow cache map reduceByKey reduceByKeyAndWindow transform flatMap.func join _jtime leftOuterJoin count filter.func saveAsTextFiles window _slideDuration slice fullOuterJoin __init__ union foreachRDD MODIFY mqtt.py _get_helper _printErrorMsg createStream MODIFY MQTTTestUtils.scala setup
+0,BAHIR-184,a73ab48a2dfec866b2ffa0ccf0d2bfeaba6fc782,"Please delete old releases from mirroring system To reduce the load on the volunteer 3rd party mirrors, projects must remove non-current releases from the mirroring system.
+
+The following releases appear to be obsolete, as they do not appear on the Bahir download page:
+
+2.1.1
+2.1.2
+2.1.3
+2.2.0
+2.2.1
+2.2.2
+2.3.0
+2.3.1
+
+Furthermore, many of the underlying Spark releases are no longer current according to the Spark release notes, e.g.
+http://spark.apache.org/releases/spark-release-2-3-2.html
+says that it replaces earlier 2.3.x releases, so 2.3.0 and 2.3.1 are not current Spark releases.
+
+It's unfair to expect the mirrors to carry old releases.","[BAHIR-186] SSL support in MQTT structured streaming
+
+Closes #74", MODIFY README.md MODIFY MQTTUtils.scala parseConfigParams ADD keystore.jks ADD truststore.jks MODIFY MQTTStreamSinkSuite.scala sendToMQTT MODIFY MQTTTestUtils.scala connectToServer publishData subscribeData setup
+0,BAHIR-124,a70ff538ac48ac1576984304d273e7a1f25fc2a6,Update Bahir to use Spark 2.2.0 dependency  ,"[BAHIR-125] Update Bahir parent pom
+
+- Default build using JAVA 8
+- Update dependencies to align with Spark 2.2.0", MODIFY pom.xml
+1,BAHIR-123,c5263df233b53a603883c1a5c4aa6c652f0e7fab,"Fix errors to support the latest version of Play JSON library for sql-cloudant The latest version is 2.6.2.  Error during mvn install -pl sql-cloudant after updating play-json to 2.6.2 in sql-cloudant/pom.xml:
+
+[ERROR] /Users/estebanmlaver/emlaver-bahir/sql-cloudant/src/main/scala/org/apache/bahir/cloudant/common/JsonStoreConfigManager.scala:19: object typesafe is not a member of package com
+[ERROR] import com.typesafe.config.ConfigFactory
+[ERROR]            ^
+[ERROR] /Users/estebanmlaver/emlaver-bahir/sql-cloudant/src/main/scala/org/apache/bahir/cloudant/common/JsonStoreConfigManager.scala:52: not found: value ConfigFactory
+[ERROR]   private val configFactory = ConfigFactory.load()
+[ERROR]                               ^
+[ERROR] two errors found
+
+Maven compile dependencies need to be added to pom.xml that existed in play-json 2.5.9 but were removed in 2.6.2.
+
+Additional info. from Patrick Titzler between play-json versions 2.5.x and 2.6.x:
+Looks like the parameter data type has been changed from `Seq[JsValue]` (https://www.playframework.com/documentation/2.5.x/api/scala/index.html#play.api.libs.json.JsArray) to `IndexedSeq[JsValue]` https://playframework.com/documentation/2.6.x/api/scala/index.html#play.api.libs.json.JsArray","[BAHIR-123] Upgrade to play-json 2.6.6
+
+Fixed breaking API changes between play-json 2.5.x and 2.6.x
+in sql-cloudant by replacing deprecated methods.
+
+Closes #50", MODIFY pom.xml MODIFY pom.xml MODIFY ClientSparkFunSuite.scala deleteTestDbs MODIFY CloudantAllDocsDFSuite.scala MODIFY CloudantChangesDFSuite.scala
+0,BAHIR-41,858ad27ad2766ab85e8c41e0cfa45162e9f7e308,[WEBSITE] Fix logo display in small devices Reported by [~jreijn],[BAHIR-28] Add basic documentation for Akka connector, ADD README.md
+0,BAHIR-39,c78af705f5697ab11d93f933d033d96cc48403a0,MQTT as a streaming source for SQL Streaming. MQTT compatible streaming source for Spark SQL Streaming.,[BAHIR-30] Add basic documentation for Twitter connector, ADD README.md
+0,BAHIR-47,29d8c7622cf9663e295d7616ae1e1b089fe80da9,Bring up release download for Apache Bahir website  ,[BAHIR-31] Add basic documentation for ZeroMQ connector, ADD README.md
+1,BAHIR-43,95633de6741ddf757cc4964425463a972e1b4cbe,Add missing apache license header to sql-mqtt file  ,[BAHIR-43] Add Apache License header file, MODIFY pom.xml MODIFY org.apache.spark.sql.sources.DataSourceRegister
+0,BAHIR-15,2dfcd08d11e94b535a39c31c87cf690f99944357,Enable RAT on Bahir builds RAT check for license headers compliance on source code,"[[BAHIR-14] More parent pom cleanup
+
+Remove Spark assembly related configuration, and
+stop producing source jars for non-jar projects.", MODIFY pom.xml MODIFY pom.xml MODIFY pom.xml MODIFY pom.xml MODIFY pom.xml
+1,BAHIR-163,70f6ba0e4430d0e0773b815c52f4a256e30e0234,Move Bahir-Spark build infrastructure to use Travis.CI  ,[BAHIR-163] Enable builds using Travis CI, ADD .travis.yml
+0,BAHIR-154,770b2916f0a7603b62ef997a0ea98b38c6da15c0,"Refactor sql-cloudant to use Cloudant's java-cloudant features Cloudant's java-cloudant library (which is currently used for testing) contains several features that sql-cloudant can benefit from:
+- HTTP 429 backoff
+- View builder API to potentially simplify loading for _all_docs/views
+- Improved exception handling when executing HTTP requests
+- Future support for IAM API key
+
+Would need to replace current scala HTTP library with OkHttp library, and also replace play-json with GSON library.","[BAHIR-104] Multi-topic MQTT DStream in Python is now a PairRDD.
+
+Closes #55", MODIFY README.md MODIFY tests.py _start_context_with_paired_stream test_mqtt_pair_stream test_mqtt_pair_stream.retry _start_context_with_paired_stream.getOutput MODIFY mqtt.py createPairedStream _list_to_java_string_array
+0,BAHIR-20,d6770f833ec723f24ea452c11fd102624d12c3f2,"Create release script Create script to help with release process that perform:
+release-prepare
+release-perform
+release-snapshot
+","[BAHIR-23] Build should fail on Checkstyle violations
+
+Currently the maven build is configured to:
+
+- fail for code style violations in Scala files
+- succeed despite code style violations in Java files
+- exclude Scala test sources (and examples) from code style checks
+- include Java test sources (and examples) in code style checks
+
+This changes the maven build configuration to
+
+- fail for code style violations in both Scala and Java sources
+- include test sources (and examples) in style checks for both
+  Scala and Java sources
+
+Additionally cleaning up unsupported checkstyle configuration
+elements (apparently copy-and-pasted from scalastyle configuration)", MODIFY checkstyle-suppressions.xml MODIFY pom.xml MODIFY package-info.java MODIFY JavaTwitterHashTagJoinSentiments.java main MODIFY package-info.java MODIFY package-info.java MODIFY JavaZeroMQStreamSuite.java testZeroMQStream
+0,BAHIR-48,95633de6741ddf757cc4964425463a972e1b4cbe,Documentation improvements for Bahir README.md  ,[BAHIR-43] Add Apache License header file, MODIFY pom.xml MODIFY org.apache.spark.sql.sources.DataSourceRegister
+0,BAHIR-45,31b3e96d4680c54ff05d4b09f944106d22b62760,"Add cleanup support to SQL-STREAMING-MQTT Source once SPARK-16963 is fixed. Currently, source tries to persist all the incoming messages to allow for minimal level of fault tolerance. Once SPARK-16963 is fixed, we would have a way to perform cleanup of messages no longer required. This would allow us to make the connector more fault tolerant.",[BAHIR-52] Fix code paragraph formatting for Akka readme, MODIFY README.md
+0,BAHIR-21,1028736bb79a6b7c66789bc77ca97c44020e62af,Create script to change build between scala 2.10 and 2.11  ,"[BAHIR-19] Update source distribution assembly name
+
+Update final assembly name and extraction directory
+to use apache best practice pattern :
+
+apache-bahir-${project.version}-src", MODIFY pom.xml MODIFY src.xml
+0,BAHIR-50,eab486427186cee3c0f7ed8e440971f67f7ed832,Add extension documentation to Bahir website Provide documentation for the available extensions based on each extension readme file.,"[BAHIR-52] Update README.md formatting for source code
+
+Update source code paragraphs to use tabs instead of ```
+which is the supported way in vanilla Jekyll.", MODIFY README.md MODIFY README.md MODIFY README.md MODIFY README.md MODIFY README.md
+0,BAHIR-17,d6770f833ec723f24ea452c11fd102624d12c3f2,Prepare release based on Apache Spark 2.0.0-preview  ,"[BAHIR-23] Build should fail on Checkstyle violations
+
+Currently the maven build is configured to:
+
+- fail for code style violations in Scala files
+- succeed despite code style violations in Java files
+- exclude Scala test sources (and examples) from code style checks
+- include Java test sources (and examples) in code style checks
+
+This changes the maven build configuration to
+
+- fail for code style violations in both Scala and Java sources
+- include test sources (and examples) in style checks for both
+  Scala and Java sources
+
+Additionally cleaning up unsupported checkstyle configuration
+elements (apparently copy-and-pasted from scalastyle configuration)", MODIFY checkstyle-suppressions.xml MODIFY pom.xml MODIFY package-info.java MODIFY JavaTwitterHashTagJoinSentiments.java main MODIFY package-info.java MODIFY package-info.java MODIFY JavaZeroMQStreamSuite.java testZeroMQStream
+0,BAHIR-107,fd4c35fc9f7ebb57464d231cf5d66e7bc4096a1b,"Build and test Bahir against Scala 2.12 Spark has started effort for accommodating Scala 2.12
+
+See SPARK-14220 .
+
+This JIRA is to track requirements for building Bahir on Scala 2.12.7","[BAHIR-102] Initial support of Cloudant Query and examples
+
+Add optimization to use query in particular scenarios.
+
+Closes #41.", MODIFY README.md ADD CloudantQuery.py ADD CloudantQueryDF.py MODIFY application.conf MODIFY CloudantConfig.scala getTotalRows getRows getOneUrlExcludeDDoc1 getSubSetUrl allowPartition getLastNum calculateCondition getCreateDBonSave getLastUrl getSubSetUrl getChangesUrl calculate getOneUrl getAllDocsUrlExcludeDDoc getAllDocsUrl calculate getRangeUrl getRows getOneUrlExcludeDDoc2 getAllDocsUrl allowPartition queryEnabled getDbUrl getRangeUrl getDbname MODIFY DefaultSource.scala buildScan create MODIFY JsonStoreConfigManager.scala getConfig getConfig MODIFY JsonStoreDataAccess.scala getTotalRows getIterator processAll processIterator getChanges getMany getOne getTotalRows convertSkip MODIFY JsonStoreRDD.scala getLimitPerPartition convertAttrToMangoJson compute convertToMangoJson getTotalPartition
+1,BAHIR-51,a351549cf634adf5249862599166ef9ed9073725,"Add additional MQTT options/parameters to MQTTInputDStream and MqttStreamSource We are using Spark Streaming in the automotive IOT environment with MQTT as the data source.
+For security reasons our MQTT broker is protected by username and password (as is default for these kind of environments). At the moment it is not possible to set username/password when creating an MQTT Receiver (MQTTInputDStream or MqttStreamSource).
+
+I propose that the MQTTInputDStream and MqttStreamSource be extended to optionally allow setting the following mqtt options / parameters:
+* username
+* password
+* clientId
+* cleanSession
+* QoS
+* connectionTimeout
+* keepAliveInterval
+* mqttVersion
+
+If this proposal meets your approval I am willing to create a pull request with these changes implemented.
+
+
+*Note*: The part for MqttInputDStream has been split off into BAHIR-53.","[BAHIR-51] Add new configuration options to MqttStreamSource.
+
+Add new configuration options to enable secured connections and
+other quality of services.
+
+Closes #22", MODIFY README.md MODIFY MQTTStreamSource.scala initialize createSource MODIFY MQTTStreamSourceSuite.scala createStreamingDataframe

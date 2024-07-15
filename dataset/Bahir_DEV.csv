@@ -1,0 +1,316 @@
+label,Issue_KEY,Commit_SHA,Issue_Text,Commit_Text,Commit_Code
+0,BAHIR-22,d6770f833ec723f24ea452c11fd102624d12c3f2,"Add script to run examples Apache Spark has a convenience script {{./bin/run-example}} to allow users to quickly run the pre-packaged examples without having to compose a long(ish) spark-submit command. The JavaDoc of most examples refers to that  {{./bin/run-example}} script in their description of how to run that example.
+
+The Apache Bahir project should have a similar convenience script to be consistent with Apache Spark, existing documentation and to (at least initially) hide additional complexities of the spark-submit command.
+
+Example:
+{code}
+./bin/run-example \
+  org.apache.spark.examples.streaming.akka.ActorWordCount localhost 9999
+{code}
+...translates to this {{spark-submit}} command:
+{code}
+${SPARK_HOME}/bin/spark-submit \
+  --packages org.apache.bahir:spark-streaming-akka_2.11:2.0.0-SNAPSHOT \
+  --class org.apache.spark.examples.streaming.akka.ActorWordCount \
+    streaming-akka/target/spark-streaming-akka_2.11-2.0.0-SNAPSHOT-tests.jar \
+  localhost 9999
+{code}","[BAHIR-23] Build should fail on Checkstyle violations
+
+Currently the maven build is configured to:
+
+- fail for code style violations in Scala files
+- succeed despite code style violations in Java files
+- exclude Scala test sources (and examples) from code style checks
+- include Java test sources (and examples) in code style checks
+
+This changes the maven build configuration to
+
+- fail for code style violations in both Scala and Java sources
+- include test sources (and examples) in style checks for both
+  Scala and Java sources
+
+Additionally cleaning up unsupported checkstyle configuration
+elements (apparently copy-and-pasted from scalastyle configuration)", MODIFY checkstyle-suppressions.xml MODIFY pom.xml MODIFY package-info.java MODIFY JavaTwitterHashTagJoinSentiments.java main MODIFY package-info.java MODIFY package-info.java MODIFY JavaZeroMQStreamSuite.java testZeroMQStream
+1,BAHIR-66,fb752570c7ac817b414c738e05b751dd5864feb6,"Add test that ZeroMQ streaming connector can receive data Add test cases that verify that the *ZeroMQ streaming connector* can receive streaming data.
+
+See [BAHIR-63|https://issues.apache.org/jira/browse/BAHIR-63]","[BAHIR-66] Switch to Java binding for ZeroMQ
+
+Initially, I just wanted to implement integration test for BAHIR-66.
+Google pointed me to JeroMQ, which provides official ZeroMQ binding
+for Java and does not require native libraries. I have decided to give
+it a try, but quickly realized that akka-zeromq module (transient
+dependency from current Bahir master) is not compatible with JeroMQ.
+Actually Akka team also wanted to move to JeroMQ (akka/akka#13856),
+but in the end decided to remove akka-zeromq project completely
+(akka/akka#15864, https://www.lightbend.com/blog/akka-roadmap-update-2014).
+
+Having in mind that akka-zeromq does not support latest version of ZeroMQ
+protocol and further development may come delayed, I have decided to refactor
+streaming-zeromq implementation and leverage JeroMQ. With the change we receive
+various benefits, such as support for PUB-SUB and PUSH-PULL messaging patterns
+and the ability to bind the socket on whatever end of communication channel
+(see test cases), subscription to multiple channels, etc. JeroMQ seems pretty
+reliable and reconnection is handled out-of-the-box. Actually, we could even
+start the ZeroMQ subscriber trying to connect to remote socket before other
+end created and bound the socket. While I tried to preserve backward compatibility
+of method signatures, there was no easy way to support Akka API and business
+logic that users could put there (e.g. akka.actor.ActorSystem).
+
+Closes #71", MODIFY README.md MODIFY ZeroMQWordCount.scala run bytesToStringIterator stringToByteString main MODIFY pom.xml ADD ZeroMQInputDStream.scala run onStop subscribe getReceiver receiveLoop onStart DELETE ZeroMQReceiver.scala preStart MODIFY ZeroMQUtils.scala createTextStream createTextJavaStream MODIFY LocalJavaStreamingContext.java setUp MODIFY JavaZeroMQStreamSuite.java testZeroMQStream call call testZeroMQAPICompatibility MODIFY log4j.properties MODIFY ZeroMQStreamSuite.scala checkAllReceived
+0,BAHIR-47,858ad27ad2766ab85e8c41e0cfa45162e9f7e308,Bring up release download for Apache Bahir website  ,[BAHIR-28] Add basic documentation for Akka connector, ADD README.md
+0,BAHIR-104,0e1505a8960bfe40ea025267bbf36ec5c4cf5c79,"MQTT Dstream returned by the new multi topic support API is not a pairRDD The new multi topic support API added with [BAHIR-89], when used in pyspark, does not return a Dstream of <topic,message> tuples. 
+Example: 
+In pyspark, when creating a Dstream using the new API ( mqttstream = MQTTUtils.createPairedStream(ssc, brokerUrl, topics) ) the expected contents of mqttstream should be a collections of tuples:
+
+(topic,message) , (topic,message) , (topic,message) , ...
+
+Instead, the current content is a flattened list:
+
+topic, message, topic, message, topic, message, ...
+
+that is hard to use.
+
+
+","[BAHIR-128] Improve sql-cloudant _changes receiver
+
+This change improves the stability of _changes receiver and
+fix the intermitent failing test in sql-cloudant's
+CloudantChangesDFSuite.
+
+How
+
+Improve performance and decrease testing time by setting batch size
+to 8 seconds and using seq_interval _changes feed option.
+Use getResource to load json files path
+Added Mike Rhodes's ChangesRowScanner for reading each _changes line
+and transforming to GSON's JSON object
+Added Mike Rhodes's ChangesRow representing a row in the changes feed
+
+Closes #57", ADD ChangesRow.java getDoc Rev getRev getSeq getId getChanges ADD ChangesRowScanner.java readRowFromReader MODIFY CloudantChangesConfig.scala MODIFY DefaultSource.scala create MODIFY JsonStoreDataAccess.scala MODIFY ChangesReceiver.scala receive MODIFY ClientSparkFunSuite.scala createTestDbs MODIFY CloudantChangesDFSuite.scala
+0,BAHIR-24,48e91fca54f7fab6f6171be4c05747a985876483,Fix MQTT Python code When the Bahir project was created from Spark revision {{8301fadd8}} the Python code (incl. examples) were not updated with respect to the modified project structure and test cases were left out from the import.,"[BAHIR-36] Update Readme.md
+
+- Add how to build and test project
+
+Closes #12", MODIFY README.md
+0,BAHIR-43,c98dd0feefa79c70be65de06a411a2f9c4fc42dc,Add missing apache license header to sql-mqtt file  ,"[BAHIR-39] Add SQL Streaming MQTT support
+
+This provides support for using MQTT sources for
+the new Spark Structured Streaming. This uses
+MQTT client persistence layer to provide minimal
+fault tolerance.
+
+Closes #13", MODIFY pom.xml ADD README.md ADD pom.xml ADD assembly.xml ADD JavaMQTTStreamWordCount.java main ADD org.apache.spark.sql.sources.DataSourceRegister ADD MQTTStreamSource.scala stop connectionLost messageArrived fetchLastProcessedOffset createSource initialize deliveryComplete getBatch shortName sourceSchema connectComplete e ADD MessageStore.scala get this ADD MQTTStreamWordCount.scala main ADD BahirUtils.scala postVisitDirectory visitFile recursiveDeleteDir ADD Logging.scala ADD log4j.properties ADD LocalMessageStoreSuite.scala ADD MQTTStreamSourceSuite.scala createStreamingDataframe writeStreamResults readBackStreamingResults ADD MQTTTestUtils.scala setup publishData teardown findFreePort
+1,BAHIR-126,3c036e9baa1cabf9ee1548a9c9256cdbd64f04fd,Update Akka dependency to version 2.4.20 This address CVE-2017-5643.,"[BAHIR-126] Update Akka to version 2.4.20
+
+Address akka vulnerability: CVE-2017-5643", MODIFY pom.xml
+0,BAHIR-44,5e07303c65e2c88cd392691bdfe9f68391f51b5c,Add new sql-streaming-mqtt to distribution  ,"[BAHIR-38] clean Ivy cache during Maven install phase
+
+When we install the org.apache.bahir jars into the local
+Maven repository we also need to clean the previous jar
+files from the Ivy cache (~/iv2/cache/org.apache.bahir/*)
+so spark-submit -packages ... will pick up the new version
+from the the local Maven repository.
+
+Closes #14", MODIFY pom.xml
+0,BAHIR-52,c317def2a7575713d31353f87025ddacaf30e503,"Update extension documentation formats for code sections The ```md format is not working properly for pure jekyll html generation, and the tab seems to be the supported way in vanilla jekyll. We should update Bahir extension readme to use the supported format.",[BAHIR-37] Start building against Spark Master -  2.1.0-SNAPSHOT, MODIFY pom.xml MODIFY README.md MODIFY README.md MODIFY README.md MODIFY README.md MODIFY README.md
+0,BAHIR-56,28f034f49d19034b596f7f04ca4fc2698a21ad6c,Add ActiveMQ streaming connector for Flink  ,"[BAHIR-53] Add new configuration options to MQTTInputDStream
+
+Add new configuration options to enable secured connections and
+other quality of services.
+
+Closes #23", MODIFY scalastyle-config.xml MODIFY README.md MODIFY MQTTInputDStream.scala onStart getReceiver MODIFY MQTTUtils.scala createStream createStream createStream createStream createStream createStream createStream MODIFY JavaMQTTStreamSuite.java testMQTTStream
+0,BAHIR-105,fd4c35fc9f7ebb57464d231cf5d66e7bc4096a1b,Add distribution module for Flink extensions  ,"[BAHIR-102] Initial support of Cloudant Query and examples
+
+Add optimization to use query in particular scenarios.
+
+Closes #41.", MODIFY README.md ADD CloudantQuery.py ADD CloudantQueryDF.py MODIFY application.conf MODIFY CloudantConfig.scala getTotalRows getRows getOneUrlExcludeDDoc1 getSubSetUrl allowPartition getLastNum calculateCondition getCreateDBonSave getLastUrl getSubSetUrl getChangesUrl calculate getOneUrl getAllDocsUrlExcludeDDoc getAllDocsUrl calculate getRangeUrl getRows getOneUrlExcludeDDoc2 getAllDocsUrl allowPartition queryEnabled getDbUrl getRangeUrl getDbname MODIFY DefaultSource.scala buildScan create MODIFY JsonStoreConfigManager.scala getConfig getConfig MODIFY JsonStoreDataAccess.scala getTotalRows getIterator processAll processIterator getChanges getMany getOne getTotalRows convertSkip MODIFY JsonStoreRDD.scala getLimitPerPartition convertAttrToMangoJson compute convertToMangoJson getTotalPartition
+1,BAHIR-42,1abeab29c8a5e884f4603ef12abd85971a9105b0,Refactor sql-streaming-mqtt examples to follow other projects pattern  ,[BAHIR-42] Refactor sql-streaming-mqtt scala example, RENAME MQTTStreamWordCount.scala
+0,BAHIR-148,f9a67de735fee8c89518cf37a513766c9e9e6b15,"Use same version of MQTT client in all MQTT extensions Currently MQTT streaming connector is using org.eclipse.paho.client.mqttv3:1.0.2 while MQTT structured streaming data source is using org.eclipse.paho.client.mqttv3:1.1.0
+
+They should all use org.eclipse.paho.client.mqttv3:1.1.0",[BAHIR-149] Update Cloudant dependency to release 2.11.0, MODIFY pom.xml
+0,BAHIR-51,eab486427186cee3c0f7ed8e440971f67f7ed832,"Add additional MQTT options/parameters to MQTTInputDStream and MqttStreamSource We are using Spark Streaming in the automotive IOT environment with MQTT as the data source.
+For security reasons our MQTT broker is protected by username and password (as is default for these kind of environments). At the moment it is not possible to set username/password when creating an MQTT Receiver (MQTTInputDStream or MqttStreamSource).
+
+I propose that the MQTTInputDStream and MqttStreamSource be extended to optionally allow setting the following mqtt options / parameters:
+* username
+* password
+* clientId
+* cleanSession
+* QoS
+* connectionTimeout
+* keepAliveInterval
+* mqttVersion
+
+If this proposal meets your approval I am willing to create a pull request with these changes implemented.
+
+
+*Note*: The part for MqttInputDStream has been split off into BAHIR-53.","[BAHIR-52] Update README.md formatting for source code
+
+Update source code paragraphs to use tabs instead of ```
+which is the supported way in vanilla Jekyll.", MODIFY README.md MODIFY README.md MODIFY README.md MODIFY README.md MODIFY README.md
+1,BAHIR-192,d1200cb1cab57ac337b067443d47cef67d574fbd,"Add jdbc sink support for Structured Streaming Currently, spark sql support read and write to jdbc in batch mode, but do not support for Structured Streaming. During work, even thought we can write to jdbc using foreach sink, but providing a more easier way for writing to jdbc would be helpful.",[BAHIR-192] Add jdbc sink for structured streaming. (#81), MODIFY pom.xml ADD README.md ADD JavaJdbcSinkDemo.javaPerson getAge main Person getName Person Person Person setAge DemoMapFunction call Person setName ADD JdbcSinkDemo.scala main ADD pom.xml ADD org.apache.spark.sql.sources.DataSourceRegister ADD JdbcSourceProvider.scala createStreamWriter shortName ADD JdbcStreamWriter.scala resetConnectionAndStmt doWriteAndResetBuffer createWriterFactory doWriteAndClose createDataWriter abort commit abort commit write checkSchema ADD JdbcUtil.scala getJdbcType makeSetter ADD log4j.properties ADD JdbcStreamWriterSuite.scala isCascadingTruncateTable canHandle
+1,BAHIR-107,c51853d135ad2d9da67804259f4ed0e29223afb3,"Build and test Bahir against Scala 2.12 Spark has started effort for accommodating Scala 2.12
+
+See SPARK-14220 .
+
+This JIRA is to track requirements for building Bahir on Scala 2.12.7","[BAHIR-107] Upgrade to Scala 2.12 and Spark 2.4.0
+
+Closes #76", MODIFY pom.xml MODIFY change-scala-version.sh MODIFY release-build.sh MODIFY pom.xml MODIFY pom.xml MODIFY README.md MODIFY pom.xml MODIFY DefaultSource.scala insert MODIFY README.md MODIFY pom.xml MODIFY AkkaStreamSource.scala next createDataReader get planInputPartitions createDataReaderFactories createPartitionReader readSchema MODIFY README.md MODIFY pom.xml MODIFY CachedMQTTClient.scala closeMqttClient MODIFY MQTTStreamSink.scala commit abort createWriterFactory commit createDataWriter abort commit initialize abort write MODIFY MQTTStreamSource.scala readSchema createDataReaderFactories next createDataReader get planInputPartitions createPartitionReader MODIFY HdfsBasedMQTTStreamSource.scala initialize MODIFY MQTTStreamSinkSuite.scala MODIFY MQTTStreamSourceSuite.scala MODIFY README.md MODIFY pom.xml MODIFY README.md MODIFY pom.xml MODIFY pom.xml MODIFY pom.xml MODIFY README.md MODIFY pom.xml MODIFY README.md MODIFY pom.xml
+0,BAHIR-36,12f130846ef7523138e98e79bfd823f61acab3b3,Update readme.md with build instructions  ,"[BAHIR-24] fix MQTT Python code, examples, add tests
+
+Changes in this PR:
+
+- remove unnecessary files from streaming-mqtt/python
+- updated all *.py files with respect to the modified
+  project structure pyspark.streaming.mqtt --> mqtt
+- add test cases that were left out from the import and
+  add shell script to run them:
+    - streaming-mqtt/python-tests/run-python-tests.sh
+    - streaming-mqtt/python-tests/tests.py
+- modify MQTTTestUtils.scala to limit the required disk storage space
+- modify bin/run-example script to setup PYTHONPATH to run Python examples
+
+Closes #10", MODIFY .gitignore MODIFY run-example MODIFY pom.xml MODIFY mqtt_wordcount.py ADD run-python-tests.sh ADD tests.py tearDown _startContext test_mqtt_stream _retry_or_timeout _randomTopic test_mqtt_stream.retry setUp _startContext.getOutput DELETE __init__.py DELETE dstream.py rightOuterJoin countByValue pprint _validate_window_param glom.func reduceByWindow checkpoint mapValues repartition __init__ mapPartitionsWithIndex reduceByKeyAndWindow.invReduceFunc countByValueAndWindow glom updateStateByKey.reduceFunc _jdstream mapPartitions persist mapPartitions.func flatMapValues saveAsTextFiles.saveAsTextFile context flatMap combineByKey combineByKey.func groupByKeyAndWindow map.func groupByKey cogroup updateStateByKey filter reduce partitionBy transformWith reduceByKeyAndWindow.reduceFunc pprint.takeAndPrint countByWindow cache map reduceByKey reduceByKeyAndWindow transform flatMap.func join _jtime leftOuterJoin count filter.func saveAsTextFiles window _slideDuration slice fullOuterJoin __init__ union foreachRDD MODIFY mqtt.py _get_helper _printErrorMsg createStream MODIFY MQTTTestUtils.scala setup
+0,BAHIR-154,ebdc8b257d32ff64a88657cc3e7dc838564a1d01,"Refactor sql-cloudant to use Cloudant's java-cloudant features Cloudant's java-cloudant library (which is currently used for testing) contains several features that sql-cloudant can benefit from:
+- HTTP 429 backoff
+- View builder API to potentially simplify loading for _all_docs/views
+- Improved exception handling when executing HTTP requests
+- Future support for IAM API key
+
+Would need to replace current scala HTTP library with OkHttp library, and also replace play-json with GSON library.","[BAHIR-137] CouchDB/Cloudant _changes feed receiver improvements
+
+Adds batchInterval option for tuning _changes receiver’s streaming batch interval
+Throw a CloudantException if the final schema for the _changes receiver is empty
+Call stop method in streaming receiver when there’s an error
+
+Closes #60", MODIFY README.md MODIFY application.conf MODIFY CloudantChangesConfig.scala MODIFY DefaultSource.scala create MODIFY JsonStoreConfigManager.scala getConfig MODIFY ChangesReceiver.scala receive MODIFY CloudantOptionSuite.scala
+0,BAHIR-55,a351549cf634adf5249862599166ef9ed9073725,"Move Redis Sink from Flink to Bahir As per http://apache-flink-mailing-list-archive.1008284.n3.nabble.com/DISCUSS-Move-Redis-and-Flume-connectors-to-Apache-Bahir-and-redirect-contributions-there-td13102.html, the Flink community agreed to move the Redis connector to Bahir.","[BAHIR-51] Add new configuration options to MqttStreamSource.
+
+Add new configuration options to enable secured connections and
+other quality of services.
+
+Closes #22", MODIFY README.md MODIFY MQTTStreamSource.scala initialize createSource MODIFY MQTTStreamSourceSuite.scala createStreamingDataframe
+0,BAHIR-14,cad277e611388ad61e3c7fcb4e8a2e796d0e983d,Cleanup maven pom from Spark dependencies There are a lot of dependencies that came from Spark and are not necessary for these extensions. We should cleanup the current poms and make the dependencies as lean as possible.,[BAHIR-7] Update Apache Spark version to 2.0.0-preview, MODIFY pom.xml
+0,BAHIR-31,c78af705f5697ab11d93f933d033d96cc48403a0,Add documentation for streaming-zeromq connector  ,[BAHIR-30] Add basic documentation for Twitter connector, ADD README.md
+0,BAHIR-172,549c50be02f98b93c5f79890332e8de97332e8f5,"Avoid FileInputStream/FileOutputStream They rely on finalizers (before Java 11), which create unnecessary GC load.
+
+
+The alternatives, {{Files.newInputStream}}, are as easy to use and don't have this issue.","[BAHIR-217] Installation of Oracle JDK8 is Failing in Travis CI (#93)
+
+Install of Oracle JDK 8 Failing in Travis CI and as a result, 
+build is failing for new pull requests.
+
+We just need to add `dist: trusty` in the .travis.yml file 
+as mentioned in the issue below:
+https://travis-ci.community/t/install-of-oracle-jdk-8-failing/3038", MODIFY .travis.yml
+0,BAHIR-96,889de659c33dd56bad7193a4b69e6d05d061a2fd,"Add a ""release-build.sh"" script for bahir-flink We need to adopt the {{release-build.sh}} script from the Bahir Spark repo, in order to kick off the first Bahir Flink extensions release.","[BAHIR-97] Akka as SQL Streaming datasource.
+
+Closes #38.", MODIFY pom.xml ADD README.md ADD JavaAkkaStreamWordCount.java main ADD AkkaStreamWordCount.scala main ADD pom.xml ADD assembly.xml ADD AkkaStreamSource.scala store stop store store preStart fetchLastProcessedOffset createSource postStop getBatch e shortName close sourceSchema receive getOrCreatePersistenceInstance ADD MessageStore.scala get this ADD BahirUtils.scala visitFile postVisitDirectory recursiveDeleteDir ADD Logging.scala ADD feeder_actor.conf ADD log4j.properties ADD AkkaStreamSourceSuite.scala readBackSreamingResults writeStreamResults createStreamingDataframe ADD AkkaTestUtils.scala setup setCountOfMessages run getFeederActorUri getFeederActorConfig setMessage shutdown
+0,BAHIR-147,f9a67de735fee8c89518cf37a513766c9e9e6b15,Update Flink extensions documentation with latest contents [~rmetzger] Looks like the website documentation for the current extensions has fallen behind and is causing some user issues (e.g. BAHIR-142). We should update the website with latest contents and references on how to add the spanshot to the test applications.,[BAHIR-149] Update Cloudant dependency to release 2.11.0, MODIFY pom.xml
+0,BAHIR-104,889de659c33dd56bad7193a4b69e6d05d061a2fd,"MQTT Dstream returned by the new multi topic support API is not a pairRDD The new multi topic support API added with [BAHIR-89], when used in pyspark, does not return a Dstream of <topic,message> tuples. 
+Example: 
+In pyspark, when creating a Dstream using the new API ( mqttstream = MQTTUtils.createPairedStream(ssc, brokerUrl, topics) ) the expected contents of mqttstream should be a collections of tuples:
+
+(topic,message) , (topic,message) , (topic,message) , ...
+
+Instead, the current content is a flattened list:
+
+topic, message, topic, message, topic, message, ...
+
+that is hard to use.
+
+
+","[BAHIR-97] Akka as SQL Streaming datasource.
+
+Closes #38.", MODIFY pom.xml ADD README.md ADD JavaAkkaStreamWordCount.java main ADD AkkaStreamWordCount.scala main ADD pom.xml ADD assembly.xml ADD AkkaStreamSource.scala store stop store store preStart fetchLastProcessedOffset createSource postStop getBatch e shortName close sourceSchema receive getOrCreatePersistenceInstance ADD MessageStore.scala get this ADD BahirUtils.scala visitFile postVisitDirectory recursiveDeleteDir ADD Logging.scala ADD feeder_actor.conf ADD log4j.properties ADD AkkaStreamSourceSuite.scala readBackSreamingResults writeStreamResults createStreamingDataframe ADD AkkaTestUtils.scala setup setCountOfMessages run getFeederActorUri getFeederActorConfig setMessage shutdown
+0,BAHIR-47,eab486427186cee3c0f7ed8e440971f67f7ed832,Bring up release download for Apache Bahir website  ,"[BAHIR-52] Update README.md formatting for source code
+
+Update source code paragraphs to use tabs instead of ```
+which is the supported way in vanilla Jekyll.", MODIFY README.md MODIFY README.md MODIFY README.md MODIFY README.md MODIFY README.md
+0,BAHIR-188,a73ab48a2dfec866b2ffa0ccf0d2bfeaba6fc782,update flink to 1.7.0 Update Flink to last version (1.7.0),"[BAHIR-186] SSL support in MQTT structured streaming
+
+Closes #74", MODIFY README.md MODIFY MQTTUtils.scala parseConfigParams ADD keystore.jks ADD truststore.jks MODIFY MQTTStreamSinkSuite.scala sendToMQTT MODIFY MQTTTestUtils.scala connectToServer publishData subscribeData setup
+0,BAHIR-17,cad277e611388ad61e3c7fcb4e8a2e796d0e983d,Prepare release based on Apache Spark 2.0.0-preview  ,[BAHIR-7] Update Apache Spark version to 2.0.0-preview, MODIFY pom.xml
+1,BAHIR-125,a70ff538ac48ac1576984304d273e7a1f25fc2a6,Update Bahir pom to use JAVA 8 and to align with Spark 2.2.0 dependencies  ,"[BAHIR-125] Update Bahir parent pom
+
+- Default build using JAVA 8
+- Update dependencies to align with Spark 2.2.0", MODIFY pom.xml
+0,BAHIR-123,55c60e5dd25c7c696118d2f2c8760fe5a17c1354,"Fix errors to support the latest version of Play JSON library for sql-cloudant The latest version is 2.6.2.  Error during mvn install -pl sql-cloudant after updating play-json to 2.6.2 in sql-cloudant/pom.xml:
+
+[ERROR] /Users/estebanmlaver/emlaver-bahir/sql-cloudant/src/main/scala/org/apache/bahir/cloudant/common/JsonStoreConfigManager.scala:19: object typesafe is not a member of package com
+[ERROR] import com.typesafe.config.ConfigFactory
+[ERROR]            ^
+[ERROR] /Users/estebanmlaver/emlaver-bahir/sql-cloudant/src/main/scala/org/apache/bahir/cloudant/common/JsonStoreConfigManager.scala:52: not found: value ConfigFactory
+[ERROR]   private val configFactory = ConfigFactory.load()
+[ERROR]                               ^
+[ERROR] two errors found
+
+Maven compile dependencies need to be added to pom.xml that existed in play-json 2.5.9 but were removed in 2.6.2.
+
+Additional info. from Patrick Titzler between play-json versions 2.5.x and 2.6.x:
+Looks like the parameter data type has been changed from `Seq[JsValue]` (https://www.playframework.com/documentation/2.5.x/api/scala/index.html#play.api.libs.json.JsArray) to `IndexedSeq[JsValue]` https://playframework.com/documentation/2.6.x/api/scala/index.html#play.api.libs.json.JsArray","[BAHIR-148] Use consistent MQTT client dependency version
+
+Create a property to use a consistent version of the MQTT
+client across all extensions based on MQTT.
+
+For now, use org.eclipse.paho.client.mqttv3:1.1.0", MODIFY pom.xml MODIFY pom.xml MODIFY pom.xml
+0,BAHIR-99,f0d9a84f76cb34a432e1d2db053d2471a8ab2ba4,"Kudu connector to read/write from/to Kudu Java library to integrate Apache Kudu and Apache Flink. Main goal is to be able to read/write data from/to Kudu using the DataSet and DataStream Flink's APIs.
+
+Data flows patterns:
+
+Batch
+ - Kudu -> DataSet<RowSerializable> -> Kudu
+ - Kudu -> DataSet<RowSerializable> -> other source
+ - Other source -> DataSet<RowSerializable> -> other source
+
+Stream
+ - Other source -> DataStream <RowSerializable> -> Kudu
+
+Code is available in https://github.com/rubencasado/Flink-Kudu","[BAHIR-101] Spark SQL datasource for CounchDB/Cloudant
+
+Initial code supporting CounchDB/Cloudant as an Spark SQL
+data source. The initial source contains the core connector,
+examples, and basic documentation on the README.
+
+Closes #39.", MODIFY README.md MODIFY pom.xml ADD README.md ADD CloudantApp.py ADD CloudantDF.py ADD CloudantDFOption.py ADD CloudantApp.scala main ADD CloudantDF.scala main ADD CloudantDFOption.scala main ADD CloudantStreaming.scala getInstance main ADD CloudantStreamingSelector.scala main ADD pom.xml ADD application.conf ADD reference.conf ADD CloudantConfig.scala getRangeUrl getDbname getTotalRows getForbiddenErrStr getConflictErrStr getOneUrlExcludeDDoc1 getSubSetUrl allowPartition getLastNum getTotalUrl getBulkRows calculateCondition getCreateDBonSave getLastUrl getContinuousChangesUrl getChangesUrl calculate getAllDocsUrlExcludeDDoc getOneUrl getSelector getAllDocsUrl getSchemaSampleSize getRows getBulkPostUrl getDbUrl getOneUrlExcludeDDoc2 ADD CloudantReceiver.scala onStart onStop receive run ADD DefaultSource.scala buildScan createRelation create insert createRelation createRelation ADD FilterUtil.scala filter containsFiltersFor apply analyze evaluate getFiltersForPostProcess getFilterAttribute getInfo ADD JsonStoreConfigManager.scala getString getConfig getConfig getBool getLong getInt ADD JsonStoreDataAccess.scala getChanges convert convertSkip getOne getClPostRequest saveAll getTotalRows createDB processAll getMany getIterator processIterator ADD JsonStoreRDD.scala compute ADD JsonUtil.scala getField
+1,BAHIR-17,335f605e75d426f62052378920880ab22729083e,Prepare release based on Apache Spark 2.0.0-preview  ,[BAHIR-17] Update Apache Spark version back to 2.0.0-SNAPSHOT, MODIFY pom.xml
+0,BAHIR-21,2dfcd08d11e94b535a39c31c87cf690f99944357,Create script to change build between scala 2.10 and 2.11  ,"[[BAHIR-14] More parent pom cleanup
+
+Remove Spark assembly related configuration, and
+stop producing source jars for non-jar projects.", MODIFY pom.xml MODIFY pom.xml MODIFY pom.xml MODIFY pom.xml MODIFY pom.xml
+0,BAHIR-48,70539a35dc9bae9ee5d380351ffc32fa6e62567e,Documentation improvements for Bahir README.md  ,"[BAHIR-42] Refactor sql-streaming-mqtt example
+
+Move JavaMQTTStreamWordCount to examples root folder
+which are processed by the build as test resources
+and not built into the extension itself following
+the pattern used by other examples.", RENAME JavaMQTTStreamWordCount.java main
+0,BAHIR-123,f9a67de735fee8c89518cf37a513766c9e9e6b15,"Fix errors to support the latest version of Play JSON library for sql-cloudant The latest version is 2.6.2.  Error during mvn install -pl sql-cloudant after updating play-json to 2.6.2 in sql-cloudant/pom.xml:
+
+[ERROR] /Users/estebanmlaver/emlaver-bahir/sql-cloudant/src/main/scala/org/apache/bahir/cloudant/common/JsonStoreConfigManager.scala:19: object typesafe is not a member of package com
+[ERROR] import com.typesafe.config.ConfigFactory
+[ERROR]            ^
+[ERROR] /Users/estebanmlaver/emlaver-bahir/sql-cloudant/src/main/scala/org/apache/bahir/cloudant/common/JsonStoreConfigManager.scala:52: not found: value ConfigFactory
+[ERROR]   private val configFactory = ConfigFactory.load()
+[ERROR]                               ^
+[ERROR] two errors found
+
+Maven compile dependencies need to be added to pom.xml that existed in play-json 2.5.9 but were removed in 2.6.2.
+
+Additional info. from Patrick Titzler between play-json versions 2.5.x and 2.6.x:
+Looks like the parameter data type has been changed from `Seq[JsValue]` (https://www.playframework.com/documentation/2.5.x/api/scala/index.html#play.api.libs.json.JsArray) to `IndexedSeq[JsValue]` https://playframework.com/documentation/2.6.x/api/scala/index.html#play.api.libs.json.JsArray",[BAHIR-149] Update Cloudant dependency to release 2.11.0, MODIFY pom.xml
+0,BAHIR-48,c317def2a7575713d31353f87025ddacaf30e503,Documentation improvements for Bahir README.md  ,[BAHIR-37] Start building against Spark Master -  2.1.0-SNAPSHOT, MODIFY pom.xml MODIFY README.md MODIFY README.md MODIFY README.md MODIFY README.md MODIFY README.md
+0,BAHIR-47,70539a35dc9bae9ee5d380351ffc32fa6e62567e,Bring up release download for Apache Bahir website  ,"[BAHIR-42] Refactor sql-streaming-mqtt example
+
+Move JavaMQTTStreamWordCount to examples root folder
+which are processed by the build as test resources
+and not built into the extension itself following
+the pattern used by other examples.", RENAME JavaMQTTStreamWordCount.java main
+1,BAHIR-39,c98dd0feefa79c70be65de06a411a2f9c4fc42dc,MQTT as a streaming source for SQL Streaming. MQTT compatible streaming source for Spark SQL Streaming.,"[BAHIR-39] Add SQL Streaming MQTT support
+
+This provides support for using MQTT sources for
+the new Spark Structured Streaming. This uses
+MQTT client persistence layer to provide minimal
+fault tolerance.
+
+Closes #13", MODIFY pom.xml ADD README.md ADD pom.xml ADD assembly.xml ADD JavaMQTTStreamWordCount.java main ADD org.apache.spark.sql.sources.DataSourceRegister ADD MQTTStreamSource.scala stop connectionLost messageArrived fetchLastProcessedOffset createSource initialize deliveryComplete getBatch shortName sourceSchema connectComplete e ADD MessageStore.scala get this ADD MQTTStreamWordCount.scala main ADD BahirUtils.scala postVisitDirectory visitFile recursiveDeleteDir ADD Logging.scala ADD log4j.properties ADD LocalMessageStoreSuite.scala ADD MQTTStreamSourceSuite.scala createStreamingDataframe writeStreamResults readBackStreamingResults ADD MQTTTestUtils.scala setup publishData teardown findFreePort

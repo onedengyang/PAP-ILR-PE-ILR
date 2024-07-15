@@ -1,0 +1,3190 @@
+Pro,label,Issue_KEY,Commit_SHA,Issue_Text,Commit_Text,Commit_Code
+keras,0,10858,1068e173eafd15e5aa9f40b9f73590a7f5be4a84,"Some Code Refactoring Using `Transpose_Shape` In Tensorflow_Backend.Py.### Summary
+
+I Was Able To Simplify This Piece Of Code With The Function `Transpose_Shape`.
+
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Created a function to_data_format to abstract the shape and data_format handling. (#10781)
+
+* Created a function to_data_format to abstract the shape and data_format handling.
+
+* Moved to_data_format to generic_utils.py.
+
+* Changed the to_data_format signature.","Created a function to_data_format to abstract the shape and data_format handling. (#10781)
+
+* Created a function to_data_format to abstract the shape and data_format handling.
+
+* Moved to_data_format to generic_utils.py.
+
+* Changed the to_data_format signature."
+keras,1,#12539,8202e627c7d7897728d824c84a6d479ca84a9098,"Add `Slice` For Theano And Cntk### Summary
+
+This Pr Adds `Slice` For Theano And Cntk.","Add `slice` for Theano and CNTK (#12539)
+
+* Add `slice` for Theano and CNTK
+
+* Add a sanity check for `slice`
+
+* Add docstrings","Add `slice` for Theano and CNTK (#12539)
+
+* Add `slice` for Theano and CNTK
+
+* Add a sanity check for `slice`
+
+* Add docstrings"
+keras,1,#10597,468f080c98f06780c950e5a78c9eeeaf9fff002e,"Replace Relu6 With Relu LayersRelated To:  [This](Https://Github.Com/Keras-Team/Keras/Pull/10521) And [This](Https://Github.Com/Keras-Team/Keras-Applications/Pull/15). 
+
+`Relu6` Is No Longer Required. Removed The Code And Related Docs. 
+
+
+","Replace relu6 with ReLU layers (#10597)
+
+* Remove unused relu6
+
+* Remove doc for loading relu6","Replace relu6 with ReLU layers (#10597)
+
+* Remove unused relu6
+
+* Remove doc for loading relu6"
+keras,0,10678,d18c564548104c862892a1f73423e333f11f7ce2,"Refactoring: Simplified Some Code By Using The `To_List` Function.### Summary
+We Have The Method `To_List` In Keras. Let'S Use It To Make The Codebase Simpler!
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Refactoring: Simplified some if-else by creating a function similar to `to_list`. (#10679)
+
+* Refactoring: Simplified some if-else by creating a function similar to `to_list`.
+
+* Changed the name and the description of `first_or_list`.","Refactoring: Simplified some if-else by creating a function similar to `to_list`. (#10679)
+
+* Refactoring: Simplified some if-else by creating a function similar to `to_list`.
+
+* Changed the name and the description of `first_or_list`."
+keras,0,12090,a96d8709fba51b70a08daeea12529948fa800830,"Formatting Fixes### Summary
+
+This Pr Fixes Formatting.
+
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [ ] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Added the numpy implementation of switch to the docs. (#11575)
+
+### Summary
+
+I used `np.newaxis` for users who may not be familiar with the `None` indexing.
+
+### Related Issues
+
+### PR Overview
+
+- [ ] This PR requires new unit tests [y/n] (make sure tests are included)
+- [ ] This PR requires to update the documentation [y/n] (make sure the docs are up-to-date)
+- [x] This PR is backwards compatible [y/n]
+- [ ] This PR changes the current API [y/n] (all API changes need to be approved by fchollet)","Added the numpy implementation of switch to the docs. (#11575)
+
+### Summary
+
+I used `np.newaxis` for users who may not be familiar with the `None` indexing.
+
+### Related Issues
+
+### PR Overview
+
+- [ ] This PR requires new unit tests [y/n] (make sure tests are included)
+- [ ] This PR requires to update the documentation [y/n] (make sure the docs are up-to-date)
+- [x] This PR is backwards compatible [y/n]
+- [ ] This PR changes the current API [y/n] (all API changes need to be approved by fchollet)"
+keras,1,#10012,b076e227da6beaf87d6c84eff1a92285e4662acf,Fix Bidirectional RegularizationThis Pr Fixes The Issue Raised In #7514.,"Fix Bidirectional Regularization (#10012)
+
+* Fix Bidirectional Regularization
+
+Override the Wrapper `get_updates_for` and `get_losses_for` methods so that contributions from both the forward and backward layers are included in Bidirectional.
+
+* Use Parent for Calculating Inner Inputs
+
+Remove unneeded inner input calculations.
+
+* Simplify Bidirectional Losses
+
+* Add Bidirectional Unit Tests
+
+Test Bidirectional updates and losses.
+
+* Remove Trailing Whitespace
+
+* Fix Bidirectional Loss Inputs
+
+* Add Tests for Conditional Updates/Losses
+
+* Remove Whitespace","Fix Bidirectional Regularization (#10012)
+
+* Fix Bidirectional Regularization
+
+Override the Wrapper `get_updates_for` and `get_losses_for` methods so that contributions from both the forward and backward layers are included in Bidirectional.
+
+* Use Parent for Calculating Inner Inputs
+
+Remove unneeded inner input calculations.
+
+* Simplify Bidirectional Losses
+
+* Add Bidirectional Unit Tests
+
+Test Bidirectional updates and losses.
+
+* Remove Trailing Whitespace
+
+* Fix Bidirectional Loss Inputs
+
+* Add Tests for Conditional Updates/Losses
+
+* Remove Whitespace"
+keras,1,#10394,0237542f48566c9115b3dde4cce920b00e25507a,Fixed A Type: Repeated 'In Common'. ,Fixed a type: repeated 'in common'. (#10394),Fixed a type: repeated 'in common'. (#10394)
+keras,0,13010,613aeff37a721450d94906df1a3f3cc51e2299d4,"Fine Tune Sparse_Categorical_CrossentropyIn Some Special And Useful Cases, The Num Of Classes Is Unknown (None).",fine tune sparse_categorical_crossentropy (#13010),fine tune sparse_categorical_crossentropy (#13010)
+keras,0,10946,c7b7328cc99fd5d7c298e57c6020043451d89a61,"Fix Val_Step In Fit_Generator With Sequence### Summary
+The Previous Code Was Forcing The Val_Steps To Len(Val_Seq). Not Sure How To Test This Without Breaking The ""Read-Only""
+### Related Issues
+Fix #10944
+### Pr Overview
+
+- [X] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+",Add static shape inference for theano concatenate and all (#10873),Add static shape inference for theano concatenate and all (#10873)
+keras,0,12545,b8ec0e6dc9bc2b069fa9cdb86b8a32ef6a10a6aa,"Revise `Test_Clip_Supports_Tensor_Arguments`### Summary
+
+This Pr Revises `Test_Clip_Supports_Tensor_Arguments`. The Hardcoded Values Need To Be Replaced With Random Values.",Revise `test_clip_supports_tensor_arguments` (#12545),Revise `test_clip_supports_tensor_arguments` (#12545)
+keras,0,11296,79bc6998071d88ffd456c9c7a4c9a2680b9dd361,"Improve Addition_Rnn Example'S Code And Comments### Summary
+This Pr Improves The Addition_Rnn Example'S Code And Comments:
+
+- Added The Docstring For `Decode` Method.
+- Changed ""One Hot"" To ""One-Hot""
+- Changed ""Last Hidden State Of Rnn"" To ""Last Output Of Rnn""
+- Passed `Activation='Softmax'` Argument To The `Dense` Layer And Removed The `Activation` Layer To Make It More Explicit Where It Is Applied.
+
+### Related Issues
+
+### Pr Overview
+
+- [N] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [N] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [Y] This Pr Is Backwards Compatible [Y/N]
+- [N] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","""from sklearn.grid_search import GridSearchCV""   is out of date (#11240)
+
+""from sklearn.grid_search import GridSearchCV""   is out of date and has changed in the new version (0.18-).
+Detailed description：
+DeprecationWarning: This module was deprecated in version 0.18 in favor of the model_selection module into which all the refactored classes and functions are moved. This module will be removed in 0.20.
+Update ""from sklearn.grid_search import GridSearchCV""  to “from sklearn.model_selection import GridSearchCV”.","""from sklearn.grid_search import GridSearchCV""   is out of date (#11240)
+
+""from sklearn.grid_search import GridSearchCV""   is out of date and has changed in the new version (0.18-).
+Detailed description：
+DeprecationWarning: This module was deprecated in version 0.18 in favor of the model_selection module into which all the refactored classes and functions are moved. This module will be removed in 0.20.
+Update ""from sklearn.grid_search import GridSearchCV""  to “from sklearn.model_selection import GridSearchCV”."
+keras,1,#12221,c55ce21fdd4f55709269140e068cc840a7c7ec48,"Added Markdown Formatting Support To Examples/Babi_Memnn.Py<!--
+Please Make Sure You'Ve Read And Understood Our Contributing Guidelines;
+Https://Github.Com/Keras-Team/Keras/Blob/Master/Contributing.Md
+-->
+
+### Summary
+This Pull Request Adds Markdown Formatting To ```Examples/Babi_Memnn.Py```.
+### Related Issues
+Https://Github.Com/Keras-Team/Keras/Issues/12219
+### Pr Overview
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Added MarkDown formatting support to examples/babi_memnn.py (#12221)
+
+* Added MarkDown formatting support to examples/babi_memnn.py
+
+* Shortened line length for PEP8 in examples/babi_memnn.py
+
+* Paper titles now link to the corresponding papers toexamples/babi_memnn.py
+
+* Broke up long paper title for PEP8 in toexamples/babi_memnn.py","Added MarkDown formatting support to examples/babi_memnn.py (#12221)
+
+* Added MarkDown formatting support to examples/babi_memnn.py
+
+* Shortened line length for PEP8 in examples/babi_memnn.py
+
+* Paper titles now link to the corresponding papers toexamples/babi_memnn.py
+
+* Broke up long paper title for PEP8 in toexamples/babi_memnn.py"
+keras,0,12135,3dbc940b9eb690e92fa6d7fe7ebf897a552a1c50,"Added Pull Request Templates.### Summary
+
+We Often See Prs Without The Keyword Fixes #{Issue_Number} And Prs Without Unit Tests. That'S An Issue.
+
+### Related Issues
+
+### Pr Overview
+
+I Propose Pr Templates With Some Decent Defaults. I Based This On Moby/Moby Pr Template Which I Think Is Quite Good. I Hope It Makes Us More Productive.
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+",Using a mutable variable instead of a global variable. (#12170),Using a mutable variable instead of a global variable. (#12170)
+keras,1,#10191,36176924bb5d0fe248a56362c6f776799434ebc0,"Best To Set Self.Built=True At The End Of Build()When Using Keras On Tensorflow (In Graph Mode), Via `Tf.Keras`, Then Calling `Self.Add_Weight()` Fails If `Self.Built==True`, So It Is Best To Encourage Users To Set `Self.Built=True` At The *End* Of Their `Build()` Method, Rather Than Just ""Somewhere"".","Best to set self.built=True at the end of build() (#10191)
+
+When using Keras on TensorFlow (in graph mode), via `tf.keras`, then calling `self.add_weight()` fails if `self.built==True`, so it is best to encourage users to set `self.built=True` at the *end* of their `build()` method, rather than just ""somewhere"".","Best to set self.built=True at the end of build() (#10191)
+
+When using Keras on TensorFlow (in graph mode), via `tf.keras`, then calling `self.add_weight()` fails if `self.built==True`, so it is best to encourage users to set `self.built=True` at the *end* of their `build()` method, rather than just ""somewhere""."
+keras,1,#11037,780f5e447799b4ab343164ab8beceabcd4ab15f0,"Removing Duplicated Backend Tests.### Summary
+
+Follow Up On #10992.
+
+We Are Trying With @Taehoonlee To Remove, For Example, The Dependencies On Theano And Cntk When Running The Travis Tf Build. That Would Save Us Quite A Bit Of Time (Downloading And Installing Backends Is Slow). 
+
+At The Same Time, We Remove Tests Which Are Run Multiple Times Overall In The Travis Build Matrix.
+
+### Related Issues
+
+#10972
+#10956
+#10930
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Removing duplicated backend tests. (#11037)
+
+* Making backend tests more backend-independant.
+
+* Added the repeat function in the numpy backend.","Removing duplicated backend tests. (#11037)
+
+* Making backend tests more backend-independant.
+
+* Added the repeat function in the numpy backend."
+keras,0,9438,ffb8b813818221a9b43d51e251d489a40b116607,"Fixing Minor Bug In Pretrained_Word_Embeddings ExampleTokenizer.Word_Index Starts From Index 1, So We Need To Account For One Additional Index When Getting Num_Words. This Example Using 20_Newsgroup Dataset Works With Or Without This Fix But I Think It Is Good To Update The Code As People May Reuse It For Other Datasets.
+
+Why Does This Example Work?
+If Max_Num_Words Is Set To A Value Greater Than  Len(Word_Index) [17405] Eg. 175K Embedding_Vector We Get For Index 17405 Is None. So We Do Not Try To Set Embedding_Matrix For This Index
+```Embedding_Matrix[I] = Embedding_Vector```
+
+If There Exists An Embedding_Vector For The Word At The Last Index In Word_Index Dict, We Will See Index Out Of Bounds Error.",typo fix (#9432),typo fix (#9432)
+keras,1,#9910,a053416a310868971a5ec743e714961e28d78c79,"Fix Documentation Of Flow_From_Directory()The Way The Documentation Is Parsed For The Keras Website Made Some Lines Of The Documentation Beginning With ""Default:"" Look Funny. Also Changed The Documentation Of Return Value To Be Clear That It Always Returns A Batch Of Images.","Fix documentation of flow_from_directory() (#9910)
+
+The way the documentation is parsed for the Keras website made some lines of the documentation beginning with ""Default:"" look funny. Also changed the documentation of return value to be clear that it always returns a batch of images.","Fix documentation of flow_from_directory() (#9910)
+
+The way the documentation is parsed for the Keras website made some lines of the documentation beginning with ""Default:"" look funny. Also changed the documentation of return value to be clear that it always returns a batch of images."
+keras,1,#10714,583f92a6f9332574a4a2abee5ae454e906389377,"Removed The Exceptions Concerning Files Which Were Already Complient With The 85 Chars Rule.### Summary
+
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Removed the exceptions concerning files which were already complient with the 85 chars rule. (#10714)
+
+### Summary
+
+### Related Issues
+
+### PR Overview
+
+- [ ] This PR requires new unit tests [y/n] (make sure tests are included)
+- [ ] This PR requires to update the documentation [y/n] (make sure the docs are up-to-date)
+- [x] This PR is backwards compatible [y/n]
+- [ ] This PR changes the current API [y/n] (all API changes need to be approved by fchollet)","Removed the exceptions concerning files which were already complient with the 85 chars rule. (#10714)
+
+### Summary
+
+### Related Issues
+
+### PR Overview
+
+- [ ] This PR requires new unit tests [y/n] (make sure tests are included)
+- [ ] This PR requires to update the documentation [y/n] (make sure the docs are up-to-date)
+- [x] This PR is backwards compatible [y/n]
+- [ ] This PR changes the current API [y/n] (all API changes need to be approved by fchollet)"
+keras,0,11574,384d3bc35db3359cb7c1f560e053f2a510d9381a,"Displaying The Numpy Relu In The Docs.### Summary
+
+Reworked On The Implementation To Make It More Readable Since It'S User-Facing Code.
+
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+",Remove legacy backend tests (#11558),Remove legacy backend tests (#11558)
+keras,0,11467,2fdbaa10ab0fd72f962923c4cf73e024424a3022,"Update Mkdocs Config### Summary
+
+This Pr Updates The Keras `Mkdocs.Yml` Configuration File To Use `Nav` Instead Of `Pages` (The Use Of `Pages` Was [Depreciated In The Mkdocs Version 1.0 Release](Https://Www.Mkdocs.Org/About/Release-Notes/#Version-10-2018-08-03)). This Will Prevent The Following Warning Message
+```
+Warning -  Config Value: 'Pages'. Warning: The 'Pages' Configuration Option Has Been Deprecated And Will Be Removed In A Future Release Of Mkdocs. Use 'Nav' Instead.
+```
+From Being Output When Building The Documentation. 
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [ ] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Added dropout to reference_operations.py (#11390)
+
+* Added dropout to reference_operations.py
+
+* Fix pep8
+
+* Removed the seed.","Added dropout to reference_operations.py (#11390)
+
+* Added dropout to reference_operations.py
+
+* Fix pep8
+
+* Removed the seed."
+keras,1,#10220,794f814343b655e01de73578d71e8b8a53523687,Handle Capitalised Extensions In List_Pictures#10219,"Handle capitalised extensions in list_pictures (#10220)
+
+#10219","Handle capitalised extensions in list_pictures (#10220)
+
+#10219"
+keras,1,#12711,61052bc1f1c141c5dba9f83a4af14322ec4e6d7c,"No Documentation For Array_To_Img, Img_To_Array And Save_Img Under Preprocessing.Image There'S No Documentation For Functions Mentioned Below In Keras Repo. It'S There Under Keras Pre-Processing Repo.
+Find The Below Functions Under `Keras/Preprocessing/Image.Py`
+
+1. `Array_To_Img`
+2. `Img_To_Array`
+3. `Save_Img`
+
+Thank You!","Documentation for `array_to_img`, `img_to_array` and `save_img` under `preprocessing.image` #12711 (#13252)
+
+* Add docstring of `save_img()` in `keras/preprocessing/image.py`
+
+Signed-off-by: Karel Ha <mathemage@gmail.com>
+
+* Add docstring of `img_to_array()` in `keras/preprocessing/image.py`
+
+Signed-off-by: Karel Ha <mathemage@gmail.com>
+
+* Add docstring of `array_to_img()` in `keras/preprocessing/image.py`
+
+Signed-off-by: Karel Ha <mathemage@gmail.com>","Documentation for `array_to_img`, `img_to_array` and `save_img` under `preprocessing.image` #12711 (#13252)
+
+* Add docstring of `save_img()` in `keras/preprocessing/image.py`
+
+Signed-off-by: Karel Ha <mathemage@gmail.com>
+
+* Add docstring of `img_to_array()` in `keras/preprocessing/image.py`
+
+Signed-off-by: Karel Ha <mathemage@gmail.com>
+
+* Add docstring of `array_to_img()` in `keras/preprocessing/image.py`
+
+Signed-off-by: Karel Ha <mathemage@gmail.com>"
+keras,1,#12780,c0091e29f44028e87d66b1c1aacd862388de36aa,"Updated Readme.Md For Windows Users<!--
+Please Make Sure You'Ve Read And Understood Our Contributing Guidelines;
+Https://Github.Com/Keras-Team/Keras/Blob/Master/Contributing.Md
+-->
+
+### Summary
+
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [X] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [ ] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Updated README.md for windows users (#12780)
+
+* Updated readme for windows users
+
+* Fix phrasing","Updated README.md for windows users (#12780)
+
+* Updated readme for windows users
+
+* Fix phrasing"
+keras,1,#11463,74264ea3cd5e8bdfe90325f98944297d7f409018,"Avoid Deprecated Getargspec### Summary
+We Should Use An Getargspec Instead Of Deprecated Getagspec.
+
+- [N] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [N] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [Y] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Avoid deprecated getargspec (#11463)
+
+* Avoid DeprecationWarning from inspect.getargspec by general_utils.getargspec
+
+* fixed pep8
+
+* fix docs
+
+* fix typos
+
+* Fix docstring.","Avoid deprecated getargspec (#11463)
+
+* Avoid DeprecationWarning from inspect.getargspec by general_utils.getargspec
+
+* fixed pep8
+
+* fix docs
+
+* fix typos
+
+* Fix docstring."
+keras,0,10486,d954aef2a2e33532f8725f58183cf605f5c54656,Just Corrected A Small Typo ,Reduce separable conv tests (#10524),Reduce separable conv tests (#10524)
+keras,0,11768,a8e235c35e23193f6cc68cd9d390ec37caeaec6e,"Remove Reduce Sum Impl In Batch Dot### Summary
+
+### Related Issues
+
+#11719 
+
+### Pr Overview
+
+- [Y ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [N ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [Y ] This Pr Is Backwards Compatible [Y/N]
+- [N ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Some clarifications about the mxnet backend in the docs. (#11729)
+
+* Changed the status of the mxnet backend.
+
+* Fix typo","Some clarifications about the mxnet backend in the docs. (#11729)
+
+* Changed the status of the mxnet backend.
+
+* Fix typo"
+keras,1,#11306,d059890d0342955e968fdf97b5a90d19c9d68b4e,"Keras Documentation: Multi_Gpu_Model Examples Do Not Show Properly On The Home Page Keras.IoSome Examples Of Usage Of `Multi_Gpu_Model` Appear On The Documentation Of The Function In The [Source Code](Https://Github.Com/Keras-Team/Keras/Blob/Master/Keras/Utils/Multi_Gpu_Utils.Py).  However They Do Not Display Correctly On The [Keras Home Page](Https://Keras.Io/Utils/):
+
+```Example 1 - Training Models With Weights Merge On Cpu
+
+$Example_2_-_Training_Models_With_Weights_Merge_On_Cpu_Using_Cpu_Relocation$0
+
+Example 2 - Training Models With Weights Merge On Cpu Using Cpu_Relocation
+
+$Example_2_-_Training_Models_With_Weights_Merge_On_Cpu_Using_Cpu_Relocation$1
+
+Example 3 - Training Models With Weights Merge On Gpu (Recommended For Nv-Link)
+
+$Example_2_-_Training_Models_With_Weights_Merge_On_Cpu_Using_Cpu_Relocation$2```","DOC: Closes #11306 multi_gpu_model examples do not show properly (#11310)
+
+* fixing example format for multi_gpu_model
+
+* improving example 2 for multi_gpu_model
+
+* update example 3","DOC: Closes #11306 multi_gpu_model examples do not show properly (#11310)
+
+* fixing example format for multi_gpu_model
+
+* improving example 2 for multi_gpu_model
+
+* update example 3"
+keras,0,10189,4f1ea9affa135121ee2336cd2be541aa2ffa150e,"Clean Up Preprocessing Of `Depthwise_Kernel` For TheanoThis Pr Cleans Up Preprocessing Of `Depthwise_Kernel` For Theano.
+- As-Is: Two `Dimshuffle`'S Are Redundantly Performed, Which May Result In Performance Degradation.
+- To-Be: The Two Are Integrated Into A Single `Dimshuffle` With Refactoring.","Grammatical error - ""inputs channels"" rather than ""input"". (#10217)","Grammatical error - ""inputs channels"" rather than ""input"". (#10217)"
+keras,1,#10223,91c701e282592865b453ca25e572ac48fe6a3672,Explicitly Mention Using A Sequence Object In ValJust Adding An Explicit Mention To Sequence In The Fit_Generator Docs.,Explicitly mention using a Sequence object in val (#10223),Explicitly mention using a Sequence object in val (#10223)
+keras,0,12071,1400e7b355366a35eb35250c1e6191d4deb21a85,"Add Warnings When Trying To Compute Metrics For An Unknown Layer### Summary
+
+When Giving Unknown Layer Name In `Metrics` To `Model.Compile`, Will Raise A Warning Instead Of Saying Silent.
+
+### Related Issues
+
+Fixes #12068 
+
+### Pr Overview
+
+- [X] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","fixed callback warning error (#12098)
+
+* Fixed the wrong use of formatting, missed final %
+
+* Fixed the wrong use of formatting, missed final %","fixed callback warning error (#12098)
+
+* Fixed the wrong use of formatting, missed final %
+
+* Fixed the wrong use of formatting, missed final %"
+keras,0,10144,60217310b69e9d9645eb9d0002fab8dc93b54f17,"Remove Irrelevant Code`Batch_Size` Is Always `None` , Because `Steps_Per_Epoch` And `Batch_Size` Are Mutually Exclusive.
+Passing `Batch_Size` Seems Irrelevant As `None` Is Its Default Value In `Test_Loop`",Style fixes (#10148),Style fixes (#10148)
+keras,0,13401,8904340b4f0ca94e4aa8a3dbc5e955591962d0a1,"Fix: `Recurrent_Activation` Parameter'S Docstring<!--
+Please Make Sure You'Ve Read And Understood Our Contributing Guidelines;
+Https://Github.Com/Keras-Team/Keras/Blob/Master/Contributing.Md
+
+Note:
+We Are No Longer Adding New Features To Multi-Backend Keras (We Only Fix Bugs), As We Are Refocusing Development Efforts On Tf.Keras. If You Are Still Interested In Submitting A Feature Pull Request, Please Direct It To Tf.Keras In The Tensorflow Repository Instead.
+-->
+
+### Summary
+
+Fixing `Recurrent_Activation` Parameter Docstring, It Was Saying That The Default Is ""Hard_Sigmoid"" [Even Though The Code Defaults To ""Sigmoid""](Https://Github.Com/Keras-Team/Keras/Blob/Master/Keras/Layers/Recurrent.Py#L1206) (I Only Selected The `Grucell` Because Multi-Line Cross Referencing Isn'T A Feature. Btw, If You'Re Wondering Whether `Tf.Keras` Has The Same Issue, [It'S Not](Https://Github.Com/Tensorflow/Tensorflow/Blob/R2.0/Tensorflow/Python/Keras/Layers/Recurrent_V2.Py#L766). 
+### Related Issues
+
+### Pr Overview
+
+- [N] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [N] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [Y] This Pr Is Backwards Compatible [Y/N]
+- [N] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+",typo_fix (#13395),typo_fix (#13395)
+keras,1,#11163,621ec292c2609b82fd3f992b5a66f3d6611a4477,"Merge Test Environments For Pep8 And DocThis Pr Merges Test Environments For `Pep8` And `Doc`. In My Humble Opinion, I Think The Current Build Matrix May Be A Bit Waste Of Resources, Because The Two Tests Usually Take 3~4 Mins And The Initialization Of Environments (`Conda Create`, `Pip Install`, ...) Consumes At Least 2 Mins.",Merge test environments for PEP8 and DOC (#11163),Merge test environments for PEP8 and DOC (#11163)
+keras,1,#9639,068a680480ebf27ecbe57f1406d60157b7d2df38,Add A Test For Preprocessing Function For Flow_From_DirectoryWe Had No Test For Preprocessing_Function. Also Fixed A Typo I Missed On The Last Pr That Wasn'T Caught Because We Didn'T Have Tests For Preprocessing_Function At All.,"Add a test for preprocessing function for flow_from_directory (#9639)
+
+* Made Sequence iterable
+
+* Made it python2 compliant
+
+* Revert 9273
+
+* Add test for preprocessing_fucntion
+
+* Manage test
+
+* Manage test","Add a test for preprocessing function for flow_from_directory (#9639)
+
+* Made Sequence iterable
+
+* Made it python2 compliant
+
+* Revert 9273
+
+* Add test for preprocessing_fucntion
+
+* Manage test
+
+* Manage test"
+keras,1,#10692,1fcc791ee1c94c2a3efa5072aa2f10f1aab51a2a,"Update `Conv2D` Call To The Keras 2 ApiUpdate `Conv2D` Call To The Keras 2 Api
+
+### Summary
+Update `Conv2D` Call To The Keras 2 Api
+
+### Related Issues
+
+### Pr Overview
+
+- [N] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [Y] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [N] This Pr Is Backwards Compatible [Y/N]
+- [N] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","(docs) Update `Conv2D` call to the Keras 2 API (#10692)
+
+Update `Conv2D` call to the Keras 2 API","(docs) Update `Conv2D` call to the Keras 2 API (#10692)
+
+Update `Conv2D` call to the Keras 2 API"
+keras,0,11081,c7f4ad56532a378833f88648f6849e76f9d769be,"Fix A Bug In Vae-Cnn Example, ""Vae = Vae.Load_Weights"" To ""Vae.Load_Weights"", Because Load_Weights Doesn'T Return Anything### Summary
+Fix A Bug In Vae-Cnn Example, ""Vae = Vae.Load_Weights"" To ""Vae.Load_Weights"", Because Load_Weights Doesn'T Return Anything
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [ ] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Used decorators and WITH_NP to avoid tests duplication. (#11050)
+
+* Used decorators and WITH_NP to avoid tests duplication.
+
+* fix pep8","Used decorators and WITH_NP to avoid tests duplication. (#11050)
+
+* Used decorators and WITH_NP to avoid tests duplication.
+
+* fix pep8"
+keras,1,#9568,e941894af0a3e95be8076f060077d2c37ddfb414,Exclude Cudnn Layers When Reporting CoveragesThis Pr Excludes Cudnn Related Codes That Can Not Be Reached During Ci Tests. This Affects Only Calculating Test Coverages.,Exclude cudnn layers when reporting coverages (#9568),Exclude cudnn layers when reporting coverages (#9568)
+keras,1,#12065,a6c8042121371b5873773ca767f28cdf5689d5e4,"Add An Optional `Validation_Freq` Argument To `Fit`### Summary
+
+Sync With Tf Keras. Allows User To Specify How Often To Run Validation.
+
+### Related Issues
+
+### Pr Overview
+
+- [X] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [X] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [X] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Add an optional `validation_freq` argument to `fit` (#12065)
+
+### Summary
+
+Sync with TF Keras. Allows user to specify how often to run validation.
+
+### Related Issues
+
+### PR Overview
+
+- [x] This PR requires new unit tests [y/n] (make sure tests are included)
+- [x] This PR requires to update the documentation [y/n] (make sure the docs are up-to-date)
+- [x] This PR is backwards compatible [y/n]
+- [x] This PR changes the current API [y/n] (all API changes need to be approved by fchollet)","Add an optional `validation_freq` argument to `fit` (#12065)
+
+### Summary
+
+Sync with TF Keras. Allows user to specify how often to run validation.
+
+### Related Issues
+
+### PR Overview
+
+- [x] This PR requires new unit tests [y/n] (make sure tests are included)
+- [x] This PR requires to update the documentation [y/n] (make sure the docs are up-to-date)
+- [x] This PR is backwards compatible [y/n]
+- [x] This PR changes the current API [y/n] (all API changes need to be approved by fchollet)"
+keras,0,12084,b0bfd5201da2bfced84028bcc5bda05bdfd75af7,"Used K.Backend() Instead Of K._Backend.### Summary
+
+This Is A Pull Request To Divide #12076 Into Multiple Sub-Prs Making It Easier To Review (The Diff Will Be Smaller).
+
+### Related Issues
+
+#12076
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Print the model name as part of layer_utils.print_summary (aka model.summary) (#12107)
+
+CURRENT:
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+model_1_input (InputLayer)   [(None, 128)]             0         
+
+PROPOSED
+_________________________________________________________________
+Model: ""part_of_speech_tagger""
+Layer (type)                 Output Shape              Param #   
+=================================================================
+model_1_input (InputLayer)   [(None, 128)]             0","Print the model name as part of layer_utils.print_summary (aka model.summary) (#12107)
+
+CURRENT:
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+model_1_input (InputLayer)   [(None, 128)]             0         
+
+PROPOSED
+_________________________________________________________________
+Model: ""part_of_speech_tagger""
+Layer (type)                 Output Shape              Param #   
+=================================================================
+model_1_input (InputLayer)   [(None, 128)]             0"
+keras,0,12303,4c16931b49aceb38b763b4a24a55a99b6847e29b,"Added Markdown Formatting To Examples/Imdb_Cnn_Lstm.Py<!--
+Please Make Sure You'Ve Read And Understood Our Contributing Guidelines;
+Https://Github.Com/Keras-Team/Keras/Blob/Master/Contributing.Md
+-->
+
+### Summary
+This Pr Adds Markdown Formatting To ```Examples/Imdb_Cnn_Lstm.Py```.
+Result:
+![Imdb_Cnn_Lstm1](Https://User-Images.Githubusercontent.Com/3424796/53010014-Ac968480-3434-11E9-855D-97141C5366De.Png)
+![Imdb_Cnn_Lstm2](Https://User-Images.Githubusercontent.Com/3424796/53010012-Ac968480-3434-11E9-94Fa-7874A229B8B0.Png)
+### Related Issues
+#12219 
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+",Added MarkDown formatting to examples/antirectifier.py (#12294),Added MarkDown formatting to examples/antirectifier.py (#12294)
+keras,1,#12928,cd3f27b5d2ccd843a2c98ee196f81217542e36c8,"Ingore `Xla_Gpu` Which Is Specially Reserved By Tf### Summary
+
+If Building Tf With Xla Option Enabled, An Additional
+`Xla_Gpu:0` Device Will Be Exposed To Users Which Is A Domain
+For Running Graph In Xla Mode. Should Skip This Device To
+Avoid The Number Of Multi_Gpu Improperly Inferred.
+
+### Related Issues
+
+Https://Github.Com/Keras-Team/Keras/Issues/11644
+
+### Pr Overview
+
+- [N] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [N] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [Y] This Pr Is Backwards Compatible [Y/N]
+- [N] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Ingore `xla_gpu` which is specially reserved by TF (#12928)
+
+If building TF with XLA option enabled, an additional
+`xla_gpu:0` device will be exposed to users which is a domain
+for running graph in XLA mode. Should skip this device to
+avoid the number of multi_gpu improperly inferred.","Ingore `xla_gpu` which is specially reserved by TF (#12928)
+
+If building TF with XLA option enabled, an additional
+`xla_gpu:0` device will be exposed to users which is a domain
+for running graph in XLA mode. Should skip this device to
+avoid the number of multi_gpu improperly inferred."
+keras,0,11542,1df40521857697867922425db7a708a6c6c78289,"Fix Incorrect Assertion Syntax In ExampleThis Reverts A Minor Bug In The Example Code That Was Introduced In #10968.
+
+You Can'T Safely Wrap An `Assert` Body With Parens, Because It Makes It A Tuple, And Assertion Of A Tuple Either Always Succeeds (If Non-Empty) Or Always Throws (If Empty).
+
+```Py
+Assert Condition, ""Message"" # Correct
+Assert (Condition, ""Message"") # Incorrect, Will Never Throw
+```
+
+This Could Cause Confusion For Beginners Reading The Examples So I Thought I'D Bring It Up.",Added some other numpy implementation in the docs. (#11576),Added some other numpy implementation in the docs. (#11576)
+keras,1,#9717,369854e5da3f9c58eedd9b77e778cf87755bd6a4,Fix Docs Typos ,fix docs typos (#9717),fix docs typos (#9717)
+keras,0,9435,07c77c65b5ea9c246690d2eb116c7c8570dc5a7e,"Optimizer - Set_Weights : Check Weights LengthThis Pr Fixes A Little Inconsistency That I Encountered Using Keras, Described Below :
+```Python
+Model = Model(...)
+Model.Compile(...)
+Optimizer_Weights = Model.Optimizer.Get_Weights()
+# Value Is [], As Optimizer.Get_Updates Has Not Been Called Yet
+Model._Make_Train_Function()
+# Now Optimizer Has Proper Weights
+Model.Optimzier.Set_Weights(Optimizer_Weights)
+# Runs Without Error, But Has No Effect
+Len(Model.Optimizer.Get_Weights()) == Len(Optimizer_Weights)
+# Obviously Not, Which Is Counterintuitive
+```
+
+It Is My First Pr, I Apologize In Advance If The Format Is Not Correct.
+Thank You","Fix `pool_2d` of Theano for backend compatibility (#9479)
+
+* Fix `pool_2d` of Theano for backend compatibility
+
+* Add a test","Fix `pool_2d` of Theano for backend compatibility (#9479)
+
+* Fix `pool_2d` of Theano for backend compatibility
+
+* Add a test"
+keras,1,#12107,b0bfd5201da2bfced84028bcc5bda05bdfd75af7,"Print The Model Name As Part Of Layer_Utils.Print_Summary### Summary
+Current
+```
+_________________________________________________________________
+Layer (Type)                 Output Shape              Param #   
+=================================================================
+Model_1_Input (Inputlayer)   [(None, 128)]             0         
+```
+
+Proposed
+```
+_________________________________________________________________
+Model: ""Part_Of_Speech_Tagger""
+Layer (Type)                 Output Shape              Param #   
+=================================================================
+Model_1_Input (Inputlayer)   [(None, 128)]             0
+```
+
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [ ] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Print the model name as part of layer_utils.print_summary (aka model.summary) (#12107)
+
+CURRENT:
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+model_1_input (InputLayer)   [(None, 128)]             0         
+
+PROPOSED
+_________________________________________________________________
+Model: ""part_of_speech_tagger""
+Layer (type)                 Output Shape              Param #   
+=================================================================
+model_1_input (InputLayer)   [(None, 128)]             0","Print the model name as part of layer_utils.print_summary (aka model.summary) (#12107)
+
+CURRENT:
+_________________________________________________________________
+Layer (type)                 Output Shape              Param #   
+=================================================================
+model_1_input (InputLayer)   [(None, 128)]             0         
+
+PROPOSED
+_________________________________________________________________
+Model: ""part_of_speech_tagger""
+Layer (type)                 Output Shape              Param #   
+=================================================================
+model_1_input (InputLayer)   [(None, 128)]             0"
+keras,0,12192,74ccfc4df6002bcbb44dc4ea65400b8b2dbef994,"Test Init Args In Documentation<!--
+Please Make Sure You'Ve Read And Understood Our Contributing Guidelines;
+Https://Github.Com/Keras-Team/Keras/Blob/Master/Contributing.Md
+-->
+
+### Summary
+
+Improve `Test_Documentation` By Making Sure Arguments Of Class Init Are In The Class Docstring
+
+### Related Issues
+
+Https://Github.Com/Keras-Team/Keras/Issues/12189
+
+### Pr Overview
+
+- [Y] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [Y] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [Y] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Added the possibility to specify the destination directory in autogen.py (#12220)
+
+* Added the possibility to specify the destination directory.
+
+* Running the docs tests only in one build.","Added the possibility to specify the destination directory in autogen.py (#12220)
+
+* Added the possibility to specify the destination directory.
+
+* Running the docs tests only in one build."
+keras,1,#11829,d78c982b326adeed6ac25200dc6892ff8f518ca6,"Removed A Useless Check Which Can Cause An Infinite Loop.### Summary
+
+Here, We Check If `Inbound_Layer_Name` Is In `Created_Layers`. If It Is Not, We Delay The Task And Come Back At It Later On.
+
+The Problem Is, If  `Inbound_Layer_Name` Is Not In `Created_Layers`, It Will Never Be Because We Don'T Modify The `Created_Layers` (Last Time This Variable Was Modified Was At Line 1019 When We Called `Process_Layer`).
+
+This Is Very Dangerous Because It Can Tranform A Simple Keras Bug (`Keyerror`) Into An Infinite Loop. 
+
+And No One Likes To Debug Infinite Loops.
+
+### Related Issues
+
+### Pr Overview
+
+The Check Is Removed. A `Keyerror` Is Much Better And It Will Make The Code Simpler To Understand.
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Fixed loading bug for shared layers accross multiple depths (#11588)
+
+* Patched loading bug for shared layers in issue
+
+* Fixed PEP8 errors
+
+* Fixed PEP8 errors [2]
+
+* Added unit test for issue #11159 for model deserialization with mixed layer ordering
+
+* Changed to use try/raise for communicating layer loading errors
+
+* Addressed review for PR #11588
+
+* Removed redundent layer check, see #11829","Fixed loading bug for shared layers accross multiple depths (#11588)
+
+* Patched loading bug for shared layers in issue
+
+* Fixed PEP8 errors
+
+* Fixed PEP8 errors [2]
+
+* Added unit test for issue #11159 for model deserialization with mixed layer ordering
+
+* Changed to use try/raise for communicating layer loading errors
+
+* Addressed review for PR #11588
+
+* Removed redundent layer check, see #11829"
+keras,1,#10516,17772aff6d5acaa3af9ce610f23b0cc52835a98d,"Wrongly Handled Empty Keras_Backend ValueIf Environment Variable Keras_Backend Is Set, But Empty, Keras Assumes That It Has A Valid Value And Tries To Load Undefined Backend.
+","ignore empty KERAS_BACKEND environment variable, refs #10516 (#10517)
+
+* ignore empty KERAS_BACKEND environment variable, refs #10516
+
+* fixed spacing (PEP8), refs #10516","ignore empty KERAS_BACKEND environment variable, refs #10516 (#10517)
+
+* ignore empty KERAS_BACKEND environment variable, refs #10516
+
+* fixed spacing (PEP8), refs #10516"
+keras,0,10937,bb9b800ebba8914b69db362cfac4e7c8a9b17a9e,"Add Installing Pydot### Summary
+
+### 
+In Dockerrfile, We Should Add An Pydot Module.
+
+**Test Before Install Pydot**
+```
+Keras@Cef4Fc61682D:/Users/Admin/Program/Private/Oss/Other/Keras$ Pytest Tests/Keras/Utils/Vis_Utils_Test.Py
+========================================================================================================= Test Session Starts =========================================================================================================
+Platform Linux -- Python 3.6.3, Pytest-3.7.1, Py-1.5.4, Pluggy-0.7.1 -- /Opt/Conda/Bin/Python
+Cachedir: .Pytest_Cache
+Rootdir: /Users/Admin/Program/Private/Oss/Other/Keras, Inifile: Pytest.Ini
+Plugins: Xdist-1.22.5, Pep8-1.0.6, Forked-0.2, Cov-2.5.1
+[Gw0] Linux Python 3.6.3 Cwd: /Users/Admin/Program/Private/Oss/Other/Keras
+[Gw1] Linux Python 3.6.3 Cwd: /Users/Admin/Program/Private/Oss/Other/Keras
+[Gw0] Python 3.6.3 |Anaconda, Inc.| (Default, Oct 13 2017, 12:02:49)  -- [Gcc 7.2.0]
+[Gw1] Python 3.6.3 |Anaconda, Inc.| (Default, Oct 13 2017, 12:02:49)  -- [Gcc 7.2.0]
+Gw0 [1] / Gw1 [1]
+Scheduling Tests Via Loadscheduling
+
+Tests/Keras/Utils/Vis_Utils_Test.Py::Test_Plot_Model
+[Gw0] [100%] Failed Tests/Keras/Utils/Vis_Utils_Test.Py::Test_Plot_Model
+
+============================================================================================================== Failures ===============================================================================================================
+___________________________________________________________________________________________________________ Test_Plot_Model ___________________________________________________________________________________________________________
+[Gw0] Linux -- Python 3.6.3 /Opt/Conda/Bin/Python
+
+    Def Test_Plot_Model():
+        Model = Sequential()
+        Model.Add(Conv2D(2, Kernel_Size=(2, 3), Input_Shape=(3, 5, 5), Name='Conv'))
+        Model.Add(Flatten(Name='Flat'))
+        Model.Add(Dense(5, Name='Dense1'))
+>       Vis_Utils.Plot_Model(Model, To_File='Model1.Png', Show_Layer_Names=False)
+
+Tests/Keras/Utils/Vis_Utils_Test.Py:19:
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+Keras/Utils/Vis_Utils.Py:132: In Plot_Model
+    Dot = Model_To_Dot(Model, Show_Shapes, Show_Layer_Names, Rankdir)
+Keras/Utils/Vis_Utils.Py:55: In Model_To_Dot
+    _Check_Pydot()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    Def _Check_Pydot():
+        """"""Raise Errors If `Pydot` Or Graphviz Unavailable.""""""
+        If Pydot Is None:
+            Raise Importerror(
+>               'Failed To Import `Pydot`. '
+                'Please Install `Pydot`. '
+                'For Example With `Pip Install Pydot`.')
+E           Importerror: Failed To Import `Pydot`. Please Install `Pydot`. For Example With `Pip Install Pydot`.
+
+Keras/Utils/Vis_Utils.Py:20: Importerror
+====================================================================================================== Slowest 20 Test Durations ======================================================================================================
+0.09S Call     Tests/Keras/Utils/Vis_Utils_Test.Py::Test_Plot_Model
+0.00S Setup    Tests/Keras/Utils/Vis_Utils_Test.Py::Test_Plot_Model
+0.00S Teardown Tests/Keras/Utils/Vis_Utils_Test.Py::Test_Plot_Model
+====================================================================================================== 1 Failed In 6.85 Seconds =======================================================================================================
+```
+**Test After Install Pydot**
+```
+Keras@Cef4Fc61682D:/Users/Admin/Program/Private/Oss/Other/Keras$ Pytest Tests/Keras/Utils/Vis_Utils_Test.Py
+========================================================================================================= Test Session Starts =========================================================================================================
+Platform Linux -- Python 3.6.3, Pytest-3.7.1, Py-1.5.4, Pluggy-0.7.1 -- /Opt/Conda/Bin/Python
+Cachedir: .Pytest_Cache
+Rootdir: /Users/Admin/Program/Private/Oss/Other/Keras, Inifile: Pytest.Ini
+Plugins: Xdist-1.22.5, Pep8-1.0.6, Forked-0.2, Cov-2.5.1
+[Gw0] Linux Python 3.6.3 Cwd: /Users/Admin/Program/Private/Oss/Other/Keras
+[Gw1] Linux Python 3.6.3 Cwd: /Users/Admin/Program/Private/Oss/Other/Keras
+[Gw0] Python 3.6.3 |Anaconda, Inc.| (Default, Oct 13 2017, 12:02:49)  -- [Gcc 7.2.0]
+[Gw1] Python 3.6.3 |Anaconda, Inc.| (Default, Oct 13 2017, 12:02:49)  -- [Gcc 7.2.0]
+Gw0 [1] / Gw1 [1]
+Scheduling Tests Via Loadscheduling
+
+Tests/Keras/Utils/Vis_Utils_Test.Py::Test_Plot_Model
+[Gw0] [100%] Passed Tests/Keras/Utils/Vis_Utils_Test.Py::Test_Plot_Model
+
+============================================ Slowest 20 Test Durations ============================================
+0.63S Call     Tests/Keras/Utils/Vis_Utils_Test.Py::Test_Plot_Model
+0.00S Teardown Tests/Keras/Utils/Vis_Utils_Test.Py::Test_Plot_Model
+0.00S Setup    Tests/Keras/Utils/Vis_Utils_Test.Py::Test_Plot_Model
+============================================ 1 Passed In 7.77 Seconds =============================================
+```
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [ ] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Argument target_tensors from Model.compile: accept single tensor (#10616)
+
+* Argument target_tensors from Model.compile: accept single tensor
+
+* Update target_tensors error message
+
+* Single tensor as target_tensors: Handle error for multi-output model. Added quick tests.
+
+* Added regex to tests","Argument target_tensors from Model.compile: accept single tensor (#10616)
+
+* Argument target_tensors from Model.compile: accept single tensor
+
+* Update target_tensors error message
+
+* Single tensor as target_tensors: Handle error for multi-output model. Added quick tests.
+
+* Added regex to tests"
+keras,0,10952,8c6f8d8c797c1b8576063cc973e6b9f729ec7612,"Integration With Redesigned Preprocessing & Applications Modules.See:
+
+Original Issue: Https://Github.Com/Keras-Team/Keras-Applications/Issues/28
+
+Keras_Applications Pr: Https://Github.Com/Keras-Team/Keras-Applications/Pull/29
+
+Keras_Preprocessing Pr: Https://Github.Com/Keras-Team/Keras-Preprocessing/Pull/40
+","Support recurrent kernel using identity initializer (#10934)
+
+* allow non-square weights to initialize with identity initializer
+
+* fix style
+
+* Fix docstring style.","Support recurrent kernel using identity initializer (#10934)
+
+* allow non-square weights to initialize with identity initializer
+
+* fix style
+
+* Fix docstring style."
+keras,0,11725,edd0c0a4bd4cea027842bc8925048976d65b1ae9,"Made The Docstring Processing Test More Robust.### Summary
+
+When We Process A Docstring With `Process_Docstring`, We Don'T Really Care About The Output, We Care About The Html Which Is Going To Be Produced After The Markdown Parser Converts It To Html. This Is Why We Should Compare The Resulting Html. Allowing Us More Freedom When Modifying `Autogen.Py`
+
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Fix memory issue in tensorflow backend's batch_dot (#11719)
+
+* add matmul impl for batch_dot
+
+* no shape info tests
+
+* pep8
+
+* skip no shape test for cntk
+
+* pep8
+
+* fix cntk check
+
+* refac","Fix memory issue in tensorflow backend's batch_dot (#11719)
+
+* add matmul impl for batch_dot
+
+* no shape info tests
+
+* pep8
+
+* skip no shape test for cntk
+
+* pep8
+
+* fix cntk check
+
+* refac"
+keras,0,13307,78691340edd38b00668151c2e636ddbf370f9ef3,"Using K.Is_Tensor And K.Is_Variable### Summary
+
+`Is_Tensor_Or_Variable(X)` Is Undefined And Replaced By `K.Is_Tensor(X) Or K.Is_Variable(X)`.
+
+
+### Related Issues
+
+Fixes #13306.
+
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)","Added messages about the future of multi-backend Keras. (#13315)
+
+* Added comments about the future of Keras.
+
+* Changed msg.","Added messages about the future of multi-backend Keras. (#13315)
+
+* Added comments about the future of Keras.
+
+* Changed msg."
+keras,1,#10927,c8e3b601cd8bf3062d416a5ef74c4a97be611923,"Typos In A Docstring Of Cifar10_Cnn_Capsule.Py Example### Summary
+Fixing A Few Typos In A Docstring Of An Example.",Update cifar10_cnn_capsule.py (#10927),Update cifar10_cnn_capsule.py (#10927)
+keras,0,9390,2ba2076275fab79cf4b8c281ccce506b257cab21,"Add Random Brightness To Image Preprocessing (Code Cleanup)**This Is A Cleanup Of @Zhudaoruyi'S Pr At #8652.**
+**All Credit Goes To Him!**",Style fixes (#9441),Style fixes (#9441)
+keras,0,10174,0ba6d95e768eb7a0d74a6fda3ea893e7fb2d7a67,Mobilenetv2 Explanation I Copy This From Source File.,"vae examples fixes (#10062)
+
+* vae examples fixes
+
+* white spaces around op
+
+* comments and docstring fixes
+
+* comments and docstring fixes
+
+* comments and docstring fixes
+
+* fixes on docs
+
+* docs and spacing","vae examples fixes (#10062)
+
+* vae examples fixes
+
+* white spaces around op
+
+* comments and docstring fixes
+
+* comments and docstring fixes
+
+* comments and docstring fixes
+
+* fixes on docs
+
+* docs and spacing"
+keras,0,9611,839d3dd0b598ecf6f2e93b9f9068c2e21fa1c97b,Fix The Number Of ArgumentsFix The Number Of Arguments On Zeropadding3D.,"bug fix - run_internal_graph() (#9599)
+
+* bug fix
+
+* cleanup
+
+* readability++
+
+* add test for case lambda multi out no mask
+
+* pep8
+
+* pep8","bug fix - run_internal_graph() (#9599)
+
+* bug fix
+
+* cleanup
+
+* readability++
+
+* add test for case lambda multi out no mask
+
+* pep8
+
+* pep8"
+keras,1,#10189,a6afe7c8149c61372b2aae6ae331d1584eb8a19e,"Clean Up Preprocessing Of `Depthwise_Kernel` For TheanoThis Pr Cleans Up Preprocessing Of `Depthwise_Kernel` For Theano.
+- As-Is: Two `Dimshuffle`'S Are Redundantly Performed, Which May Result In Performance Degradation.
+- To-Be: The Two Are Integrated Into A Single `Dimshuffle` With Refactoring.",Clean up preprocessing of `depthwise_kernel` for Theano (#10189),Clean up preprocessing of `depthwise_kernel` for Theano (#10189)
+keras,0,12339,91ccb284abcd83a091dc5f2549f6b24df849a2b5,"Fix Typo In Siamese Example<!--
+Please Make Sure You'Ve Read And Understood Our Contributing Guidelines;
+Https://Github.Com/Keras-Team/Keras/Blob/Master/Contributing.Md
+-->
+
+### Summary
+I'Ve Noticed A Typo In `Mnist_Siamese.Py` Example (Variable `Sqaure_Pred` -> `Square_Pred`)
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Use local RandomState instead of seeding the global RNG (#12259)
+
+* Use local RandomState instead of seeding the global RNG
+
+* Create a unit test module for datasets and move tests there
+
+* Move initializer test to the proper file","Use local RandomState instead of seeding the global RNG (#12259)
+
+* Use local RandomState instead of seeding the global RNG
+
+* Create a unit test module for datasets and move tests there
+
+* Move initializer test to the proper file"
+keras,1,#12170,3dbc940b9eb690e92fa6d7fe7ebf897a552a1c50,"Using A Mutable Variable Instead Of A Global Variable In K.Rnn<!--
+Please Make Sure You'Ve Read And Understood Our Contributing Guidelines;
+Https://Github.Com/Keras-Team/Keras/Blob/Master/Contributing.Md
+-->
+
+### Summary
+
+Trying To Remove The Global Variable From K.Rnn To Be Able To Use Tf.Keras.Backend.Rnn Instead. `Uses_Learning_Phase` Isn'T Used Outside K.Rnn So There Must Be A Way To Prevent It From Leaking Into The Global Context.
+
+### Related Issues
+
+#11720
+#11502
+
+### Pr Overview
+
+We Could Probably Also Use A Class With An Attribute `Self.Use_Learning_Phase` And Have Those Inner Functions Be Methods Of This Class. Probably More Code To Do, But It Would Be The Standard Python Way To Do It. 
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+",Using a mutable variable instead of a global variable. (#12170),Using a mutable variable instead of a global variable. (#12170)
+keras,1,#11334,714ff6d7150fa7c41379024a660fe6e822742663,"Tensorboard To Get Gradients Only For Trainable Weights### Summary
+For Certain Operations Like Moving_Mean, There Will Be No Gradients. However The Tensorboard Callback Tries To Calculate One And Returns With The Error 
+""
+Valueerror: An Operation Has `None` For Gradient. Please Make Sure That All Of Your Ops Have A Gradient Defined (I.E. Are Differentiable). Common Ops Without Gradient: K.Argmax, K.Round, K.Eval.
+""
+The Fix For This Is To Explicitly Want Histograms And Gradients To Be Computed For Trainable Weights Only.
+
+### Related Issues
+
+### Pr Overview
+
+- [N] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [N] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [Y] This Pr Is Backwards Compatible [Y/N]
+- [N] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)",Tensorboard to get gradients only for trainable weights (#11334),Tensorboard to get gradients only for trainable weights (#11334)
+keras,1,#12293,6d5cdd7efdf8c10ff7df322059dccc8013144521,"Added Markdown Formatting To Examples/Conv_Lstm.Py<!--
+Please Make Sure You'Ve Read And Understood Our Contributing Guidelines;
+Https://Github.Com/Keras-Team/Keras/Blob/Master/Contributing.Md
+-->
+
+### Summary
+This Pr Adds Markdown Formatting To ```Examples/Conv_Lstm.Py```.
+Result:
+![Conv_Lstm1](Https://User-Images.Githubusercontent.Com/3424796/52916131-C2D8Ff00-32D3-11E9-80A7-3A366B13655F.Png)
+![Conv_Lstm2](Https://User-Images.Githubusercontent.Com/3424796/52916130-C2D8Ff00-32D3-11E9-8863-3C072E72Bc7D.Png)
+### Related Issues
+Https://Github.Com/Keras-Team/Keras/Issues/12219
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+",Added MarkDown formatting to examples/conv_lstm.py (#12293),Added MarkDown formatting to examples/conv_lstm.py (#12293)
+keras,1,#11701,13b255dfd832dd78bca90fac142325df534d51be,"Fix Babi-Rnn Example### Summary
+Actually Pr #1824 Claimed That By Changing The Rnn Layer From `Gru` To `Lstm` And Some Modification Of The Architecture Of The Model In This Example, We Can Increase The Accuracy On The First Two Tasks Of Babi By 100% (I.E. Two Times). Unfortunately, This Claim Could Not Be Reproduced By Three People ([1][1], [2][2], [3][3]) And [Me][4]. So I Rolled Back The Reported Accuracy Numbers As Well As The Architecture Of The Model To Its [Original One][5]. Further, This Time I Have Re-Checked The Reported Accuracy Numbers For The First Two Tasks And Made Sure They Are Reproducible.
+
+### Related Issues
+#8061
+### Pr Overview
+
+- [N] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [N] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [Y] This Pr Is Backwards Compatible [Y/N]
+- [N] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+
+[1]: Https://Github.Com/Keras-Team/Keras/Pull/1824#Commitcomment-16375552
+[2]: Https://Github.Com/Keras-Team/Keras/Pull/1824#Commitcomment-17624174
+[3]: Https://Github.Com/Keras-Team/Keras/Pull/1824#Commitcomment-24803115
+[4]: Https://Github.Com/Keras-Team/Keras/Pull/1824#Issuecomment-429623381
+[5]: Https://Github.Com/Keras-Team/Keras/Blob/81787Dd2Bb6B0F0Afd3E4F55Ead8Fa6C854Bbc05/Examples/Babi_Rnn.Py
+","Fix babi-rnn example (#11701)
+
+* Fix babi-rnn example
+
+* Fix babi-rnn example (cont.)","Fix babi-rnn example (#11701)
+
+* Fix babi-rnn example
+
+* Fix babi-rnn example (cont.)"
+keras,0,10864,aa8d7f76a047b24a97614524d29fb5070cf549c7,"Removed Some Code In The Cropping Layer By Making Use Of Python Slices.### Summary
+
+I Think This Version Is Less Error Prone And More Maintainable.
+Maybe We Could Do Some Subclassing?
+
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+",avoid url error exception (#10887),avoid url error exception (#10887)
+keras,1,#11166,6773d96ee495e205552551b49b08f2d927d36ebe,"Grouped Conda Installations Together To Speed Up The Travis Build.### Summary
+
+Master:
+* Installation Of Mkl And Mkl-Services: 10.10S
+* Installation Of Pil/Pillow: 11S
+* Installation Of Pydot Graphvis: 21S
+#### Total: 43S
+
+Proposed:
+* Grouped Installation Of  Mkl ,Mkl-Services Pil/Pillow Pydot Graphvis: 24.8S.
+
+We Can Save ~18S On All Travis Jobs.
+
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Grouped conda installations together to speed up the travis build. (#11166)
+
+### Summary
+
+Master:
+* Installation of mkl and mkl-services: 10.10s
+* installation of Pil/Pillow: 11s
+* installation of pydot graphvis: 21s
+#### total: 43s
+
+proposed:
+* grouped installation of  mkl ,mkl-services Pil/Pillow pydot graphvis: 24.8s.
+
+We can save ~18s on all travis jobs.
+
+### Related Issues
+
+### PR Overview
+
+- [ ] This PR requires new unit tests [y/n] (make sure tests are included)
+- [ ] This PR requires to update the documentation [y/n] (make sure the docs are up-to-date)
+- [x] This PR is backwards compatible [y/n]
+- [ ] This PR changes the current API [y/n] (all API changes need to be approved by fchollet)","Grouped conda installations together to speed up the travis build. (#11166)
+
+### Summary
+
+Master:
+* Installation of mkl and mkl-services: 10.10s
+* installation of Pil/Pillow: 11s
+* installation of pydot graphvis: 21s
+#### total: 43s
+
+proposed:
+* grouped installation of  mkl ,mkl-services Pil/Pillow pydot graphvis: 24.8s.
+
+We can save ~18s on all travis jobs.
+
+### Related Issues
+
+### PR Overview
+
+- [ ] This PR requires new unit tests [y/n] (make sure tests are included)
+- [ ] This PR requires to update the documentation [y/n] (make sure the docs are up-to-date)
+- [x] This PR is backwards compatible [y/n]
+- [ ] This PR changes the current API [y/n] (all API changes need to be approved by fchollet)"
+keras,1,#9937,6171b3656ebd9b6038f709ba83f7475de284ba4e,"Updated Example, Added To ReadmeUpdated Dataset Api Example For Tf 1.7 And Added It To The Examples Readme File.",Updated for TF 1.7 (#9937),Updated for TF 1.7 (#9937)
+keras,0,11542,2898da6cfcc893aafc0b9016f934ef08c196b9d4,"Fix Incorrect Assertion Syntax In ExampleThis Reverts A Minor Bug In The Example Code That Was Introduced In #10968.
+
+You Can'T Safely Wrap An `Assert` Body With Parens, Because It Makes It A Tuple, And Assertion Of A Tuple Either Always Succeeds (If Non-Empty) Or Always Throws (If Empty).
+
+```Py
+Assert Condition, ""Message"" # Correct
+Assert (Condition, ""Message"") # Incorrect, Will Never Throw
+```
+
+This Could Cause Confusion For Beginners Reading The Examples So I Thought I'D Bring It Up.","Removed the base class of constraints from the documentation. (#11513)
+
+Also fixed some formatting.","Removed the base class of constraints from the documentation. (#11513)
+
+Also fixed some formatting."
+keras,1,#11107,244546c2fe5165b6770eb456afd5fac8878473c5,"Fix Tf Function Accepts Session_Kwargs: Options And Run_Metadata### Summary
+Fix #11106 .
+```Run_Metadata``` And ```Options``` As ```Session_Kwargs``` Of ```K.Function``` Don'T Take Effect Since Keras 2.2. This Is Because We Don'T Pass In These Two Arguments To Either  ```Session._Make_Callable_From_Options ```(Tf >= 1.8) Or ```Session.Run```(Tf < 1.8).
+I Searched And Found Similar Issues In ```Tf.Keras```, And Referred Https://Github.Com/Tensorflow/Tensorflow/Pull/19932 To Fix It.
+
+### Related Issues
+#11106 
+#6606
+#6693
+
+### Pr Overview
+
+- [X] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+",Fix TF Function accepts session_kwargs: options and run_metadata (#11107),Fix TF Function accepts session_kwargs: options and run_metadata (#11107)
+keras,0,11140,cd22c5a53bf738ea678cb5ce0e799093d527f2a6,"Breaking Down The Attention Api Pr: Part 2### Summary
+
+This Refactoring Will Allow The Simplification Of Some Code In #8296
+
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Fix bug in dilated conv for CNTK (#11125)
+
+* Fix bug in dilated conv for CNTK
+
+* Only run cntk tests on GPU
+
+* Add comments
+
+* Run dilation tests as much as possbile","Fix bug in dilated conv for CNTK (#11125)
+
+* Fix bug in dilated conv for CNTK
+
+* Only run cntk tests on GPU
+
+* Add comments
+
+* Run dilation tests as much as possbile"
+keras,1,#11162,fed304bcedfed737fa540fc0b6ce0bf27187d4b9,"Move Package Installation On TravisThis Pr Moves Package Installation On Travis. Especially, The Installation Of `Pytest Pandas` Has Been Moved To `Pip` From `Conda`. The `Conda Create` Requires Too Much Time (60+ Secs) In [Keras](Https://Travis-Ci.Org/Keras-Team/Keras/Builds/429078096) While Less Time (<10 Secs) In [Tensornets](Https://Travis-Ci.Org/Taehoonlee/Tensornets/Builds/426029804).",Move package installation on Travis (#11162),Move package installation on Travis (#11162)
+keras,0,11107,5a6af4bc6d44e9adbc2a21804bfcd18c4ce849ef,"Fix Tf Function Accepts Session_Kwargs: Options And Run_Metadata### Summary
+Fix #11106 .
+```Run_Metadata``` And ```Options``` As ```Session_Kwargs``` Of ```K.Function``` Don'T Take Effect Since Keras 2.2. This Is Because We Don'T Pass In These Two Arguments To Either  ```Session._Make_Callable_From_Options ```(Tf >= 1.8) Or ```Session.Run```(Tf < 1.8).
+I Searched And Found Similar Issues In ```Tf.Keras```, And Referred Https://Github.Com/Tensorflow/Tensorflow/Pull/19932 To Fix It.
+
+### Related Issues
+#11106 
+#6606
+#6693
+
+### Pr Overview
+
+- [X] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","fix sparse categorical acc (#11100)
+
+* fix sparse categorical acc
+
+* fix style
+
+* flatten y_true for comparision
+
+* fix style
+
+* add comment about flatten y_true","fix sparse categorical acc (#11100)
+
+* fix sparse categorical acc
+
+* fix style
+
+* flatten y_true for comparision
+
+* fix style
+
+* add comment about flatten y_true"
+keras,1,#10812,4ba641806b4afcf95bece96c3b15e646fc092161,"Fix Doc### Summary
+Fixed Doc For Consistency
+
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Fix doc (#10812)
+
+* Fix doc
+
+* Fix doc
+
+* Update convolutional_recurrent.py","Fix doc (#10812)
+
+* Fix doc
+
+* Fix doc
+
+* Update convolutional_recurrent.py"
+keras,1,#12526,91efaaa1d7486df71be30a54d82b907443d80bf1,"Add Kwarg And Documentation For Dilation_Rate To Depthwiseconv2D
+### Summary
+
+### Related Issues
+Fix For #12525 Which Is Identical To #9642
+### Pr Overview
+This Pr Is Very Close To #9844. Just Adding `Dilation_Rate` To Arguments Of Depthwiseconv2D Explicitly. 
+
+- [ N ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ Y ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [ Y ] This Pr Is Backwards Compatible [Y/N]
+- [ Y ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Add kwarg and documentation for dilation_rate to DepthWiseConv2D (#12526)
+
+* Add kwarg and documentation for dilation_rate to DepthWiseConv2D
+
+* Add test coverage for dilation rate in DepthWiseConv2D
+
+* removed dublicated code
+
+* fix DeapthWiseConv2D compute_output_shape
+
+* revert to previous indexing","Add kwarg and documentation for dilation_rate to DepthWiseConv2D (#12526)
+
+* Add kwarg and documentation for dilation_rate to DepthWiseConv2D
+
+* Add test coverage for dilation rate in DepthWiseConv2D
+
+* removed dublicated code
+
+* fix DeapthWiseConv2D compute_output_shape
+
+* revert to previous indexing"
+keras,1,#12259,91ccb284abcd83a091dc5f2549f6b24df849a2b5,"Use Local Randomstate Instead Of Seeding The Global Rng<!--
+Please Make Sure You'Ve Read And Understood Our Contributing Guidelines;
+Https://Github.Com/Keras-Team/Keras/Blob/Master/Contributing.Md
+-->
+
+### Summary
+
+According To [Numpy Nep 19 — Random Number Generator Policy](Https://Www.Numpy.Org/Neps/Nep-0019-Rng-Policy.Html), Instantiating Local `Randomstate` Objects Is Preferred, Rather Than Seeding The Global `Np.Random` Generator.
+
+Seeding The Global Generator May Introduce Unexpected Behavior In The Applications That Use Keras And Also Rely On Its State.
+
+Proposed Change: Use A Local `Randomstate` Object In Dataset Loaders And The Orthogonal Initializer.
+
+### Related Issues
+
+Https://Github.Com/Keras-Team/Keras/Issues/12258
+
+### Pr Overview
+
+- [X] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Use local RandomState instead of seeding the global RNG (#12259)
+
+* Use local RandomState instead of seeding the global RNG
+
+* Create a unit test module for datasets and move tests there
+
+* Move initializer test to the proper file","Use local RandomState instead of seeding the global RNG (#12259)
+
+* Use local RandomState instead of seeding the global RNG
+
+* Create a unit test module for datasets and move tests there
+
+* Move initializer test to the proper file"
+keras,0,11242,6e004306dfe70ab499afc04c31808fdac594ae08,"Fix H5Py Error ""Unable To Create Attribute (Object Header Message Is Too Large)""### Summary
+
+Fixes A Minor Bug Introduced By Https://Github.Com/Keras-Team/Keras/Commit/9A4C5D8F10667E571C23F1B2F2E0397A85368Bea: The `H5Dict` Object Tried To Save (Large) `Numpy` Objects Without The `Dataset` Interface From `H5Py`. This Produced The Error ` Unable To Create Attribute (Object Header Message Is Too Large)`
+
+### Related Issues
+
+Https://Github.Com/Keras-Team/Keras/Issues/11104
+Https://Github.Com/Skuldur/Classical-Piano-Composer/Issues/8
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Show time spent in the warning of slow progress (#11278)
+
+* Show time spent in the warning of slow progress
+
+* Wrap long line
+
+* Update warning message.","Show time spent in the warning of slow progress (#11278)
+
+* Show time spent in the warning of slow progress
+
+* Wrap long line
+
+* Update warning message."
+keras,0,12498,9bd69784e31f17ee3501167c267dad5c64f25de8,"Revise Docs For `Include_Top=False, Pooling=None`### Summary
+
+This Pr Is A Follow-Up Of Keras-Team/Keras-Applications#48. The `Include_Top=False, Pooling=None` Arguments Should Return The Last Convolutional ""Block"" Rather Than ""Layer"". The ""Block"" Means Generally A Set Of Layers, And The ""Convolutional Block"" In The Imagenet Models Typically Consists Of Several Convolutional Layers Followed By (Or Following) A 2X Down-Sampling Layer.
+
+###Related Issues
+
+Keras-Team/Keras-Applications#48","Corrected 2D relicts in 3D function comments (#12406)
+
+* Corrected 2D relicts in 3D function comments
+
+Some argument descriptions referred to ""two"" values, which for 3D functions must be ""three"".
+
+* Added missing ""depth"" comment in 3D function","Corrected 2D relicts in 3D function comments (#12406)
+
+* Corrected 2D relicts in 3D function comments
+
+Some argument descriptions referred to ""two"" values, which for 3D functions must be ""three"".
+
+* Added missing ""depth"" comment in 3D function"
+keras,0,10552,d954aef2a2e33532f8725f58183cf605f5c54656,"Minor Improvement DocumentationAdded : 
+```
+'Keras.Engine',
+'Keras.Wrappers', 'Keras.Utils',
+'Keras.Callbacks', 'Keras.Activations',
+'Keras.Losses', 'Keras.Models', 'Keras.Optimizers'
+```
+
+To The Documentation Test. (Most Of Them Were Good! :Tada: )",Reduce separable conv tests (#10524),Reduce separable conv tests (#10524)
+keras,0,11161,40a9ecc684d2c5e7fdfc09f46d0912940b74ab63,Style Fixes For Enabling Pep8 501This Pr Enables Pep8 501.,Used a with statement instead of a close statement for robustness. (#11147),Used a with statement instead of a close statement for robustness. (#11147)
+keras,1,#11569,a0e90bd845795a4e032a7ba82aadace76eddbcb3,"Update Metrics.Md With References To Losses.MdUpdate Metrics.Md With A Better Reference To The Losses.Md Page, In Terms Of Losses
+
+### Summary
+The Relationship Between The Metrics And Losses Pages Wasn'T Very Clear To Me. 
+It Took Me Quite A While To Realize I Can Just Use Losses As Metrics, So I Tried To Add A Couple Of Sentences About It.
+
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Update metrics.md with references to losses.md (#11569)
+
+Update metrics.md with a better reference to the losses.md page, in terms of losses","Update metrics.md with references to losses.md (#11569)
+
+Update metrics.md with a better reference to the losses.md page, in terms of losses"
+keras,1,#10047,c98093f6ac852534493956ce6668f7294d608c82,"Mobilenetv2 Keras Implementation For Imagenet Weights For Tensorflow Backend.This File Enables Access To The 23 Trained Mobilenetv2 Models Found [Here](Https://Github.Com/Tensorflow/Models/Tree/Master/Research/Slim/Nets/Mobilenet). The Design And Architecture For Mobilenetv2 Is Explained In This [Paper](Https://Arxiv.Org/Abs/1801.04381)
+
+For A Complete View Of The Weight Extraction. Loading, And Testing Process Please See This [Repository](Https://Github.Com/Jonathancmitchell/Mobilenet_V2_Keras)
+
+Link To Google Doc Explaining Changes:
+Https://Docs.Google.Com/Document/D/1-Srvewiumnmm8Uzsfx-V0Dzu9D_580Ooqatkdoqcjhm/Edit?Usp=Sharing
+
+Please Let Me Know If There Is Something You Would Like Me To Add/ Change/ Etc. ",Adds MobiletNetV2 to applications (#10047),Adds MobiletNetV2 to applications (#10047)
+keras,0,9411,4f2e65c385d60fa87bb143c6c506cbe428895f44,"Remove Metrics For PredictMetrics Weren'T In Predict Before, I Propose That We Keep It That Way.
+Fixes Https://Github.Com/Keras-Team/Keras/Issues/9394","Remove word “shuffled” from comments in examples (#9453)
+
+`cifar10.load_data()` and `mnist.load_data()` do not shuffle the datasets. Fix comments in examples accordingly.","Remove word “shuffled” from comments in examples (#9453)
+
+`cifar10.load_data()` and `mnist.load_data()` do not shuffle the datasets. Fix comments in examples accordingly."
+keras,1,#12661,35093bc9bb14a66d09fe6ea26e302df8ffad64f4,"Add Missing Bracket To Error String.### Summary
+Missing Bracket On Raised Error Before Full Stop. For Example, Could Read
+`Valueerror: The Shape Of The Input To ""Flatten"" Is Not Fully Defined (Got (None, 7, 128).`
+
+But Should Read
+
+`Valueerror: The Shape Of The Input To ""Flatten"" Is Not Fully Defined (Got (None, 7, 128)**)**.`
+
+Pull Request Adds The Bracket. Nothing Complex!
+
+### Related Issues
+
+### Pr Overview
+
+- [N] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [N ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [Y] This Pr Is Backwards Compatible [Y/N]
+- [N] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+",Add missing bracket to error string. (#12661),Add missing bracket to error string. (#12661)
+keras,1,#10946,6746bda3dcda273580fef2d911c6cc333c8a626c,"Fix Val_Step In Fit_Generator With Sequence### Summary
+The Previous Code Was Forcing The Val_Steps To Len(Val_Seq). Not Sure How To Test This Without Breaking The ""Read-Only""
+### Related Issues
+Fix #10944
+### Pr Overview
+
+- [X] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Fix val_step in fit_generator with Sequence (#10946)
+
+* Keep the right val_steps
+
+* Add tests","Fix val_step in fit_generator with Sequence (#10946)
+
+* Keep the right val_steps
+
+* Add tests"
+keras,0,11085,66f8cc7ac4942f7f9fe0164a2a854a6264b87735,Revise The Performance Table For ApplicationsThis Pr Makes The Performance Table Up-To-Date.,"Update the RNN cell API to be explicit about output_size. (#11021)
+
+* Update the RNN cell API to be explicit about output_size.
+
+The existing contract of state_size[0] to be output size is bit
+weird and might cause unnecessary contrain for supporting higher
+dimension input/output/states. Adding explicit output_size to cell
+so that the contract is not inferred by state_size anymore.
+
+For backward compat reason, if a cell does not implement
+output_size, the state_size[0] will be used as output_size.
+
+The stackedRNNCells is also updated to by default return natural
+order state_size as the cells' state, instead of reverse order.
+For any user who rely on the states of the RNN, eg
+RNN(return_state=True), please add the extra param
+reverse_state_order=True while constructing the StackedRNNCells.
+
+* Update warning message for keywords.
+
+* Fix unit test.
+
+* Fix the cntk backend for RNN, and update test case.
+
+* Update comment and tests.","Update the RNN cell API to be explicit about output_size. (#11021)
+
+* Update the RNN cell API to be explicit about output_size.
+
+The existing contract of state_size[0] to be output size is bit
+weird and might cause unnecessary contrain for supporting higher
+dimension input/output/states. Adding explicit output_size to cell
+so that the contract is not inferred by state_size anymore.
+
+For backward compat reason, if a cell does not implement
+output_size, the state_size[0] will be used as output_size.
+
+The stackedRNNCells is also updated to by default return natural
+order state_size as the cells' state, instead of reverse order.
+For any user who rely on the states of the RNN, eg
+RNN(return_state=True), please add the extra param
+reverse_state_order=True while constructing the StackedRNNCells.
+
+* Update warning message for keywords.
+
+* Fix unit test.
+
+* Fix the cntk backend for RNN, and update test case.
+
+* Update comment and tests."
+keras,0,12302,ca5a4e3d6954eecc2910145111dd91f37d3ccf32,"Added Markdown Formatting To Examples/Deep_Dream.Py<!--
+Please Make Sure You'Ve Read And Understood Our Contributing Guidelines;
+Https://Github.Com/Keras-Team/Keras/Blob/Master/Contributing.Md
+-->
+
+### Summary
+This Pr Adds Markdown Fromatting To ```Examples/Deep_Dream.Py```.
+Result:
+![Deep_Dream1](Https://User-Images.Githubusercontent.Com/3424796/53009842-50336500-3434-11E9-9340-87D5A5D138De.Png)
+![Deep_Dream2](Https://User-Images.Githubusercontent.Com/3424796/53009841-50336500-3434-11E9-8Ba3-916B32Dbf15C.Png)
+### Related Issues
+#12219 
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+",Added MarkDown formatting to examples/imdb_cnn.py (#12292),Added MarkDown formatting to examples/imdb_cnn.py (#12292)
+keras,0,13255,61052bc1f1c141c5dba9f83a4af14322ec4e6d7c,"Sync Changes To _Tfdevicecaptureop### Summary
+Sync The Keras Specific Portions Of Https://Github.Com/Tensorflow/Tensorflow/Commit/8D24F6Ae5Cffbb1E23E02E5Ac14F15B5F3Ab6414
+
+### Related Issues
+Fixes: Https://Github.Com/Keras-Team/Keras/Issues/13057, Https://Github.Com/Tensorflow/Tensorflow/Issues/30728
+
+### Pr Overview
+
+- [N] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [N] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [Y] This Pr Is Backwards Compatible [Y/N]
+- [N] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Documentation for `array_to_img`, `img_to_array` and `save_img` under `preprocessing.image` #12711 (#13252)
+
+* Add docstring of `save_img()` in `keras/preprocessing/image.py`
+
+Signed-off-by: Karel Ha <mathemage@gmail.com>
+
+* Add docstring of `img_to_array()` in `keras/preprocessing/image.py`
+
+Signed-off-by: Karel Ha <mathemage@gmail.com>
+
+* Add docstring of `array_to_img()` in `keras/preprocessing/image.py`
+
+Signed-off-by: Karel Ha <mathemage@gmail.com>","Documentation for `array_to_img`, `img_to_array` and `save_img` under `preprocessing.image` #12711 (#13252)
+
+* Add docstring of `save_img()` in `keras/preprocessing/image.py`
+
+Signed-off-by: Karel Ha <mathemage@gmail.com>
+
+* Add docstring of `img_to_array()` in `keras/preprocessing/image.py`
+
+Signed-off-by: Karel Ha <mathemage@gmail.com>
+
+* Add docstring of `array_to_img()` in `keras/preprocessing/image.py`
+
+Signed-off-by: Karel Ha <mathemage@gmail.com>"
+keras,0,9789,886c021e00c9a12e719371e234bd6df4e01a703f,"Allow Saving Models Directly To Binary StreamThis Is A Minor Change In The Contract Of `Save_Model()` And `Load_Model()`, Allowing The `Filepath` Argument To Accept `H5Py.File` Objects As Well. The Change Allows Saving Models To Memory-Mapped Files That Do Not Have A Physical Presence On Disk, And Extraction Of The Serialized Model Data As A Raw Binary Stream. I Believe That Resolves The Following Issues:
+Https://Github.Com/Keras-Team/Keras/Issues/9343
+Https://Github.Com/Keras-Team/Keras/Issues/6794
+
+I Added Test Cases For Both The ""Vanilla"" Utilization Of A `H5Py.File` Object, And The Memory-Mapping + Binary Stream Use Case.
+
+This Is My First Contribution To This Project, So I Apologize In Advance If I Missed Something In The Contributing Guidelines -- Happy To Change Things As Directed.
+
+This Pr Is Joint Work With @Mikeyshulman.","Add support for class methods documentation (#9751)
+
+* Add support for class methods documentation
+
+* Documentation: remove the need of external CNN and JS files, using plain markdown
+
+* Documentation: allow to decide which class method to document using a string or a fully qualified name
+
+* Documentation: remove the need of a custom theme","Add support for class methods documentation (#9751)
+
+* Add support for class methods documentation
+
+* Documentation: remove the need of external CNN and JS files, using plain markdown
+
+* Documentation: allow to decide which class method to document using a string or a fully qualified name
+
+* Documentation: remove the need of a custom theme"
+keras,0,10616,b3cb261b22a73d195a527592b49ca57e8c9ac9f5,"Argument Target_Tensors From Model.Compile: Accept Single Tensor### Summary
+
+### Related Issues
+
+### Pr Overview
+
+- [N] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [N] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [Y] This Pr Is Backwards Compatible [Y/N]
+- [N] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Remove duplicate normalize_data_format (#10645)
+
+### Summary
+`normalize_data_format` was being called twice in `_Pooling2D`
+
+### Related Issues
+
+### PR Overview
+
+- [n] This PR requires new unit tests [y/n] (make sure tests are included)
+- [n] This PR requires to update the documentation [y/n] (make sure the docs are up-to-date)
+- [y] This PR is backwards compatible [y/n]
+- [n] This PR changes the current API [y/n] (all API changes need to be approved by fchollet)","Remove duplicate normalize_data_format (#10645)
+
+### Summary
+`normalize_data_format` was being called twice in `_Pooling2D`
+
+### Related Issues
+
+### PR Overview
+
+- [n] This PR requires new unit tests [y/n] (make sure tests are included)
+- [n] This PR requires to update the documentation [y/n] (make sure the docs are up-to-date)
+- [y] This PR is backwards compatible [y/n]
+- [n] This PR changes the current API [y/n] (all API changes need to be approved by fchollet)"
+keras,0,10797,4ba641806b4afcf95bece96c3b15e646fc092161,"Improve Docstrings To Enable Pep8 501This Pr Improves Docstrings To Enable Pep8 501.
+
+Cc @Yongzx (I Have Done A Backward Sweep :) As You Did A Forward Sweep On The `Pytest.Ini`)","Fix doc (#10812)
+
+* Fix doc
+
+* Fix doc
+
+* Update convolutional_recurrent.py","Fix doc (#10812)
+
+* Fix doc
+
+* Fix doc
+
+* Update convolutional_recurrent.py"
+keras,0,10125,60217310b69e9d9645eb9d0002fab8dc93b54f17,Add `Separable_Conv1D`This Pr Adds The Missing `Separable_Conv1D` For Theano And Cntk.,Style fixes (#10148),Style fixes (#10148)
+keras,0,11305,6272e662ae0c99ce7cad912992d4c55e22c8a369,"Improve Keras/Engine/Saving.Py### Summary
+1. Rename Argument: F As H5Dict_Instance
+2. Rename Argument: F As Groups
+3. Add Some Comments For Save_Weights_To_Hdf5_Group
+### Related Issues
+
+### Pr Overview
+
+- [N] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [Y] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [Y] This Pr Is Backwards Compatible [Y/N]
+- [N] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Reduced the size of the numpy arrays used in the tests. (#11491)
+
+* Reduced the size of the numpy arrays used in the tests.
+
+* Used a sleep to raise the warning.","Reduced the size of the numpy arrays used in the tests. (#11491)
+
+* Reduced the size of the numpy arrays used in the tests.
+
+* Used a sleep to raise the warning."
+keras,1,#13138,c10d24959b0ad615a21e671b180a1b2466d77a2b,"Rnn Initial State: Bug Fix + Suppress False Warning
+### Summary
+1 - Suppresses A False Warning When Serializing Models Containing Rnns With Initial State (Makes People Think Seq2Seq Models Are Not Serializable)
+
+2 - Makes Custom Rnns With Extra Args In `Call()` Serializable When An Initial State Is Also Provided (Super Niche, I Know)
+
+### Related Issues
+
+#9914 
+[Stackoverflow Saving Keras Model - Userwarning: Layer Xx Was Passed Non-Serializable Keyword Arguments](Https://Stackoverflow.Com/Questions/53761145)
+
+### Pr Overview
+
+- [Y] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [N] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [Y] This Pr Is Backwards Compatible [Y/N]
+- [N] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","RNN initial state: bug fix + suppress false warning (#13138)
+
+* suppress serde warning
+
+* add test
+
+* pep8
+
+* python2
+
+* theano fix
+
+* theano fix
+
+* pop before call
+
+* few fixes
+
+* fix wrappers
+
+* mooore fix","RNN initial state: bug fix + suppress false warning (#13138)
+
+* suppress serde warning
+
+* add test
+
+* pep8
+
+* python2
+
+* theano fix
+
+* theano fix
+
+* pop before call
+
+* few fixes
+
+* fix wrappers
+
+* mooore fix"
+keras,1,#11548,351e7a992d8f948e373e321252a35824da77ac35,"Adding Check For Check_Array_Lengths### Summary
+This Pr Implements A Check For Existing `Check_Array_Lengths` Kwarg For `Model._Standardize_User_Data`. Models Can Therefore Avoid Checking Input Lengths (I.E., Asserting A Consistent Batch Size Across Multiple Inputs) By Inheriting From Model:
+
+```Python
+From Keras.Models Import Model
+
+Class Nocheckmodel(Model):
+    Def _Standardize_User_Data(Self, *Args, **Kwargs):
+        Kwargs['Check_Array_Lengths'] = False
+        Return Super(Nocheckmodel, Self)._Standardize_User_Data(*Args, **Kwargs)
+```
+
+### Related Issues
+#11545
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+",[P] adding check for check_array_lengths (#11548),[P] adding check for check_array_lengths (#11548)
+keras,1,#10795,be28fd9e06cb16d28730c87f5c5a2b790c1abbcc,"Add Missing To_List To Multi_Gpu_Utils### Summary
+Add Missing Import ```To_List``` To ```Multi_Gpu_Utils.Py```.
+
+### Related Issues
+#10792
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+",Add missing to_list to multi_gpu_utils (#10795),Add missing to_list to multi_gpu_utils (#10795)
+keras,1,#11949,fca79866f4dd8df054d1643774175358f057d097,"Typo Fix### Summary
+
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [X] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+",Typo fix (#11949),Typo fix (#11949)
+keras,1,#12282,12a83f88e74f06548deda8d1da60c38394ac572a,"Added More Info About Categorical_Crossentropy`Categorical_Crossentropy`  Is Another Term For Multiclass Log Loss. Which Seems To Be Necessary Information About `Categorical_Crossentropy` As `Sklearn` Has It As `Log_Loss` Hence Its Beneficial For People Migrating From `Sklearn` And Other People Who Learned It As `Log_Loss`.
+
+<!--
+Please Make Sure You'Ve Read And Understood Our Contributing Guidelines;
+Https://Github.Com/Keras-Team/Keras/Blob/Master/Contributing.Md
+-->
+
+### Summary
+
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Added more info about categorical_crossentropy (#12282)
+
+`categorical_crossentropy`  is another term for multiclass log loss. Which seems to be necessary information about `categorical_crossentropy` as `sklearn` has it as `log_loss` hence its beneficial for people migrating from `sklearn` and other people who learned it as `log_loss`.","Added more info about categorical_crossentropy (#12282)
+
+`categorical_crossentropy`  is another term for multiclass log loss. Which seems to be necessary information about `categorical_crossentropy` as `sklearn` has it as `log_loss` hence its beneficial for people migrating from `sklearn` and other people who learned it as `log_loss`."
+keras,1,#11629,29e740e0965be5f460f67692a284a9a2deb6bb04,Add Stack To Numpy Backend ,"add stack to numpy backend (#11629)
+
+* add stack to backend
+
+* turn stack into a def func in numpy backend, add test
+
+* formating
+
+* rest travis ci
+
+* rest travis ci
+
+* rest travis ci - also add Execption() around ctc decode.
+
+* rest travis ci
+
+* rest travis ci
+
+* rest travis ci
+
+* rest travis ci - remove ending line ...again.
+
+* remove expection(), add one empty line at end, turn K to k for backend tests to avoid confusion.
+
+*  turn K to k for backend tests to avoid confusion.
+
+* simplify check if cntk for test
+
+* make cntk test similar to concat, add {{np_implementation}} to docs
+
+* try again
+
+* pep8 - one line too long
+
+* clean up the test a bit
+
+* reinit travis ci
+
+* reinit travis ci
+
+* reinit travis ci
+
+* reinit travis ci
+
+* reinit travis ci
+
+* reinit travis ci
+
+* reinit travis ci
+
+* reinit travis ci","add stack to numpy backend (#11629)
+
+* add stack to backend
+
+* turn stack into a def func in numpy backend, add test
+
+* formating
+
+* rest travis ci
+
+* rest travis ci
+
+* rest travis ci - also add Execption() around ctc decode.
+
+* rest travis ci
+
+* rest travis ci
+
+* rest travis ci
+
+* rest travis ci - remove ending line ...again.
+
+* remove expection(), add one empty line at end, turn K to k for backend tests to avoid confusion.
+
+*  turn K to k for backend tests to avoid confusion.
+
+* simplify check if cntk for test
+
+* make cntk test similar to concat, add {{np_implementation}} to docs
+
+* try again
+
+* pep8 - one line too long
+
+* clean up the test a bit
+
+* reinit travis ci
+
+* reinit travis ci
+
+* reinit travis ci
+
+* reinit travis ci
+
+* reinit travis ci
+
+* reinit travis ci
+
+* reinit travis ci
+
+* reinit travis ci"
+keras,1,#10664,aab55e649c34f8a24f00ee63922d049d3417c979,"Fix Redundant Functions' Module Names In Auto-Gen Docs### Summary
+This Pr Fixes The Redundant Function Module Names In Auto-Gen Docs. Currently, The Module Name Of Functions (Those Which Are Not Methods Of A Class) Is Repeated Two Times In Documentation. [For Example](Https://Keras.Io/Preprocessing/Sequence/#Pad_Sequences):
+> `Keras.Preprocessing.Sequence.Keras.Preprocessing.Sequence.Pad_Sequences`
+
+Which Should Be: `Keras.Preprocessing.Sequence.Pad_Sequences`.
+Further, This Pr Also Removes From The Docs The (Wrong) Module Name Of Methods Of Classes Like `Imagedatagenerator`. For Example, [This Is For `Apply_Transform`](Https://Keras.Io/Preprocessing/Image/#Apply_Transform):
+
+> `Keras.Preprocessing.Image.Apply_Transform` 
+
+Which Should Simply Be `Apply_Transform`, First Because It Is The Method Of A Class (I.E. `Imagedatagenerator`) And Second Because The Referenced Module Name Is Wrong (And This [Has Caused Confusion](Https://Stackoverflow.Com/Q/51311062/2099607)).
+
+All Of This Were Caused By The Fact That `Clean_Module_Name()` Was Not Called On The `Function.__Module__` In `Render_Function` (Therefore This Mostly Affects The Docs For `Keras.Preprocessing` And `Keras.Applications`). Plus, The Way `Autogen.Py` Works, The Module Name Is Repeated Two Times In The Signature, But For The Non-Method Functions It Should Be Removed Only Once (That'S Why I Have Added A Condition).
+
+### Related Issues
+#10658 
+#10662 
+
+### Pr Overview
+
+- [N] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [N] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [Y] This Pr Is Backwards Compatible [Y/N]
+- [N] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Fix signature of functions and methods in generated docs (#10743)
+
+### Summary
+This PR resolves two issues:
+1) The `get_function_signature` in `autogen.py` duplicates module name for non-method functions. For example, it returns `keras.preprocessing.sequence.keras.preprocessing.sequence.pad_sequences` instead of `keras.preprocessing.sequence.pad_sequences`.
+
+2) Method functions and non-method functions should be distinguished from each other. Since, the module name of non-method functions should be included in the signature in the docs (like `keras.preprocessing.sequence.pad_sequences(...)`) whereas for the methods of classes it should not be included (like `compile(...)` for `Sequential` class). Therefore, a new `'methods'` key is introduced to make this distinction.
+
+Note that I temporary resolved the first issue by a merged PR (#10664); however that PR did not address the underlying problem.
+
+### Related Issues
+#10658 
+#10662 
+### PR Overview
+
+- [n] This PR requires new unit tests [y/n] (make sure tests are included)
+- [n] This PR requires to update the documentation [y/n] (make sure the docs are up-to-date)
+- [y] This PR is backwards compatible [y/n]
+- [n] This PR changes the current API [y/n] (all API changes need to be approved by fchollet)","Fix signature of functions and methods in generated docs (#10743)
+
+### Summary
+This PR resolves two issues:
+1) The `get_function_signature` in `autogen.py` duplicates module name for non-method functions. For example, it returns `keras.preprocessing.sequence.keras.preprocessing.sequence.pad_sequences` instead of `keras.preprocessing.sequence.pad_sequences`.
+
+2) Method functions and non-method functions should be distinguished from each other. Since, the module name of non-method functions should be included in the signature in the docs (like `keras.preprocessing.sequence.pad_sequences(...)`) whereas for the methods of classes it should not be included (like `compile(...)` for `Sequential` class). Therefore, a new `'methods'` key is introduced to make this distinction.
+
+Note that I temporary resolved the first issue by a merged PR (#10664); however that PR did not address the underlying problem.
+
+### Related Issues
+#10658 
+#10662 
+### PR Overview
+
+- [n] This PR requires new unit tests [y/n] (make sure tests are included)
+- [n] This PR requires to update the documentation [y/n] (make sure the docs are up-to-date)
+- [y] This PR is backwards compatible [y/n]
+- [n] This PR changes the current API [y/n] (all API changes need to be approved by fchollet)"
+keras,1,#10476,a9a68bc9deac5d72170ac48c15c41b0defc9753e,"Reuse Validation EnqueuerFixes Https://Github.Com/Keras-Team/Keras/Issues/10474
+
+Attempt At Reusing The Validation Enqueuer (I Thought We Were Already Doing That).
+
+Not Sure How To Test This. Suggestion Welcome.","Reuse validation enqueuer (#10476)
+
+* Reuse validation enqueuer
+
+* Fix CI
+
+* Indent val_data correctly
+
+* Typo","Reuse validation enqueuer (#10476)
+
+* Reuse validation enqueuer
+
+* Fix CI
+
+* Indent val_data correctly
+
+* Typo"
+keras,0,11988,ae30f36fbde83beb122a1eb1c3bf3cea2d490d5a,"Update Docs For Resnet Variants### Summary
+
+This Pr Updates Docs For Resnet Variants.
+
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [ ] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","[P] Bump TF version to 1.12 (#11984)
+
+* rebase gabrieldem branch on master
+
+* bump to 1.12
+
+* fix beam search decoder
+
+* fix tests","[P] Bump TF version to 1.12 (#11984)
+
+* rebase gabrieldem branch on master
+
+* bump to 1.12
+
+* fix beam search decoder
+
+* fix tests"
+keras,1,#10673,da9ce7d8f2e4212cebdacc80f6252b4ae1e68773,"[Bug] Fix Stateful Metrics In Fit_Generator With Tensorboard### Summary
+Currently ``Tensorboard `` Does Not Work With ``Fit_Generator`` Because Of
+
+```Python
+Line 942, In On_Epoch_End
+    Summary_Value.Simple_Value = Value.Item()
+Attributeerror: 'Float' Object Has No Attribute 'Item'
+```
+This Is A Simple Casting Issue.
+
+### Related Issues
+Https://Github.Com/Keras-Team/Keras/Issues/10628
+Https://Github.Com/Keras-Team/Keras/Issues/10623
+
+### Pr Overview
+
+- [N] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [N] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [Y] This Pr Is Backwards Compatible [Y/N]
+- [N] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Fix Stateful Metrics in fit_generator with TensorBoard (#10673)
+
+* Fix casting validate generator with stateful metrics.
+
+* Add a stateful metric to Tensboard tests","Fix Stateful Metrics in fit_generator with TensorBoard (#10673)
+
+* Fix casting validate generator with stateful metrics.
+
+* Add a stateful metric to Tensboard tests"
+keras,0,10952,79a48bd9ac947dd6bfde19f24c4bf88b0002a5a5,"Integration With Redesigned Preprocessing & Applications Modules.See:
+
+Original Issue: Https://Github.Com/Keras-Team/Keras-Applications/Issues/28
+
+Keras_Applications Pr: Https://Github.Com/Keras-Team/Keras-Applications/Pull/29
+
+Keras_Preprocessing Pr: Https://Github.Com/Keras-Team/Keras-Preprocessing/Pull/40
+",Style fixes for enabling PEP8 501 (#10957),Style fixes for enabling PEP8 501 (#10957)
+keras,0,9457,2ba2076275fab79cf4b8c281ccce506b257cab21,"Add Depthwise Conv2D For Theano And CntkThis Pr Enables `Depthwiseconv2D`, Initially Designed For Tensorflow Only, To Work On Theano And Cntk. This Pr Includes The Following:
+- Moving `Class Depthwiseconv2D` From `Keras/Applications/Mobilenet.Py` To `Keras/Layers/Convolutional.Py` Without Modification,
+- Adding `Depthwise_Conv2D` For Theano And Cntk,
+- Revising `Test_Depthwise_Conv_2D` In `Backend_Test.Py` With Respect To Existing Backend Test Styles,
+- Adding `Test_Depthwise_Conv_2D` In `Convolutional_Test.Py`.",Style fixes (#9441),Style fixes (#9441)
+keras,1,#11242,b9ee83cc227ac0719a0de937ae65392473fe007f,"Fix H5Py Error ""Unable To Create Attribute (Object Header Message Is Too Large)""### Summary
+
+Fixes A Minor Bug Introduced By Https://Github.Com/Keras-Team/Keras/Commit/9A4C5D8F10667E571C23F1B2F2E0397A85368Bea: The `H5Dict` Object Tried To Save (Large) `Numpy` Objects Without The `Dataset` Interface From `H5Py`. This Produced The Error ` Unable To Create Attribute (Object Header Message Is Too Large)`
+
+### Related Issues
+
+Https://Github.Com/Keras-Team/Keras/Issues/11104
+Https://Github.Com/Skuldur/Classical-Piano-Composer/Issues/8
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Fix h5py error ""Unable to create attribute (object header message is too large)"" (#11242)
+
+* Save np data only as dataset
+
+* Fix docs
+
+* Update test for saving large np.array objects
+
+* Update tests for saving large np.array objects","Fix h5py error ""Unable to create attribute (object header message is too large)"" (#11242)
+
+* Save np data only as dataset
+
+* Fix docs
+
+* Update test for saving large np.array objects
+
+* Update tests for saving large np.array objects"
+keras,1,#13339,4f94a15eb79c89da6fbd4f04436452aa42142d82,"Correct Spelling Mistake<!--
+Please Make Sure You'Ve Read And Understood Our Contributing Guidelines;
+Https://Github.Com/Keras-Team/Keras/Blob/Master/Contributing.Md
+
+Note:
+We Are No Longer Adding New Features To Multi-Backend Keras (We Only Fix Bugs), As We Are Refocusing Development Efforts On Tf.Keras. If You Are Still Interested In Submitting A Feature Pull Request, Please Direct It To Tf.Keras In The Tensorflow Repository Instead.
+-->
+
+### Summary
+
+### Related Issues
+
+### Pr Overview
+
+- [N] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [N] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [Y] This Pr Is Backwards Compatible [Y/N]
+- [N] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+",Correct spelling mistake (#13339),Correct spelling mistake (#13339)
+keras,0,10148,24e7ac0756aeba06ce1cf7f7e72219a11b14b101,Style FixesRemove Extra Newline And Add Horizontal Rule.,"[RELNOTES] Allow symbolic tensors to be fed to models (with TF backend) (#10087)
+
+* Allow symbolic tensors to be fed to models (with TF backend)
+
+* Skip tensor feeding tests when TF>=1.8 not available.","[RELNOTES] Allow symbolic tensors to be fed to models (with TF backend) (#10087)
+
+* Allow symbolic tensors to be fed to models (with TF backend)
+
+* Skip tensor feeding tests when TF>=1.8 not available."
+keras,1,#13289,63c0369b2466cdf6002b821351b3ea0ab42cd132,"Adding Auc, Sensitivityatspecificity Metrics.<!--
+Please Make Sure You'Ve Read And Understood Our Contributing Guidelines;
+Https://Github.Com/Keras-Team/Keras/Blob/Master/Contributing.Md
+-->
+
+### Summary
+Adding Auc, Sensitivityatspecificity Metrics.
+
+### Related Issues
+N/A
+
+### Pr Overview
+
+- [Y ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ N] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [ Y] This Pr Is Backwards Compatible [Y/N]
+- [ N] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Adding AUC, SensitivityAtSpecificity metrics. (#13289)
+
+* Adding AUC, SensitivityAtSpecificity metrics.
+
+* Fixed failing test.","Adding AUC, SensitivityAtSpecificity metrics. (#13289)
+
+* Adding AUC, SensitivityAtSpecificity metrics.
+
+* Fixed failing test."
+keras,0,10705,75114feeac5ee6aa7679802ce7e5172c63565e2c,"Travis Ci: Reduce Hardcoding Of Python 3 Versions### Summary
+Python 2.7 Needs __Pil__ But _All Other_ Currently Supported Versions Of Python Need __Pillow__ Instead.
+
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Removed some unused variables and fixed a formatting error. (#10688)
+
+* Removed some unused variables.
+
+* Fixed the formatting of an error message.","Removed some unused variables and fixed a formatting error. (#10688)
+
+* Removed some unused variables.
+
+* Fixed the formatting of an error message."
+keras,0,10038,24e7ac0756aeba06ce1cf7f7e72219a11b14b101,"Fix Shape Mismatch In `Rnn()` Of Tensorflow_BackendFix The Shape Mismatch In `Rnn()` With `Not Unroll` And `Mask Is Not None` Of The Tensorflow Backend.
+
+Problem: If The Rnn Cell Has Any (Recurrent) `States[I]` Whose Shape Is Different From That Of The `Output` (`States[0]`), There Will Raise An `Valueerror` When Updating That State.
+
+Reason: This Is Because The `Tiled_Mask_T` Is Not Updated Correctly For Each `States[I]` But Instead Is Simply Copied From That Of The `Output` (`States[0]`).
+
+Solution: Tile The `Mask_T` With The Correct Shape Of Each `States[I]`. Notice That In A Similar Situation With `Unroll Is True`, The `Tiled_Mask_T` Is Handled Correctly.","[RELNOTES] Allow symbolic tensors to be fed to models (with TF backend) (#10087)
+
+* Allow symbolic tensors to be fed to models (with TF backend)
+
+* Skip tensor feeding tests when TF>=1.8 not available.","[RELNOTES] Allow symbolic tensors to be fed to models (with TF backend) (#10087)
+
+* Allow symbolic tensors to be fed to models (with TF backend)
+
+* Skip tensor feeding tests when TF>=1.8 not available."
+keras,1,#9662,fa0e9237e049ba8e405810dce486cc59f4fd309f,"Convert H5Py Dataset To Np.Array Before Preprocess_Weights_For_LoadingIn `Load_Weights_From_Hdf5_Group` And `Load_Weights_From_Hdf5_Group_By_Name`, The Following Line:
+```Python
+Weight_Values = [G[Weight_Name] For Weight_Name In Weight_Names]
+```
+Generates A List Of H5Py Datasets (`G[Weight_Name]` Points To The H5Py `Dataset` Created In `Save_Weights_To_Hdf5_Group`).
+
+However, The Expected Input Data Type For `Preprocess_Weights_For_Loading` Is A List Of Numpy Arrays, As Stated In The Docstring. The Unit Tests For `Preprocess_Weights_For_Loading` Also Assume The Input/Output To Be Lists Of Numpy Arrays (Which Is Why The Tests Fail To Detect [The Error Reported](Https://Github.Com/Keras-Team/Keras/Pull/9112#Issuecomment-372988910) In Pr #9112).
+
+Also, If Some Of The Weights Are Converted In `Preprocess_Weights_For_Loading`, The Returned List Could Be A Mix Of H5Py Datasets And Numpy Arrays, Which Might Not Be A Desirable Behavior.
+
+This Pr Applies `Np.Asarray` To The H5Py Datasets (Earlier, Since `Np.Asarray` Is Applied To Them In `K.Batch_Set_Value` Anyway) To Resolve The Above Issues.",Convert h5py Dataset to np.array before preprocess_weights_for_loading (#9662),Convert h5py Dataset to np.array before preprocess_weights_for_loading (#9662)
+keras,0,11226,b80f3bd3a227d837790395378b14150dd11e02b7,"Refactor Keras/Engine/Training.Py And Keras/Engine/Training_Arrays.PyMake Fit_Loop Function Easy Read And Understand.
+
+### Summary
+
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [ ] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Gracefully handle legacy Sequential configs (#11280)
+
+* Graciously handle legacy Sequential configs
+
+* Remove warning","Gracefully handle legacy Sequential configs (#11280)
+
+* Graciously handle legacy Sequential configs
+
+* Remove warning"
+keras,1,#9830,083a41cc6be7b1796e3817df198d1557bb8557b8,"Added Note To Manually Install H5Py Where NeededH5Py Is A Latent Dependency Of Keras When Saving To Hdf5. Unfortunately It Is Not Actively Tracked As Dependency By Keras. From The Discussion At #9822 The Result Was That The Best Way To Address This Is To Update The Docs And Make It Clear That This Dependency Exists.
+
+This Is To Prevent Situations Where One Assumes That Using E.G. `Keras.Callbacks.Modelcheckpoint` Will Work And Then Trains An Expensive Model For An Hour Just To Find It Crashing Due To Such An Unforeseeable, Yet Preventable Problem.","Added note to manually install h5py where needed (#9830)
+
+* Added notes to manually install h5py if needed
+
+* Added FAQ entry on h5py
+
+* deleted redundant remark about h5py
+
+* updated FAQ to reflect dependency change
+
+* fixed comment format to pass failing test
+
+* removed new trailing whitespaces
+
+* improved docstring format
+
+* reverted callbacks.py
+
+* fixed links in model.py
+
+* updated faq.py
+
+* link pointing to FAQ","Added note to manually install h5py where needed (#9830)
+
+* Added notes to manually install h5py if needed
+
+* Added FAQ entry on h5py
+
+* deleted redundant remark about h5py
+
+* updated FAQ to reflect dependency change
+
+* fixed comment format to pass failing test
+
+* removed new trailing whitespaces
+
+* improved docstring format
+
+* reverted callbacks.py
+
+* fixed links in model.py
+
+* updated faq.py
+
+* link pointing to FAQ"
+keras,0,11708,ad578c4c19444af9d1f0e0d51a8283eb0db1a264,"Save/Load Models To Binary Stream### Summary
+Support Loading And Saving (Models And Weights) To/From Any Binary Stream (File-Like Object):
+
+_Note: As Opposed To Other Pr:S With ""Saving To Binary"" In The Title, This Pr Goes One Step Further And Extends The Api To Write And Load Directly To File-Like Objects, Thus Making It Possible To Also Load Models From Binary Data (Without First Having To Store It On Disk)._
+
+This Is Usefull Since It Is The Most General Kind Of Serialization (See This Request Https://Github.Com/Keras-Team/Keras/Issues/9343) And Allows Saving/Loading Models In Environments Where We Don'T Have Disk Access Such As Colab (See Https://Github.Com/Keras-Team/Keras/Pull/11636#Discussion_R234426668).
+
+#### Examples
+Saving Binary:
+```
+With Open(Fname, 'Wb') As Raw_File:
+    Save_Model(Model, Raw_File)
+With H5Py.File(Fname, Mode='R') As H5File:
+    Loaded_Model = Load_Model(H5File)
+```
+Loading Binary:
+```
+With H5Py.File(Fname, Mode='W') As H5File:
+    Save_Model(Model, H5File)
+With Open(Fname, 'Rb') As Raw_File:
+    Loaded_Model = Load_Model(Raw_File)
+```
+Or Both - Fully In Memory:
+```
+Stream = Io.Bytesio()
+Save_Model(Model, Stream)
+Stream.Seek(0)
+Loaded_Model = Load_Model(Stream)
+```
+
+### Related Issues
+- **Implementation Of _Loading_ From Binary Based On @Obi1Kenobi'S Great Input Here: Https://Github.Com/Keras-Team/Keras/Issues/9343**
+- Related But Orthogonal: Https://Github.Com/Keras-Team/Keras/Pull/11608 (The Title Is A Bit Misleading As It Does Not Support Load/Save Binary Directly, But It Is Still A Relevant Addition  👍)
+- Will Remove Need For Filesystem Access In Https://Github.Com/Keras-Team/Keras/Pull/11636
+
+### Pr Overview
+- [X] This Pr Requires New Unit Tests [Y] (Make Sure Tests Are Included)
+- [X] This Pr Requires To Update The Documentation [Y] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y]
+- [X] This Pr Changes The Current Api [Y] (All Api Changes Need To Be Approved By Fchollet)","Revise `in_top_k` for CNTK (#12546)
+
+* Revise `in_top_k` for CNTK
+
+* Add exceptions for CNTK","Revise `in_top_k` for CNTK (#12546)
+
+* Revise `in_top_k` for CNTK
+
+* Add exceptions for CNTK"
+keras,1,#12499,a374c93092341f24027f60ffe32d56d2bff29b83,"Update Docs For Some Activations, Make The Style Uniform<!--
+Please Make Sure You'Ve Read And Understood Our Contributing Guidelines;
+Https://Github.Com/Keras-Team/Keras/Blob/Master/Contributing.Md
+-->
+
+### Summary
+Update The Docs For `Tanh` And `Sigmoid` Functions [Here](Https://Github.Com/Keras-Team/Keras/Blob/C24D16Af155E20976Bdf61E468Ba760408E676Ff/Keras/Activations.Py#L131) And [Here](Https://Github.Com/Keras-Team/Keras/Blob/C24D16Af155E20976Bdf61E468Ba760408E676Ff/Keras/Activations.Py#L137) And Also Make The Style Uniform
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [X] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Update docs for some activations, make the style uniform (#12499)
+
+* Update docs for some activations, make the style uniform
+
+* Fixed some typos
+
+* Style fixes.","Update docs for some activations, make the style uniform (#12499)
+
+* Update docs for some activations, make the style uniform
+
+* Fixed some typos
+
+* Style fixes."
+keras,0,11974,ae30f36fbde83beb122a1eb1c3bf3cea2d490d5a,"Fix Deprecationwarning: Invalid Escape Sequence In Examples And Tests### Summary
+
+Fixes `Deprecationwarning: Invalid Escape Sequence` In Examples And Tests.
+
+### Related Issues
+
+None.
+
+### Pr Overview
+
+- [N] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [N] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [Y] This Pr Is Backwards Compatible [Y/N]
+- [N] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","[P] Bump TF version to 1.12 (#11984)
+
+* rebase gabrieldem branch on master
+
+* bump to 1.12
+
+* fix beam search decoder
+
+* fix tests","[P] Bump TF version to 1.12 (#11984)
+
+* rebase gabrieldem branch on master
+
+* bump to 1.12
+
+* fix beam search decoder
+
+* fix tests"
+keras,0,13265,088bda5902fe6f663a49461e41bbb57630cad681,"Adding Accuracy Metric Classes.<!--
+Please Make Sure You'Ve Read And Understood Our Contributing Guidelines;
+Https://Github.Com/Keras-Team/Keras/Blob/Master/Contributing.Md
+-->
+
+### Summary
+Adding Accuracy Metric Classes.
+
+### Related Issues
+N/A
+
+### Pr Overview
+
+- [Y ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [N] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [Y] This Pr Is Backwards Compatible [Y/N]
+- [N] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Adding TruePositives, TrueNegatives, FalsePositives, FalseNegatives metric classes. (#13280)
+
+* Adding FalsePositive metric class.
+
+* Adding TruePositives, TrueNegatives, FalseNegatives metric classes.","Adding TruePositives, TrueNegatives, FalsePositives, FalseNegatives metric classes. (#13280)
+
+* Adding FalsePositive metric class.
+
+* Adding TruePositives, TrueNegatives, FalseNegatives metric classes."
+keras,0,9834,416783156c1b07f28131c493a55a93936b5fe163,"Improve Tests By Designating Dtype Of Sample DataThis Pr Improve Tests By Designating Dtype Of Sample Data. This Pr Can Significantly Reduce Warning Messages (`/Home/Taehoonlee/.Conda/Envs/Taehoonlee/Lib/Python2.7/Site-Packages/Cntk/Core.Py:361: Userwarning: Your Data Is Of Type ""Float64"", But Your Input Variable (Uid ""Input103"") Expects ""<Type 'Numpy.Float32'>""`), And May Bring Slight Speed Improvements.","Add missing verbose opt for evaluate_generator (#9811)
+
+Signed-off-by: CUI Wei <ghostplant@qq.com>","Add missing verbose opt for evaluate_generator (#9811)
+
+Signed-off-by: CUI Wei <ghostplant@qq.com>"
+keras,1,#12242,58399c111a4639526f8d13d4bfa62fc3d0695b02,"Added Markdown Formatting To Examples/Cifar10_Resnet.Py<!--
+Please Make Sure You'Ve Read And Understood Our Contributing Guidelines;
+Https://Github.Com/Keras-Team/Keras/Blob/Master/Contributing.Md
+-->
+
+### Summary
+This Pr Adds Markdown Formatting To ```Examples/Cifar10_Resnet.Py```.
+Result:
+![Cifar10_Resnet1](Https://User-Images.Githubusercontent.Com/3424796/52522299-41Ea8980-2C7B-11E9-84Ef-C6F1B28238De.Png)
+![Cifar10_Resnet2](Https://User-Images.Githubusercontent.Com/3424796/52522298-41Ea8980-2C7B-11E9-9884-B1C468944Acf.Png)
+
+### Related Issues
+Https://Github.Com/Keras-Team/Keras/Issues/12219
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Added MarkDown formatting to examples/cifar10_resnet.py (#12242)
+
+* Added MarkDown formatting to examples/cifar10_resnet.py
+
+* Copied the table from the comments to the file docstring in /cifar10_resnet.py","Added MarkDown formatting to examples/cifar10_resnet.py (#12242)
+
+* Added MarkDown formatting to examples/cifar10_resnet.py
+
+* Copied the table from the comments to the file docstring in /cifar10_resnet.py"
+keras,1,#10062,0ba6d95e768eb7a0d74a6fda3ea893e7fb2d7a67,"Vae Examples FixesThis Pr Fixes The Ff:
+- Modular Encoder, Decoder And Vae Resulting To A More Concise And Easy To Follow Implementation
+- Option To Use Mse (If Image Gaussian Distribution) Or Binary Cross Entropy (If Pixel-Level Bernoulli Distribution) For The Reconstruction Loss
+- Plots For Viz Latent Code Vs Label And Latent Code Vs Generated Digit Have The Same Scale For Easier Understanding Of The Relation Between The 2 Plots
+- Mlp Implementation Hyperparam Is Closer To The Original Paper Of Kingma
+- Cnn Conv And Deconv Implementation Parameters Reduced From 3.4M To Just 134K
+  
+ ","vae examples fixes (#10062)
+
+* vae examples fixes
+
+* white spaces around op
+
+* comments and docstring fixes
+
+* comments and docstring fixes
+
+* comments and docstring fixes
+
+* fixes on docs
+
+* docs and spacing","vae examples fixes (#10062)
+
+* vae examples fixes
+
+* white spaces around op
+
+* comments and docstring fixes
+
+* comments and docstring fixes
+
+* comments and docstring fixes
+
+* fixes on docs
+
+* docs and spacing"
+keras,1,#10342,52e3f9835c1a25a8b895773f64524e27a5ae10c0,"Improve The Docstring Of Conv3Dtranspose* Add Depth As The Third Dimension In Docstring Of
+  Conv3Dtranspose In Convolutional.Py In Keras.Layers","Improve the docstring of Conv3DTranspose (#10342)
+
+* Add depth as third dimension in docstring of
+  Conv3DTranspose in convolutional.py in keras.layers","Improve the docstring of Conv3DTranspose (#10342)
+
+* Add depth as third dimension in docstring of
+  Conv3DTranspose in convolutional.py in keras.layers"
+keras,0,12322,7ab5d5612a4c1110092f3d300bce40090dca0e22,"Added Markdown Formatting To Examples/Lstm_Seq2Seq_Restore.Py<!--
+Please Make Sure You'Ve Read And Understood Our Contributing Guidelines;
+Https://Github.Com/Keras-Team/Keras/Blob/Master/Contributing.Md
+-->
+
+### Summary
+This Pr Adds Markdown Formatting To ```Examples/Lstm_Seq2Seq_Restore.Py```.
+The Links Refer To The Documentation Page For ```Examples/Lstm_Seq2Seq.Py```.
+Result:
+![Lstm_Seq2Seq2_Restore1](Https://User-Images.Githubusercontent.Com/3424796/53178584-04C2B780-35Ea-11E9-96A1-Ab58Aa8A94B5.Png)
+![Lstm_Seq2Seq2_Restore2](Https://User-Images.Githubusercontent.Com/3424796/53178585-04C2B780-35Ea-11E9-8645-52F7Ad27D2B0.Png)
+### Related Issues
+#12219 
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+",Added MarkDown formatting to examples/imdb_seq2seq.py (#12321),Added MarkDown formatting to examples/imdb_seq2seq.py (#12321)
+keras,1,#9415,b6596a56992ea7902b255c61f46c1f5fa8ac5e98,Fix An Explanation Of EpochFix An Explanation Of Epoch In Fit_Generator.,Fix description of epoch (#9415),Fix description of epoch (#9415)
+keras,0,11675,9eaa40b22ec3b10e22bf561cd3f5a9b4b7aa0745,"Remove Unnecessary Flatten Layer From Mnist_Acgan### Summary
+Mnist_Acgan Example: Remove Unnecessary Flatten Layer In Generator.
+
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [ ] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+",Add DepthwiseConv2D to online docs (#11689),Add DepthwiseConv2D to online docs (#11689)
+keras,1,#10797,4db04d8701a64ee249dfe6ce09ebd89063bfb99c,"Improve Docstrings To Enable Pep8 501This Pr Improves Docstrings To Enable Pep8 501.
+
+Cc @Yongzx (I Have Done A Backward Sweep :) As You Did A Forward Sweep On The `Pytest.Ini`)","Improve docstrings to enable PEP8 501 (#10797)
+
+* Improve docstrings to enable PEP8 501
+
+* Style fixes","Improve docstrings to enable PEP8 501 (#10797)
+
+* Improve docstrings to enable PEP8 501
+
+* Style fixes"
+keras,1,#12168,ad5db1010c40500793cc42539f1d97fa5fe36221,Implement K.Foldl And K.Foldr For The Cntk Backend. ,"Implement `foldl` and `foldr` for CNTK #12168 (#12572)
+
+* Implement functions `K.foldl` and `K.foldr` for CNTK
+
+* Enable `test_foldl` and `test_foldr` backend tests for CNTK","Implement `foldl` and `foldr` for CNTK #12168 (#12572)
+
+* Implement functions `K.foldl` and `K.foldr` for CNTK
+
+* Enable `test_foldl` and `test_foldr` backend tests for CNTK"
+keras,1,#12323,d48e97079914d897e82ddcb1a45261ce4415b8ea,"Added Markdown Formatting To Examples/Lstm_Stateful.Py<!--
+Please Make Sure You'Ve Read And Understood Our Contributing Guidelines;
+Https://Github.Com/Keras-Team/Keras/Blob/Master/Contributing.Md
+-->
+
+### Summary
+This Pr Adds Markdown Formatting To ```Examples/Lstm_Stateful.Py```.
+Result:
+![Lstm_Stateful1](Https://User-Images.Githubusercontent.Com/3424796/53178681-3B98Cd80-35Ea-11E9-809A-9104C81Dfb9F.Png)
+![Lstm_Stateful2](Https://User-Images.Githubusercontent.Com/3424796/53178682-3B98Cd80-35Ea-11E9-83A2-Fbab3Abd7254.Png)
+### Related Issues
+#12219 
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Added MarkDown formatting to examples/lstm_stateful.py (#12323)
+
+* Added MarkDown formatting to examples/imdb_seq2seq.py
+
+* Added MarkDown formatting to examples/imdb_seq2seq_restore.py
+
+* Added MarkDown formatting to examples/lstm_stateful.py
+
+* Improved MarkDown formatting in examples/lstm_stateful.py","Added MarkDown formatting to examples/lstm_stateful.py (#12323)
+
+* Added MarkDown formatting to examples/imdb_seq2seq.py
+
+* Added MarkDown formatting to examples/imdb_seq2seq_restore.py
+
+* Added MarkDown formatting to examples/lstm_stateful.py
+
+* Improved MarkDown formatting in examples/lstm_stateful.py"
+keras,0,12312,91ccb284abcd83a091dc5f2549f6b24df849a2b5,"Added Markdown Formatting To Examples/Imdb_Fasttext.Py<!--
+Please Make Sure You'Ve Read And Understood Our Contributing Guidelines;
+Https://Github.Com/Keras-Team/Keras/Blob/Master/Contributing.Md
+-->
+
+### Summary
+This Pr Adds Markdown Formatting To ```Examples/Imdb_Fasttext.Py```.
+In Addition, It Renames The Example Description For ```Examples/Imdb_Cnn_Lstm.Py``` To Be More Distinguishable From The Coming Description Of ```Examples/Imdb_Lstm.Py```.
+Result:
+![Imdb_Fasttext1](Https://User-Images.Githubusercontent.Com/3424796/53105907-E09Fa180-3529-11E9-9Ce8-0E0Cb6Af1B72.Png)
+![Imdb_Fasttext2](Https://User-Images.Githubusercontent.Com/3424796/53105909-E09Fa180-3529-11E9-9257-Bc5D7988687F.Png)
+### Related Issues
+#12219
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Use local RandomState instead of seeding the global RNG (#12259)
+
+* Use local RandomState instead of seeding the global RNG
+
+* Create a unit test module for datasets and move tests there
+
+* Move initializer test to the proper file","Use local RandomState instead of seeding the global RNG (#12259)
+
+* Use local RandomState instead of seeding the global RNG
+
+* Create a unit test module for datasets and move tests there
+
+* Move initializer test to the proper file"
+keras,0,9457,b6596a56992ea7902b255c61f46c1f5fa8ac5e98,"Add Depthwise Conv2D For Theano And CntkThis Pr Enables `Depthwiseconv2D`, Initially Designed For Tensorflow Only, To Work On Theano And Cntk. This Pr Includes The Following:
+- Moving `Class Depthwiseconv2D` From `Keras/Applications/Mobilenet.Py` To `Keras/Layers/Convolutional.Py` Without Modification,
+- Adding `Depthwise_Conv2D` For Theano And Cntk,
+- Revising `Test_Depthwise_Conv_2D` In `Backend_Test.Py` With Respect To Existing Backend Test Styles,
+- Adding `Test_Depthwise_Conv_2D` In `Convolutional_Test.Py`.",Fix description of epoch (#9415),Fix description of epoch (#9415)
+keras,0,11325,b80f3bd3a227d837790395378b14150dd11e02b7,"Fix Typo In Writing-Your-Own-Keras-Layers.Md""Ouput"" -> ""Output""
+","Gracefully handle legacy Sequential configs (#11280)
+
+* Graciously handle legacy Sequential configs
+
+* Remove warning","Gracefully handle legacy Sequential configs (#11280)
+
+* Graciously handle legacy Sequential configs
+
+* Remove warning"
+keras,1,#11622,1c221934aaeab20ed5b6fa245b33b00a8b557533,"Numpy Backend Implementation Of Rnn + Cleanup Of Rnn Tests### Summary
+Update Of Numpy Backend To Follow The Actual Keras Api For `Backend.Rnn`.
+
+### Related Issues
+As Per @Gabrieldemarmiesse'S Request In Https://Github.Com/Keras-Team/Keras/Pull/11499
+
+### Pr Overview
+- [X] This Pr Requires New Unit Tests [Y] (Make Sure Tests Are Included)
+- [X] This Pr Requires To Update The Documentation [Y] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y]
+- [X] This Pr Changes The Current Api [N] (All Api Changes Need To Be Approved By Fchollet)
+","Numpy backend implementation of rnn + cleanup of rnn tests (#11622)
+
+* add numpy implementation of rnn, cleanup corresponding tests
+
+* add rnn numpy implementation docstring refrence
+
+* cleanup variable name
+
+* improve reabability of numpy rnn
+
+* avoid expand_dims diff
+
+* expand masks once in KNP.rnn, add test for constants
+
+* improve comment in KNP.rnn
+
+* simplify check_rnn_operation (fully considering KNP as ground truth)","Numpy backend implementation of rnn + cleanup of rnn tests (#11622)
+
+* add numpy implementation of rnn, cleanup corresponding tests
+
+* add rnn numpy implementation docstring refrence
+
+* cleanup variable name
+
+* improve reabability of numpy rnn
+
+* avoid expand_dims diff
+
+* expand masks once in KNP.rnn, add test for constants
+
+* improve comment in KNP.rnn
+
+* simplify check_rnn_operation (fully considering KNP as ground truth)"
+keras,0,11988,6096ded90df902e1f8a21f666748a03100d140c0,"Update Docs For Resnet Variants### Summary
+
+This Pr Updates Docs For Resnet Variants.
+
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [ ] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+",Simplify identity initializer with zero padding (#11986),Simplify identity initializer with zero padding (#11986)
+keras,0,9657,068a680480ebf27ecbe57f1406d60157b7d2df38,"Fix To Add_Ngram Function And DocstringThis Pr Addresses A Small Bug First Noted In Issue #7352. The `Add_Ngram` Function Does Not Check The Full Sequence When `Ngram_Range` Is Greater Than 2. This Small Change Fixes That, And Updates The Docstring To Reflect The Effect Of The Change.","Add a test for preprocessing function for flow_from_directory (#9639)
+
+* Made Sequence iterable
+
+* Made it python2 compliant
+
+* Revert 9273
+
+* Add test for preprocessing_fucntion
+
+* Manage test
+
+* Manage test","Add a test for preprocessing function for flow_from_directory (#9639)
+
+* Made Sequence iterable
+
+* Made it python2 compliant
+
+* Revert 9273
+
+* Add test for preprocessing_fucntion
+
+* Manage test
+
+* Manage test"
+keras,1,#11170,bb8cc405f3ea3b74a9f3908b606a35f08d8d0be8,"Used Pytest'S Autouse To Get Rid Of The @Keras_Test Decorator.### Summary
+
+It'S Annoying To Have To Think About Adding `@Keras_Test` All The Time.
+Using A `Conftest.Py` We Can Run A Fixture For All The Tests In The Test Suite. It Doesn'T Seem To Make The Build Take More Time Than Before.
+
+### Related Issues
+
+### Pr Overview
+
+This Pr Has Two Parts:
+* The `Conftest.Py`:
+```Python
+Import Pytest
+From Keras Import Backend As K
+@Pytest.Fixture(Autouse=True)
+Def Clear_Session_After_Test():
+    Yield
+    If K.Backend() == 'Tensorflow' Or K.Backend() == 'Cntk':
+        K.Clear_Session()
+```
+
+* The Removal Of 300+ Usages Of `Keras_Test`.
+
+If A Reviewer Wants Me To Split This Pr, It'S Possible.
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Used pytest's autouse to get rid of the @keras_test decorator. (#11170)
+
+* Used autouse to make a fixture which runs automatically to replace
+keras_test.
+
+* Removed print statement.","Used pytest's autouse to get rid of the @keras_test decorator. (#11170)
+
+* Used autouse to make a fixture which runs automatically to replace
+keras_test.
+
+* Removed print statement."
+keras,1,#11392,e15533e6c725dca8c37a861aacb13ef149789433,"Added The Padding Operations In Reference_Operations.Py### Summary
+
+### Related Issues
+
+#11068
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+",Added the padding operations in reference_operations.py (#11392),Added the padding operations in reference_operations.py (#11392)
+keras,1,#12288,bb8e377ca10432d95c142651a355ce440be80557,"Added A Test To Ensure That The Module Name Is Always Valid In The Docs.<!--
+Please Make Sure You'Ve Read And Understood Our Contributing Guidelines;
+Https://Github.Com/Keras-Team/Keras/Blob/Master/Contributing.Md
+-->
+
+### Summary
+
+I'M Currently Working On A Refactoring Of The `Autogen.Py`. The Goal Is To Sanetize It And Make It Easily Usable From Keras-Contrib. Since I Want To Make Small Prs, This One May Not Look Useful, But It'S Actually A Necessary Addition Of Test To Ensure That I Don'T Break Things During The Refactoring.
+
+### Related Issues
+
+Https://Github.Com/Keras-Team/Keras-Contrib/Issues/412
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+",Added a test to ensure that the module name is always valid. (#12288),Added a test to ensure that the module name is always valid. (#12288)
+keras,1,#11394,c2244d2a4cb5f86968fb117f75469283a19b8a24,"Some Tests Were Ran Multiple Times In Backend_Test.Py. Fixed It.### Summary
+
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Some tests were ran multiple times in backend_test.py. Fixed it. (#11394)
+
+* Some tests were ran multiple times in backend_test.py. Fixed it.
+
+* Added the missing not and space.","Some tests were ran multiple times in backend_test.py. Fixed it. (#11394)
+
+* Some tests were ran multiple times in backend_test.py. Fixed it.
+
+* Added the missing not and space."
+keras,0,10714,8fe86302ff1cce23c019fdaf24fc6448c3b30090,"Removed The Exceptions Concerning Files Which Were Already Complient With The 85 Chars Rule.### Summary
+
+### Related Issues
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Fix redundant functions' module names in auto-gen docs (#10664)
+
+### Summary
+This PR fixes the redundant function module names in auto-gen docs. Currently, the module name of functions (those which are not methods of a class) is repeated two times in documentation. [For example](https://keras.io/preprocessing/sequence/#pad_sequences):
+> `keras.preprocessing.sequence.keras.preprocessing.sequence.pad_sequences`
+
+which should be: `keras.preprocessing.sequence.pad_sequences`.
+Further, this PR also removes from the docs the (wrong) module name of methods of classes like `ImageDataGenerator`. For example, [this is for `apply_transform`](https://keras.io/preprocessing/image/#apply_transform):
+
+> `keras.preprocessing.image.apply_transform` 
+
+which should simply be `apply_transform`, first because it is the method of a class (i.e. `ImageDataGenerator`) and second because the referenced module name is wrong (and this [has caused confusion](https://stackoverflow.com/q/51311062/2099607)).
+
+All of this were caused by the fact that `clean_module_name()` was not called on the `function.__module__` in `render_function` (therefore this mostly affects the docs for `keras.preprocessing` and `keras.applications`). Plus, the way `autogen.py` works, the module name is repeated two times in the signature, but for the non-method functions it should be removed only once (that's why I have added a condition).
+
+### Related Issues
+#10658 
+#10662 
+
+### PR Overview
+
+- [n] This PR requires new unit tests [y/n] (make sure tests are included)
+- [n] This PR requires to update the documentation [y/n] (make sure the docs are up-to-date)
+- [y] This PR is backwards compatible [y/n]
+- [n] This PR changes the current API [y/n] (all API changes need to be approved by fchollet)","Fix redundant functions' module names in auto-gen docs (#10664)
+
+### Summary
+This PR fixes the redundant function module names in auto-gen docs. Currently, the module name of functions (those which are not methods of a class) is repeated two times in documentation. [For example](https://keras.io/preprocessing/sequence/#pad_sequences):
+> `keras.preprocessing.sequence.keras.preprocessing.sequence.pad_sequences`
+
+which should be: `keras.preprocessing.sequence.pad_sequences`.
+Further, this PR also removes from the docs the (wrong) module name of methods of classes like `ImageDataGenerator`. For example, [this is for `apply_transform`](https://keras.io/preprocessing/image/#apply_transform):
+
+> `keras.preprocessing.image.apply_transform` 
+
+which should simply be `apply_transform`, first because it is the method of a class (i.e. `ImageDataGenerator`) and second because the referenced module name is wrong (and this [has caused confusion](https://stackoverflow.com/q/51311062/2099607)).
+
+All of this were caused by the fact that `clean_module_name()` was not called on the `function.__module__` in `render_function` (therefore this mostly affects the docs for `keras.preprocessing` and `keras.applications`). Plus, the way `autogen.py` works, the module name is repeated two times in the signature, but for the non-method functions it should be removed only once (that's why I have added a condition).
+
+### Related Issues
+#10658 
+#10662 
+
+### PR Overview
+
+- [n] This PR requires new unit tests [y/n] (make sure tests are included)
+- [n] This PR requires to update the documentation [y/n] (make sure the docs are up-to-date)
+- [y] This PR is backwards compatible [y/n]
+- [n] This PR changes the current API [y/n] (all API changes need to be approved by fchollet)"
+keras,0,11463,d6b5c5ebb410e3366c9d7aca41977a60134bfe10,"Avoid Deprecated Getargspec### Summary
+We Should Use An Getargspec Instead Of Deprecated Getagspec.
+
+- [N] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [N] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [Y] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+",Improve type-check for Sequence (#11468),Improve type-check for Sequence (#11468)
+keras,1,#11011,785d6e396ce81575bb155bede412a6182d5f22ed,"Used ""Pip Install Cntk"" To Simplify The Installation Of Cntk.### Summary
+
+Install Cntk With Pip. Merging This Pr Will Also Merge ##10834
+
+### Related Issues
+
+See ##10834
+
+### Pr Overview
+
+- [ ] This Pr Requires New Unit Tests [Y/N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [Y/N] (Make Sure The Docs Are Up-To-Date)
+- [X] This Pr Is Backwards Compatible [Y/N]
+- [ ] This Pr Changes The Current Api [Y/N] (All Api Changes Need To Be Approved By Fchollet)
+","Used ""pip install cntk"" to simplify the installation of CNTK. (#11011)
+
+* Use CNTK wheel for Python 3.6
+
+* Use CNTK wheel for Python 3.6
+
+* Used ""pip install cntk"" to simplify the installation.","Used ""pip install cntk"" to simplify the installation of CNTK. (#11011)
+
+* Use CNTK wheel for Python 3.6
+
+* Use CNTK wheel for Python 3.6
+
+* Used ""pip install cntk"" to simplify the installation."
+keras,0,11306,d059890d0342955e968fdf97b5a90d19c9d68b4e,"Keras Documentation: Multi_Gpu_Model Examples Do Not Show Properly On The Home Page Keras.IoSome Examples Of Usage Of `Multi_Gpu_Model` Appear On The Documentation Of The Function In The [Source Code](Https://Github.Com/Keras-Team/Keras/Blob/Master/Keras/Utils/Multi_Gpu_Utils.Py).  However They Do Not Display Correctly On The [Keras Home Page](Https://Keras.Io/Utils/):
+
+```Example 1 - Training Models With Weights Merge On Cpu
+
+$Example_2_-_Training_Models_With_Weights_Merge_On_Cpu_Using_Cpu_Relocation$0
+
+Example 2 - Training Models With Weights Merge On Cpu Using Cpu_Relocation
+
+$Example_2_-_Training_Models_With_Weights_Merge_On_Cpu_Using_Cpu_Relocation$1
+
+Example 3 - Training Models With Weights Merge On Gpu (Recommended For Nv-Link)
+
+$Example_2_-_Training_Models_With_Weights_Merge_On_Cpu_Using_Cpu_Relocation$2```","DOC: Closes #11306 multi_gpu_model examples do not show properly (#11310)
+
+* fixing example format for multi_gpu_model
+
+* improving example 2 for multi_gpu_model
+
+* update example 3","DOC: Closes #11306 multi_gpu_model examples do not show properly (#11310)
+
+* fixing example format for multi_gpu_model
+
+* improving example 2 for multi_gpu_model
+
+* update example 3"
+keras,0,10183,a80ecd78daf7d464a6ff915111f62b8cd21c8b6b,"Allow Project Specific Config Files In KerasThis **Minor** Change Would Make It Possible To Point To A Custom Location Of The `Keras.Json` Config File By Changing The Dedicated `Keras_Home` Env Variable Or Launching Your Application Like:
+```
+Env Keras_Home=<Path To Custom Folder Containing Keras.Json> Python Keras_App.Py
+```
+
+This Is Necessary To Maintain Keras Config On A Per-Project Basis, E.G. One Project Prefers The Theano Backend, And Another Project Prefers The Tensorflow Backend In Certain Deployment Environments. ",Add exceptions for `fit_loop` (#10145),Add exceptions for `fit_loop` (#10145)
+keras,1,#10594,6eb0c7bdbb68d7de0ef507102c757c7ccbf582a0,"Cntk Backend Random Functions Have Several ProblemsThere Are Several Problems With The Various `Random_` Functions In The Cntk Backend:
+
+1. `Random_Normal_Variable` Ignores The Supplied Mean
+2. `Random_Normal` Ignores The Supplied Standard Deviation
+3. `Random_Normal`, `Random_Uniform`, `Random_Binomial`, And `Truncated_Normal` Repeatedly Evaluate To The Same Value Once Created:
+
+        R = K.Concatenate([K.Random_Binomial((5,), 0.5),
+                           K.Random_Normal((5,)),
+                           K.Random_Uniform((5,)),
+                           K.Truncated_Normal((5,))])
+        V1 = K.Eval(R)
+        V2 = K.Eval(R) // Surprisingly, V1 = V2  ","Fix most of the issues with the CNTK backend's random functions mentioned in #10594 (#10595)
+
+* Apply mean and stddev to cntk backend's random_normal
+
+* Update backend_test.py
+
+Add test case for non-standard normal distribution parameters
+
+* Make binomial, uniform, and normal random variables vary and add tests
+
+* Fix formatting issues","Fix most of the issues with the CNTK backend's random functions mentioned in #10594 (#10595)
+
+* Apply mean and stddev to cntk backend's random_normal
+
+* Update backend_test.py
+
+Add test case for non-standard normal distribution parameters
+
+* Make binomial, uniform, and normal random variables vary and add tests
+
+* Fix formatting issues"
+keras,1,#12153,68dc181a5e34d1f20edabe531176b3bfb50001f9,"Minor Docs Fix For Fit_Generator### Summary
+Docs Fix For `Fit_Generator`. `Steps_Per_Epoch` Should Be `Ceil(Num_Samples/Batch_Size)` Instead Of `Num_Samples/Batch_Size`
+### Related Issues
+#11877 
+","Minor docs fix for fit_generator (#12153)
+
+* Docs fix
+
+* Fix docstring style","Minor docs fix for fit_generator (#12153)
+
+* Docs fix
+
+* Fix docstring style"
+keras,0,12074,a6c8042121371b5873773ca767f28cdf5689d5e4,"Updating Old Method To Prevent Test Failure In The Future### Summary
+When Running Tests, This Appeared In The Output: 
+```Src/Keras/Utils/Conv_Utils.Py:82: Futurewarning: Using A Non-Tuple Sequence For Multidimensional Indexing Is Deprecated; Use `Arr[Tuple(Seq)]` Instead Of `Arr[Seq]`. In The Future This Will Be Interpreted As An Array Index, `Arr[Np.Array(Seq)]`, Which Will Result Either In An Error Or A Different Result.```
+
+### Pr Overview
+
+This Pr Is Created To Fix That Error. 
+
+- [ ] This Pr Requires New Unit Tests [N] (Make Sure Tests Are Included)
+- [ ] This Pr Requires To Update The Documentation [N] (Make Sure The Docs Are Up-To-Date)
+- [ ] This Pr Is Backwards Compatible [Y]
+- [ ] This Pr Changes The Current Api [N] (All Api Changes Need To Be Approved By Fchollet)
+","Add an optional `validation_freq` argument to `fit` (#12065)
+
+### Summary
+
+Sync with TF Keras. Allows user to specify how often to run validation.
+
+### Related Issues
+
+### PR Overview
+
+- [x] This PR requires new unit tests [y/n] (make sure tests are included)
+- [x] This PR requires to update the documentation [y/n] (make sure the docs are up-to-date)
+- [x] This PR is backwards compatible [y/n]
+- [x] This PR changes the current API [y/n] (all API changes need to be approved by fchollet)","Add an optional `validation_freq` argument to `fit` (#12065)
+
+### Summary
+
+Sync with TF Keras. Allows user to specify how often to run validation.
+
+### Related Issues
+
+### PR Overview
+
+- [x] This PR requires new unit tests [y/n] (make sure tests are included)
+- [x] This PR requires to update the documentation [y/n] (make sure the docs are up-to-date)
+- [x] This PR is backwards compatible [y/n]
+- [x] This PR changes the current API [y/n] (all API changes need to be approved by fchollet)"
+keras,0,12644,f1e14ef9c57da498f37b8fe9ac7fe86bff0b3f76,Update A--Tensorflow-Backend-Users.MdProposing A New Issue Template For The Users Using Tensorflow Backend. The Intention Is To Reduce The Follow Up Questions With The User And Expedite The Issue Resolution Process. Please Take A Look. Thanks!,fix a comment error for MaxNorm constraint (#12658),fix a comment error for MaxNorm constraint (#12658)
